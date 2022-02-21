@@ -6,11 +6,8 @@ CREATE TABLE `ai_playerbot_arena_team_names` (
   PRIMARY KEY (`name_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='PlayerbotAI arena team names';
 
-
-
 LOCK TABLES `ai_playerbot_arena_team_names` WRITE;
 INSERT INTO `ai_playerbot_arena_team_names` (`name_id`,`name`, `type`) VALUES
-
 (NULL, 'out of coverage',2),
 (NULL, 'Dead or Alive',2),
 (NULL, 'Noßrain',2),
@@ -626,6 +623,7 @@ INSERT INTO `ai_playerbot_arena_team_names` (`name_id`,`name`, `type`) VALUES
 (NULL, 'Killalot',5),
 (NULL, 'Flagstång',5),
 (NULL, 'The beauty and the beast',5);
+UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `ai_playerbot_guild_names`;
 CREATE TABLE `ai_playerbot_guild_names` (
@@ -634,10 +632,8 @@ CREATE TABLE `ai_playerbot_guild_names` (
   PRIMARY KEY (`name_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='PlayerbotAI guild names';
 
-
-
 LOCK TABLES `ai_playerbot_guild_names` WRITE;
-INSERT INTO `ai_playerbot_guild_names` VALUES
+INSERT INTO `ai_playerbot_guild_names` (`name_id`, `name`) VALUES
 (NULL, 'Black Guard'),
 (NULL, 'Abyssal Kingdoms'),
 (NULL, 'Acid Evil'),
@@ -1279,6 +1275,7 @@ INSERT INTO `ai_playerbot_guild_names` VALUES
 (NULL, 'Wtf Losers'),
 (NULL, 'Xcalibur of Shogunz Depo'),
 (NULL, 'Xelium Determination');
+UNLOCK TABLES;
 
 /*
 SQLyog Ultimate
@@ -1308,7 +1305,8 @@ CREATE TABLE `ai_playerbot_names` (
 
 /*Data for the table `ai_playerbot_names` */
 
-insert  into `ai_playerbot_names`(`name_id`,`name`,`gender`) values 
+LOCK TABLES `ai_playerbot_names` WRITE;
+INSERT INTO `ai_playerbot_names` (`name_id`,`name`,`gender`) VALUES
 (1,'Aalart',0),
 (2,'Aalef',0),
 (3,'Aalot',0),
@@ -11988,6 +11986,7 @@ insert  into `ai_playerbot_names`(`name_id`,`name`,`gender`) values
 (10677,'Zuza',1),
 (10678,'Zuzene',1),
 (10679,'Zwaante',1);
+UNLOCK TABLES;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
