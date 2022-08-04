@@ -25,14 +25,6 @@ bool MoveToRpgTargetAction::Execute(Event event)
     else
         return false;
 
-    if (ai->HasStrategy("debug rpg", BOT_STATE_NON_COMBAT) && guidP.GetWorldObject())
-    {
-        ostringstream out;
-        out << "Heading to: ";
-        out << chat->formatWorldobject(guidP.GetWorldObject());
-        ai->TellMasterNoFacing(out);
-    }
-
     if (guidP.IsPlayer())
     {
         Player* player = guidP.GetPlayer();
@@ -46,19 +38,65 @@ bool MoveToRpgTargetAction::Execute(Event event)
                 AI_VALUE(set<ObjectGuid>&,"ignore rpg target").insert(AI_VALUE(GuidPosition, "rpg target"));
 
                 RESET_AI_VALUE(GuidPosition, "rpg target");
+
+                if (ai->HasStrategy("debug rpg", BOT_STATE_NON_COMBAT))
+                {
+                    ai->TellMasterNoFacing("Rpg player target is targeting me. Drop target");
+                }
                 return false;
             }
         }
     }
 
-    if ((unit && unit->IsMoving() && !urand(0, 20))
-        || !ChooseRpgTargetAction::isFollowValid(bot, wo)
-        || guidP.distance(bot) > sPlayerbotAIConfig.reactDistance * 2
-        || !urand(0, 50))
+    if ((unit && unit->IsMoving() && !urand(0, 20)))
     {
         AI_VALUE(set<ObjectGuid>&,"ignore rpg target").insert(AI_VALUE(GuidPosition, "rpg target"));
 
         RESET_AI_VALUE(GuidPosition,"rpg target");
+
+        if (ai->HasStrategy("debug rpg", BOT_STATE_NON_COMBAT))
+        {
+            ai->TellMasterNoFacing("Rpg target is moving. Random drop target.");
+        }
+        return false;
+    }
+
+    if (!ChooseRpgTargetAction::isFollowValid(bot, wo))
+    {
+        AI_VALUE(set<ObjectGuid>&, "ignore rpg target").insert(AI_VALUE(GuidPosition, "rpg target"));
+
+        RESET_AI_VALUE(GuidPosition, "rpg target");
+
+        if (ai->HasStrategy("debug rpg", BOT_STATE_NON_COMBAT))
+        {
+            ai->TellMasterNoFacing("Rpg target is far from mater. Random drop target.");
+        }
+        return false;
+    }
+
+    if (guidP.distance(bot) > sPlayerbotAIConfig.reactDistance * 2)
+    {
+        AI_VALUE(set<ObjectGuid>&, "ignore rpg target").insert(AI_VALUE(GuidPosition, "rpg target"));
+
+        RESET_AI_VALUE(GuidPosition, "rpg target");
+
+        if (ai->HasStrategy("debug rpg", BOT_STATE_NON_COMBAT))
+        {
+            ai->TellMasterNoFacing("Rpg target is beyond react distance. Drop target");
+        }
+        return false;
+    }
+
+    if (!urand(0, 50))
+    {
+        AI_VALUE(set<ObjectGuid>&, "ignore rpg target").insert(AI_VALUE(GuidPosition, "rpg target"));
+
+        RESET_AI_VALUE(GuidPosition, "rpg target");
+
+        if (ai->HasStrategy("debug rpg", BOT_STATE_NON_COMBAT))
+        {
+            ai->TellMasterNoFacing("Random drop rpg target");
+        }
         return false;
     }
 
@@ -106,6 +144,31 @@ bool MoveToRpgTargetAction::Execute(Event event)
         AI_VALUE(set<ObjectGuid>&,"ignore rpg target").insert(AI_VALUE(GuidPosition, "rpg target"));
 
         RESET_AI_VALUE(GuidPosition, "rpg target");
+
+        if (ai->HasStrategy("debug rpg", BOT_STATE_NON_COMBAT))
+        {
+            ai->TellMasterNoFacing("Could not move to rpg target. Drop rpg target");
+        }
+
+        return false;
+    }
+
+    if (ai->HasStrategy("debug rpg", BOT_STATE_NON_COMBAT) && guidP.GetWorldObject())
+    {
+        if (couldMove)
+        {
+            ostringstream out;
+            out << "Heading to: ";
+            out << chat->formatWorldobject(guidP.GetWorldObject());
+            ai->TellMasterNoFacing(out);
+        }
+        else
+        {
+            ostringstream out;
+            out << "Near: ";
+            out << chat->formatWorldobject(guidP.GetWorldObject());
+            ai->TellMasterNoFacing(out);
+        }
     }
 
     return couldMove;
@@ -122,6 +185,14 @@ bool MoveToRpgTargetAction::isUseful()
 
     if (!wo)
         return false;
+
+#ifndef MANGOSBOT_ZERO
+    if (bot->IsMovingIgnoreFlying())
+        return false;
+#else
+    if (bot->IsMoving())
+        return false;
+#endif
 
     TravelTarget* travelTarget = AI_VALUE(TravelTarget*, "travel target");
 

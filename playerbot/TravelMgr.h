@@ -489,6 +489,8 @@ namespace ai
         virtual int32 getEntry() { return entry; }
 
         virtual string getTitle();
+
+        virtual uint32 getObjective() { return objective; }
     private:
         uint32 objective;
         int32 entry;

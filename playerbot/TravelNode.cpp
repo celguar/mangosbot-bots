@@ -1171,7 +1171,6 @@ TravelNode* TravelNodeMap::getNode(WorldPosition pos, vector<WorldPosition>& ppa
 
 TravelNodeRoute TravelNodeMap::getRoute(TravelNode* start, TravelNode* goal, Player* bot)
 {
-
     float botSpeed = bot ? bot->GetSpeed(MOVE_RUN) : 7.0f;
 
     if (start == goal)
@@ -1187,6 +1186,8 @@ TravelNodeRoute TravelNodeMap::getRoute(TravelNode* start, TravelNode* goal, Pla
     float f, g, h;
 
     std::vector<TravelNodeStub*> open, closed;
+
+    PortalNode* portNode = nullptr;
 
     if (bot)
     {
@@ -1210,12 +1211,7 @@ TravelNodeRoute TravelNodeMap::getRoute(TravelNode* start, TravelNode* goal, Pla
             TravelNode* homeNode = sTravelNodeMap.getNode(AI_VALUE(WorldPosition, "home bind"), nullptr, 10.0f);
             if (homeNode)
             {
-                PortalNode* portNode = (PortalNode*)sTravelNodeMap.teleportNodes[bot->GetObjectGuid()][8690];
-                if (!portNode)
-                {
-                    portNode = new PortalNode(start);
-                    sTravelNodeMap.teleportNodes[bot->GetObjectGuid()][8690] = portNode;
-                }
+                portNode = new PortalNode(start);
                 portNode->SetPortal(start, homeNode, 8690);
 
                 childNode = &m_stubs.insert(make_pair(portNode, TravelNodeStub(portNode))).first->second;
@@ -1270,7 +1266,7 @@ TravelNodeRoute TravelNodeMap::getRoute(TravelNode* start, TravelNode* goal, Pla
 
             reverse(path.begin(), path.end());
 
-            return TravelNodeRoute(path);
+            return TravelNodeRoute(path, portNode);
         }
 
         for (const auto& link : *currentNode->dataNode->getLinks())// for each successor n' of n
@@ -1363,13 +1359,7 @@ TravelNodeRoute TravelNodeMap::getRoute(WorldPosition startPos, WorldPosition en
     if (bot && sServerFacade.IsSpellReady(bot, 8690))
     {
         startPath.clear();
-        TravelNode* botNode = sTravelNodeMap.teleportNodes[bot->GetObjectGuid()][0];
-        if (!botNode)
-        {
-            botNode = new TravelNode(startPos, "Bot Pos", false);
-            sTravelNodeMap.teleportNodes[bot->GetObjectGuid()][0] = botNode;
-        }
-
+        TravelNode* botNode = new TravelNode(startPos, "Bot Pos", false);
         botNode->setPoint(startPos);
 
         endI = 0;
@@ -1377,6 +1367,7 @@ TravelNodeRoute TravelNodeMap::getRoute(WorldPosition startPos, WorldPosition en
         {
             TravelNode* endNode = endNodes[endI];
             TravelNodeRoute route = getRoute(botNode, endNode, bot);
+            route.addTempNode(botNode);
 
             if (!route.isEmpty())
                 return route;
@@ -1407,8 +1398,11 @@ TravelPath TravelNodeMap::getFullPath(WorldPosition startPos, WorldPosition endP
     //Also returns longPath: The path from the start position to the first node in the route.
     TravelNodeRoute route = sTravelNodeMap.getRoute(startPos, endPos, beginPath, bot);
 
-    if(route.isEmpty())
+    if (route.isEmpty())
+    {
+        route.cleanTempNodes();
         return movePath;
+    }
 
     if (sPlayerbotAIConfig.hasLog("bot_pathfinding.csv"))
     {
@@ -1421,6 +1415,8 @@ TravelPath TravelNodeMap::getFullPath(WorldPosition startPos, WorldPosition endP
 
     endPath = route.getNodes().back()->getPosition()->getPathTo(endPos, nullptr);
     movePath = route.buildPath(beginPath, endPath);
+
+    route.cleanTempNodes();
 
     if (sPlayerbotAIConfig.hasLog("bot_pathfinding.csv"))
     {

@@ -303,21 +303,26 @@ enum class TravelNodePathType : uint8
     {
     public:
         TravelNodeRoute() {}
-        TravelNodeRoute(vector<TravelNode*> nodes1) { nodes = nodes1; /*currentNode = route.begin();*/ }
+        TravelNodeRoute(vector<TravelNode*> nodes1, TravelNode* tempNode = nullptr) { nodes = nodes1; if(tempNode) addTempNode(tempNode); }
 
         bool isEmpty() { return nodes.empty(); }
 
         bool hasNode(TravelNode* node) { return findNode(node) != nodes.end(); }
         float getTotalDistance();
 
+        void setNodes(vector<TravelNode*> nodes1) { nodes = nodes1; }
         vector<TravelNode*> getNodes() { return nodes; }
-        
+
+        void addTempNode(TravelNode* node) { tempNodes.push_back(node); }
+        void cleanTempNodes() { for (auto node : tempNodes) delete node; }
+       
         TravelPath buildPath(vector<WorldPosition> pathToStart = {}, vector<WorldPosition> pathToEnd = {}, Unit* bot = nullptr);
 
         ostringstream print();
     private:
         vector<TravelNode*>::iterator findNode(TravelNode* node) { return std::find(nodes.begin(), nodes.end(), node); }
         vector<TravelNode*> nodes;
+        vector<TravelNode*> tempNodes;
     };
    
     //A node container to aid A* calculations with nodes.
@@ -401,8 +406,6 @@ enum class TravelNodePathType : uint8
         WorldPosition getMapOffset(uint32 mapId);        
 
         std::shared_timed_mutex m_nMapMtx;
-
-        unordered_map<ObjectGuid, unordered_map<uint32, TravelNode *>> teleportNodes;
     private:
         vector<TravelNode*> m_nodes;
 

@@ -1825,7 +1825,7 @@ void TravelMgr::LoadQuestTravelTable()
                         container->questTakers.push_back(loc);
                         locs.push_back(loc);
                     }
-                    else
+                    if(flag & ((uint32)QuestRelationFlag::objective1 | (uint32)QuestRelationFlag::objective2 | (uint32)QuestRelationFlag::objective3 | (uint32)QuestRelationFlag::objective4))
                     {
                         uint32 objective;
                         if (flag & (uint32)QuestRelationFlag::objective1)
@@ -1866,179 +1866,6 @@ void TravelMgr::LoadQuestTravelTable()
             }
         }
     }
-    /*
-    if (loadQuestData && false)
-    {
-        BarGoLink bar(questIds.size());
-
-        for (auto& questId : questIds)
-        {
-            bar.step();
-
-            Quest* quest = questMap.find(questId)->second;
-
-            QuestContainer* container = new QuestContainer;
-            QuestTravelDestination* loc;
-            WorldPosition point;
-
-            bool hasError = false;
-
-            //Relations
-            for (auto& r : relations)
-            {
-                if (questId != r.questId)
-                    continue;
-
-                int32 entry = r.type == 0 ? r.entry : r.entry * -1;
-
-                loc = new QuestRelationTravelDestination(r.questId, entry, r.role, sPlayerbotAIConfig.tooCloseDistance, sPlayerbotAIConfig.sightDistance);
-                loc->setExpireDelay(5 * 60 * 1000);
-                loc->setMaxVisitors(15, 0);
-
-                for (auto& u : units)
-                {
-                    if (r.type != u.type || r.entry != u.entry)
-                        continue;
-
-                    int32 guid = u.type == 0 ? u.guid : u.guid * -1;
-
-                    point = WorldPosition(u.map, u.x, u.y, u.z, u.o);
-                    pointsMap.insert(make_pair(guid, point));
-
-                    loc->addPoint(&pointsMap.find(guid)->second);
-                }
-
-                if (loc->getPoints(0).empty())
-                {
-                    logQuestError(1, quest, r.role, entry);
-                    delete loc;
-                    continue;
-                }
-
-
-                if (r.role == 0)
-                {
-                    container->questGivers.push_back(loc);
-                }
-                else
-                    container->questTakers.push_back(loc);
-
-            }
-
-            //Mobs
-            for (uint32 i = 0; i < 4; i++)
-            {
-                if (quest->ReqCreatureOrGOCount[i] == 0)
-                    continue;
-
-                uint32 reqEntry = quest->ReqCreatureOrGOId[i];
-
-                loc = new QuestObjectiveTravelDestination(questId, reqEntry, i, sPlayerbotAIConfig.tooCloseDistance, sPlayerbotAIConfig.sightDistance);
-                loc->setExpireDelay(1 * 60 * 1000);
-                loc->setMaxVisitors(100, 1);
-
-                for (auto& u : units)
-                {
-                    int32 entry = u.type == 0 ? u.entry : u.entry * -1;
-
-                    if (entry != reqEntry)
-                        continue;
-
-                    int32 guid = u.type == 0 ? u.guid : u.guid * -1;
-
-                    point = WorldPosition(u.map, u.x, u.y, u.z, u.o);
-                    pointsMap.insert(make_pair(u.guid, point));
-
-                    loc->addPoint(&pointsMap.find(u.guid)->second);
-                }
-
-                if (loc->getPoints(0).empty())
-                {
-                    logQuestError(2, quest, i, reqEntry);
-
-                    delete loc;
-                    hasError = true;
-                    continue;
-                }
-
-                container->questObjectives.push_back(loc);
-            }
-
-            //Loot
-            for (uint32 i = 0; i < 4; i++)
-            {
-                if (quest->ReqItemCount[i] == 0)
-                    continue;
-
-                ItemPrototype const* proto = sObjectMgr.GetItemPrototype(quest->ReqItemId[i]);
-
-                if (!proto)
-                {
-                    logQuestError(3, quest, i, 0, quest->ReqItemId[i]);
-                    hasError = true;
-                    continue;
-                }
-
-                uint32 foundLoot = 0;
-
-                for (auto& l : loots)
-                {
-                    if (l.item != quest->ReqItemId[i])
-                        continue;
-
-                    int32 entry = l.type == 0 ? l.entry : l.entry * -1;
-
-                    loc = new QuestObjectiveTravelDestination(questId, entry, i, sPlayerbotAIConfig.tooCloseDistance, sPlayerbotAIConfig.sightDistance, l.item);
-                    loc->setExpireDelay(1 * 60 * 1000);
-                    loc->setMaxVisitors(100, 1);
-
-                    for (auto& u : units)
-                    {
-                        if (l.type != u.type || l.entry != u.entry)
-                            continue;
-
-                        int32 guid = u.type == 0 ? u.guid : u.guid * -1;
-
-                        point = WorldPosition(u.map, u.x, u.y, u.z, u.o);
-                        pointsMap.insert(make_pair(guid, point));
-
-                        loc->addPoint(&pointsMap.find(guid)->second);
-                    }
-
-                    if (loc->getPoints(0).empty())
-                    {
-                        logQuestError(4, quest, i, entry, quest->ReqItemId[i]);
-                        delete loc;
-                        continue;
-                    }
-
-                    container->questObjectives.push_back(loc);
-
-                    foundLoot++;
-                }
-
-                if (foundLoot == 0)
-                {
-                    hasError = true;
-                    logQuestError(5, quest, i, 0, quest->ReqItemId[i]);
-                }
-            }
-
-            if (container->questTakers.empty())
-                logQuestError(7, quest);
-
-            if (!container->questGivers.empty() || !container->questTakers.empty() || hasError)
-            {
-                quests.insert(make_pair(questId, container));
-
-                for (auto loc : container->questGivers)
-                    questGivers.push_back(loc);
-            }
-        }
-
-        sLog.outString(">> Loaded " SIZEFMTD " quest details.", questIds.size());
-    }
-    */
 
     sLog.outErrorDb("Loading Rpg, Grind and Boss locations.");
 
@@ -2181,6 +2008,7 @@ void TravelMgr::LoadQuestTravelTable()
     sPlayerbotAIConfig.openLog("unload_obj.csv", "w");
     sPlayerbotAIConfig.openLog("bot_events.csv", "w");
     sPlayerbotAIConfig.openLog("travel_map.csv", "w");
+    sPlayerbotAIConfig.openLog("quest_map.csv", "w");
 
 #ifdef IKE_PATHFINDER
     bool mmapAvoidMobMod = true;
@@ -2196,648 +2024,6 @@ void TravelMgr::LoadQuestTravelTable()
 
     sTravelNodeMap.generateAll();
 
-
-    /*
-    bool fullNavPointReload = false;
-    bool storeNavPointReload = true;
-
-    if(!fullNavPointReload && true)
-        TravelNodeStore::loadNodes();
-
-    //sTravelNodeMap.loadNodeStore();
-
-    for (auto node : sTravelNodeMap.getNodes())
-    {
-        node->setLinked(true);
-    }
-
-    bool reloadNavigationPoints = false || fullNavPointReload || storeNavPointReload;
-
-    if (reloadNavigationPoints)
-    {
-        sLog.outString("Loading navigation points");
-
-        //Npc nodes
-
-        WorldPosition pos;
-
-        for (auto& u : units)
-        {
-            if (u.type != 0)
-                continue;
-
-            CreatureInfo const* cInfo = ObjectMgr::GetCreatureTemplate(u.entry);
-
-            if (!cInfo)
-                continue;
-
-            vector<uint32> allowedNpcFlags;
-
-            allowedNpcFlags.push_back(UNIT_NPC_FLAG_INNKEEPER);
-            allowedNpcFlags.push_back(UNIT_NPC_FLAG_FLIGHTMASTER);
-            //allowedNpcFlags.push_back(UNIT_NPC_FLAG_QUESTGIVER);
-
-            for (vector<uint32>::iterator i = allowedNpcFlags.begin(); i != allowedNpcFlags.end(); ++i)
-            {
-                if ((cInfo->NpcFlags & *i) != 0)
-                {
-
-                    pos = WorldPosition(u.map, u.x, u.y, u.z, u.o);
-
-                    string nodeName = pos.getAreaName(false);
-                    if ((cInfo->NpcFlags & UNIT_NPC_FLAG_INNKEEPER) != 0)
-                        nodeName += " innkeeper";
-                    else
-                        nodeName += " flightMaster";
-
-                    TravelNode* node = sTravelNodeMap.addNode(&pos, nodeName, true, true);
-
-                    break;
-                }
-            }
-        }
-
-        //Build flight paths
-
-        for (uint32 i = 0; i < sTaxiPathStore.GetNumRows(); ++i)
-        {
-            TaxiPathEntry const* taxiPath = sTaxiPathStore.LookupEntry(i);
-
-            if (!taxiPath)
-                continue;
-
-            TaxiNodesEntry const* startTaxiNode = sTaxiNodesStore.LookupEntry(taxiPath->from);
-
-            if (!startTaxiNode)
-                continue;
-
-            TaxiNodesEntry const* endTaxiNode = sTaxiNodesStore.LookupEntry(taxiPath->to);
-
-            if (!endTaxiNode)
-                continue;
-
-            TaxiPathNodeList const& nodes = sTaxiPathNodesByPath[taxiPath->ID];
-
-            if (nodes.empty())
-                continue;
-
-            WorldPosition startPos(startTaxiNode->map_id, startTaxiNode->x, startTaxiNode->y, startTaxiNode->z);
-            WorldPosition endPos(endTaxiNode->map_id, endTaxiNode->x, endTaxiNode->y, endTaxiNode->z);
-
-            TravelNode* startNode = sTravelNodeMap.getNode(&startPos, nullptr, 15.0f);
-            TravelNode* endNode = sTravelNodeMap.getNode(&endPos, nullptr, 15.0f);
-
-            if (!startNode || !endNode)
-                continue;
-
-            vector<WorldPosition> ppath;
-
-            for (auto& n : nodes)
-                ppath.push_back(WorldPosition(n->mapid, n->x, n->y, n->z, 0.0));
-
-            float totalTime = startPos.getPathLength(ppath) / (450 * 8.0f);
-
-            TravelNodePath travelPath(0.1f, totalTime, (uint8)TravelNodePathType::flightPath, i, true);
-            travelPath.setPath(ppath);
-
-            startNode->setPathTo(endNode, travelPath);
-        }
-    
-        //Unique bosses
-        for (auto& u : units)
-        {
-            if (u.type != 0)
-                continue;
-
-            CreatureInfo const* cInfo = ObjectMgr::GetCreatureTemplate(u.entry);
-
-            if (!cInfo)
-                continue;
-
-            pos = WorldPosition(u.map, u.x, u.y, u.z, u.o);
-
-            if (cInfo->Rank == 3 || (cInfo->Rank == 1 && !pos.isOverworld() && u.c == 1))
-            {
-                string nodeName = cInfo->Name;
-
-                sTravelNodeMap.addNode(&pos, nodeName, true, true);
-            }
-        }
-
-        map<uint8, string> startNames;
-        startNames[RACE_HUMAN] = "Human";
-        startNames[RACE_ORC] = "Orc and Troll";
-        startNames[RACE_DWARF] = "Dwarf and Gnome";
-        startNames[RACE_NIGHTELF] = "Night Elf";
-        startNames[RACE_UNDEAD] = "Undead";
-        startNames[RACE_TAUREN] = "Tauren";
-        startNames[RACE_GNOME] = "Dwarf and Gnome";
-        startNames[RACE_TROLL] = "Orc and Troll";
-        startNames[RACE_GOBLIN] = "Goblin";
-
-        for (uint32 i = 0; i < MAX_RACES; i++)
-        {
-            for (uint32 j = 0; j < MAX_CLASSES; j++)
-            {
-                PlayerInfo const* info = sObjectMgr.GetPlayerInfo(i, j);
-
-                if (!info)
-                    continue;
-
-                pos = WorldPosition(info->mapId, info->positionX, info->positionY, info->positionZ, info->orientation);
-
-                string nodeName = startNames[i] + " start";
-
-                sTravelNodeMap.addNode(&pos, nodeName, true, true);
-            }
-        }
-
-        //Entrance nodes
-
-        for (int i = 0; i < 6000; i++)
-        {
-            AreaTriggerEntry const* atEntry = sAreaTriggerStore.LookupEntry(i);
-            if (!atEntry)
-                continue;
-
-            AreaTrigger const* at = sObjectMgr.GetAreaTrigger(i);
-            if (!at)
-                continue;
-
-            WorldPosition inPos = WorldPosition(atEntry->mapid, atEntry->x, atEntry->y, atEntry->z - 4.0f, 0);
-
-            WorldPosition outPos = WorldPosition(at->target_mapId, at->target_X, at->target_Y, at->target_Z, at->target_Orientation);
-
-            string nodeName;
-
-            if (!outPos.isOverworld())
-                nodeName = outPos.getAreaName(false) + " entrance";
-            else if (!inPos.isOverworld())
-                nodeName = inPos.getAreaName(false) + " exit";
-            else
-                nodeName = inPos.getAreaName(false) + " portal";
-
-            sTravelNodeMap.addNode(&inPos, nodeName, true, true);
-        }
-
-        //Exit nodes
-
-        for (int i = 0; i < 6000; i++)
-        {
-            AreaTriggerEntry const* atEntry = sAreaTriggerStore.LookupEntry(i);
-            if (!atEntry)
-                continue;
-
-            AreaTrigger const* at = sObjectMgr.GetAreaTrigger(i);
-            if (!at)
-                continue;
-
-            WorldPosition inPos = WorldPosition(atEntry->mapid, atEntry->x, atEntry->y, atEntry->z - 4.0f, 0);
-
-            WorldPosition outPos = WorldPosition(at->target_mapId, at->target_X, at->target_Y, at->target_Z, at->target_Orientation);
-
-            string nodeName;
-
-            if (!outPos.isOverworld())
-                nodeName = outPos.getAreaName(false) + " entrance";
-            else if (!inPos.isOverworld())
-                nodeName = inPos.getAreaName(false) + " exit";
-            else
-                nodeName = inPos.getAreaName(false) + " portal";
-
-            TravelNode* entryNode = sTravelNodeMap.getNode(&outPos, NULL, 20.0f); //Entry side, portal exit.
-
-            TravelNode* outNode = sTravelNodeMap.addNode(&outPos, nodeName, true, true); //Exit size, portal exit.
-
-            TravelNode* inNode = sTravelNodeMap.getNode(&inPos, NULL, 5.0f); //Entry side, portal center.
-
-            //Portal link from area trigger to area trigger destination.
-            if (outNode && inNode)
-            {                
-                TravelNodePath travelPath(0.1f, 3.0f, (uint8)TravelNodePathType::portal, i, true);
-                travelPath.setPath({ *inNode->getPosition(), *outNode->getPosition() });
-                inNode->setPathTo(outNode, travelPath);
-            }
-
-        }
-
-        //Transports
-        for (uint32 entry = 1; entry <= sGOStorage.GetMaxEntry(); ++entry)
-        {
-            auto data = sGOStorage.LookupEntry<GameObjectInfo>(entry);
-            if (data && (data->type == GAMEOBJECT_TYPE_TRANSPORT || data->type == GAMEOBJECT_TYPE_MO_TRANSPORT))
-            {
-                TransportAnimation const* animation = sTransportMgr.GetTransportAnimInfo(entry);
-
-                uint32 pathId = data->moTransport.taxiPathId;
-                float moveSpeed = data->moTransport.moveSpeed;
-                if (pathId >= sTaxiPathNodesByPath.size())
-                    continue;
-
-                TaxiPathNodeList const& path = sTaxiPathNodesByPath[pathId];
-
-                vector<WorldPosition> ppath;
-                TravelNode* prevNode = nullptr;
-
-                //Elevators/Trams
-                if (path.empty())
-                {
-                    if (animation)
-                    {
-                        TransportPathContainer aPath = animation->Path;
-                        float timeStart;
-
-                        for (auto& u : units)
-                        {
-                            if (u.type != 1)
-                                continue;
-
-                            if (u.entry != entry)
-                                continue;
-
-                            prevNode = nullptr;
-                            WorldPosition lPos = WorldPosition(u.map, 0, 0, 0, 0);
-
-                            for (auto& p : aPath)
-                            {
-#ifndef MANGOSBOT_TWO
-                                float dx = cos(u.o) * p.second->X - sin(u.o) * p.second->Y;
-                                float dy = sin(u.o) * p.second->X + cos(u.o) * p.second->Y;
-#else
-                                float dx = -1 * p.second->X;
-                                float dy = -1 * p.second->Y;
-#endif
-                                WorldPosition pos = WorldPosition(u.map, u.x + dx, u.y + dy, u.z + p.second->Z, u.o);
-
-                                if (prevNode)
-                                {
-                                    ppath.push_back(pos);
-                                }
-
-                                if (pos.distance(&lPos) == 0)
-                                {
-                                    TravelNode* node = sTravelNodeMap.addNode(&pos, data->name, true, true, true, entry);
-                        
-                                    if (!prevNode)
-                                    {
-                                        ppath.push_back(pos);
-                                        timeStart = p.second->TimeSeg;
-                                    }
-                                    else
-                                    {
-                                        float totalTime = (p.second->TimeSeg - timeStart) / 1000.0f;
-
-                                        TravelNodePath travelPath(0.1f, totalTime, (uint8)TravelNodePathType::transport, entry, true);
-                                        node->setPathTo(prevNode, travelPath);
-                                        ppath.clear();
-                                        ppath.push_back(pos);
-                                        timeStart = p.second->TimeSeg;
-                                    }
-
-                                    prevNode = node;
-                                }
-
-                                lPos = pos;
-                            }
-
-                            if (prevNode)
-                            {
-                                for (auto& p : aPath)
-                                {
-#ifndef MANGOSBOT_TWO
-                                    float dx = cos(u.o) * p.second->X - sin(u.o) * p.second->Y;
-                                    float dy = sin(u.o) * p.second->X + cos(u.o) * p.second->Y;
-#else
-                                    float dx = -1 * p.second->X;
-                                    float dy = -1 * p.second->Y;
-#endif
-                                    WorldPosition pos = WorldPosition(u.map, u.x + dx, u.y + dy, u.z + p.second->Z, u.o);
-
-                                    ppath.push_back(pos);
-
-                                    if (pos.distance(&lPos) == 0)
-                                    {
-                                        TravelNode* node = sTravelNodeMap.addNode(&pos, data->name, true, true, true, entry);
-                                        if (node != prevNode) {
-                                            float totalTime = (p.second->TimeSeg - timeStart) / 1000.0f;
-
-                                            TravelNodePath travelPath(0.1f, totalTime, (uint8)TravelNodePathType::transport, entry, true);
-                                            travelPath.setPath(ppath);
-                                            node->setPathTo(prevNode, travelPath);
-                                            ppath.clear();
-                                            ppath.push_back(pos);
-                                            timeStart = p.second->TimeSeg;
-                                        }
-                                    }
-
-                                    lPos = pos;
-                                }
-                            }
-
-                            ppath.clear();
-                        }
-                    }
-                }
-                else //Boats/Zepelins
-                {
-                    //Loop over the path and connect stop locations.
-                    for (auto& p : path)
-                    {
-                        WorldPosition pos = WorldPosition(p->mapid, p->x, p->y, p->z, 0);
-
-                        //if (data->displayId == 3015) 
-                        //    pos.setZ(pos.getZ() + 6.0f);
-                        //else if(data->displayId == 3031)
-                       //     pos.setZ(pos.getZ() - 17.0f);
-
-                        if (prevNode)
-                        {
-                            ppath.push_back(pos);
-                        }
-                        
-                        if (p->delay > 0)
-                        {
-                            TravelNode* node = sTravelNodeMap.addNode(&pos, data->name, true, true, true, entry);
-
-                            if (!prevNode)
-                            {
-                                ppath.push_back(pos);
-                            }
-                            else
-                            {
-                                TravelNodePath travelPath(0.1f, 0.0, (uint8)TravelNodePathType::transport, entry, true);
-                                travelPath.setPathAndCost(ppath, moveSpeed);
-                                node->setPathTo(prevNode, travelPath);
-                                ppath.clear();
-                                ppath.push_back(pos);
-                            }
-
-                            prevNode = node;
-                        }
-                    }
-
-                    if (prevNode)
-                    {
-                        //Continue from start until first stop and connect to end.
-                        for (auto& p : path)
-                        {
-                            WorldPosition pos = WorldPosition(p->mapid, p->x, p->y, p->z, 0);
-
-                            //if (data->displayId == 3015)
-                            //    pos.setZ(pos.getZ() + 6.0f);
-                            //else if (data->displayId == 3031)
-                            //    pos.setZ(pos.getZ() - 17.0f);
-
-                            ppath.push_back(pos);
-
-                            if (p->delay > 0)
-                            {
-                                TravelNode* node = sTravelNodeMap.getNode(&pos, NULL, 5.0f);
-
-                                if (node != prevNode) {
-                                    TravelNodePath travelPath(0.1f, 0.0, (uint8)TravelNodePathType::transport, entry, true);
-                                    travelPath.setPathAndCost(ppath, moveSpeed);
-
-                                    node->setPathTo(prevNode, travelPath);
-                                }
-                            }
-                        }
-                    }
-
-                    ppath.clear();
-                }
-            }
-        }
-
-        BarGoLink bar(exploreLocs.size());
-
-        //Zone means   
-        for (auto& loc : exploreLocs)
-        {
-            bar.step();
-            vector<WorldPosition*> points;
-
-            for (auto p : loc.second->getPoints(true))
-                if (!p->isUnderWater())
-                    points.push_back(p);
-
-            if (points.empty())
-                points = loc.second->getPoints(true);
-
-            WorldPosition  pos = WorldPosition(points, WP_MEAN_CENTROID);
-
-            TravelNode* node = sTravelNodeMap.addNode(&pos, pos.getAreaName(), true, true, false);
-        }
-
-        sLog.outString(">> Loaded " SIZEFMTD " navigation points.", sTravelNodeMap.getNodes().size());
-    }
-
-    TravelNodeStore::loadUserNodes();
-
-    sTravelNodeMap.calcMapOffset();
-    loadMapTransfers();
-    */
-
-    
-    /*
-    bool preloadNodePaths = false || fullNavPointReload || storeNavPointReload;             //Calculate paths using pathfinder.
-    bool preloadReLinkFullyLinked = false || fullNavPointReload || storeNavPointReload;      //Retry nodes that are fully linked.
-    bool preloadUnlinkedPaths = false || fullNavPointReload;        //Try to connect points currently unlinked.
-    bool preloadWorldPaths = true;            //Try to load paths in overworld.
-    bool preloadInstancePaths = true;         //Try to load paths in instances.
-    bool preloadSubPrint = false;              //Print output every 2%.
-
-    if (preloadNodePaths)
-    {
-        std::unordered_map<uint32, Map*> instances;       
-
-        //Pathfinder
-        BarGoLink bar(sTravelNodeMap.getNodes().size());
-        vector<WorldPosition> ppath;
-
-        uint32 cur = 0, max = sTravelNodeMap.getNodes().size();
-
-        for (auto& startNode : sTravelNodeMap.getNodes())
-        {
-            if (!preloadReLinkFullyLinked && startNode->isLinked())
-                continue;
-
-            for (auto& endNode : sTravelNodeMap.getNodes())
-            {
-                if (startNode == endNode)
-                    continue;
-
-                if (startNode->getPosition()->isOverworld() && !preloadWorldPaths)
-                    continue;
-
-                if (!startNode->getPosition()->isOverworld() && !preloadInstancePaths)
-                    continue;
-
-                if (startNode->hasCompletePathTo(endNode))
-                    continue;
-
-                if (!preloadUnlinkedPaths && !startNode->hasLinkTo(endNode))
-                    continue;
-
-                if (startNode->getMapId() != endNode->getMapId())
-                    continue;
-
-                //if (preloadUnlinkedPaths && !startNode->hasLinkTo(endNode) && startNode->isUselessLink(endNode))
-                //    continue;
-
-                startNode->buildPath(endNode, NULL, false);
-
-                //if (startNode->hasLinkTo(endNode) && !startNode->getPathTo(endNode)->getComplete())
-                //    startNode->removeLinkTo(endNode);
-            }
-
-            startNode->setLinked(true);
-
-            cur++;
-
-            if (preloadSubPrint && (cur * 50) / max > ((cur - 1) * 50) / max)
-            {
-                sTravelNodeMap.printMap();
-                sTravelNodeMap.printNodeStore();
-            }
-
-            bar.step();
-        }
-
-        if (!preloadSubPrint)
-        {
-            sTravelNodeMap.printNodeStore();
-            sTravelNodeMap.printMap();
-        }
-
-        sLog.outString(">> Loaded paths for " SIZEFMTD " nodes.", sTravelNodeMap.getNodes().size());
-    }
-
-    bool removeLowLinkNodes = false || fullNavPointReload || storeNavPointReload;
-
-    if (removeLowLinkNodes)
-    {
-        BarGoLink bar(sTravelNodeMap.getNodes().size());
-        
-        vector<TravelNode*> goodNodes;
-        vector<TravelNode*> remNodes;
-        for (auto& node : sTravelNodeMap.getNodes())
-        {
-            bar.step();
-
-            if (!node->getPosition()->isOverworld())
-                continue;
-
-            if (std::find(goodNodes.begin(), goodNodes.end(), node) != goodNodes.end())
-                continue;
-
-            if (std::find(remNodes.begin(), remNodes.end(), node) != remNodes.end())
-                continue;
-
-            vector<TravelNode*> nodes = node->getNodeMap(true);
-
-            if (nodes.size() < 5)
-                remNodes.insert(remNodes.end(), nodes.begin(), nodes.end());
-            else
-                goodNodes.insert(goodNodes.end(), nodes.begin(), nodes.end());
-        }
-
-        for (auto& node : remNodes)
-            sTravelNodeMap.removeNode(node);
-
-        sLog.outString(">> Checked " SIZEFMTD " nodes.", sTravelNodeMap.getNodes().size());
-    }
-  
-    bool cleanUpNodeLinks = false || fullNavPointReload || storeNavPointReload;
-    bool cleanUpSubPrint = false;              //Print output every 2%.
-
-    if (cleanUpNodeLinks)
-    {
-        //Routes
-        BarGoLink bar(sTravelNodeMap.getNodes().size());
-
-        uint32 cur = 0, max = sTravelNodeMap.getNodes().size();
-        
-        //Clean up node links
-        for (auto& startNode : sTravelNodeMap.getNodes())
-        {
-             startNode->cropUselessLinks();            
-
-             cur++;
-             if (cleanUpSubPrint && (cur * 10) / max > ((cur - 1) * 10) / max)
-             {
-                 sTravelNodeMap.printMap();
-                 sTravelNodeMap.printNodeStore();
-             }
-
-             bar.step();
-        }
-
-        sLog.outString(">> Cleaned paths for " SIZEFMTD " nodes.", sTravelNodeMap.getNodes().size());
-    }
-
-    bool reCalculateCost = false || fullNavPointReload || storeNavPointReload;
-    bool forceReCalculate = false;
-
-    if (reCalculateCost)
-    {
-        BarGoLink bar(sTravelNodeMap.getNodes().size());
-
-        for (auto& startNode : sTravelNodeMap.getNodes())
-        {
-            for (auto& path : *startNode->getLinks())
-            {
-                TravelNodePath* nodePath = path.second;
-
-                if (path.second->getPathType() != TravelNodePathType::walk)
-                    continue;
-
-                if (nodePath->getCalculated() && !forceReCalculate)
-                    continue;
-
-                nodePath->calculateCost();
-            }
-
-            bar.step();
-        }
-
-        sLog.outString(">> Calculated pathcost for " SIZEFMTD " nodes.", sTravelNodeMap.getNodes().size());
-    }
-
-    bool mirrorMissingPaths = true || fullNavPointReload || storeNavPointReload;
-
-    if (mirrorMissingPaths)
-    {
-        BarGoLink bar(sTravelNodeMap.getNodes().size());
-
-        for (auto& startNode : sTravelNodeMap.getNodes())
-        {
-            for (auto& path : *startNode->getLinks())
-            {
-                TravelNode* endNode = path.first;
-
-                if (endNode->hasLinkTo(startNode))
-                    continue;
-
-                if (path.second->getPathType() != TravelNodePathType::walk)
-                    continue;
-
-                TravelNodePath nodePath = *path.second;
-
-                vector<WorldPosition> pPath = nodePath.getPath();
-                std::reverse(pPath.begin(), pPath.end());
-
-                nodePath.setPath(pPath);
-
-                endNode->setPathTo(startNode, nodePath, true);
-            }
-
-            bar.step();
-        }
-
-        sLog.outString(">> Reversed missing paths for " SIZEFMTD " nodes.", sTravelNodeMap.getNodes().size());
-    }
-    */
 
     sTravelNodeMap.printMap();
     sTravelNodeMap.printNodeStore();
@@ -2905,7 +2091,7 @@ void TravelMgr::LoadQuestTravelTable()
 
             int size = my_sizeof(topNorthSouthLimit) / my_sizeof(topNorthSouthLimit[0]);
 
-            for (uint32 i = 0; i < size-1; i=i+2)
+            for (int32 i = 0; i < size-1; i=i+2)
             {
                 if (topNorthSouthLimit[i] == 0)
                     break;
@@ -2937,7 +2123,7 @@ void TravelMgr::LoadQuestTravelTable()
 
             size = my_sizeof(ironforgeAreaSouthLimit) / my_sizeof(ironforgeAreaSouthLimit[0]);
 
-            for (uint32 i = 0; i < size - 1; i = i + 2)
+            for (int32 i = 0; i < size - 1; i = i + 2)
             {
                 if (ironforgeAreaSouthLimit[i] == 0)
                     break;
@@ -2976,7 +2162,7 @@ void TravelMgr::LoadQuestTravelTable()
 
             size = my_sizeof(stormwindAreaNorthLimit) / my_sizeof(stormwindAreaNorthLimit[0]);
 
-            for (uint32 i = 0; i < size - 1; i = i + 2)
+            for (int32 i = 0; i < size - 1; i = i + 2)
             {
                 if (stormwindAreaNorthLimit[i] == 0)
                     break;
@@ -3019,7 +2205,7 @@ void TravelMgr::LoadQuestTravelTable()
 
             size = my_sizeof(stormwindAreaSouthLimit) / my_sizeof(stormwindAreaSouthLimit[0]);
 
-            for (uint32 i = 0; i < size - 1; i = i + 2)
+            for (int32 i = 0; i < size - 1; i = i + 2)
             {
                 if (stormwindAreaSouthLimit[i] == 0)
                     break;
@@ -3077,7 +2263,7 @@ void TravelMgr::LoadQuestTravelTable()
 
             size = my_sizeof(northMiddleLimit) / my_sizeof(northMiddleLimit[0]);
 
-            for (uint32 i = 0; i < size - 1; i = i + 2)
+            for (int32 i = 0; i < size - 1; i = i + 2)
             {
                 if (northMiddleLimit[i] == 0)
                     break;
@@ -3121,7 +2307,7 @@ void TravelMgr::LoadQuestTravelTable()
 
             size = my_sizeof(durotarSouthLimit) / my_sizeof(durotarSouthLimit[0]);
 
-            for (uint32 i = 0; i < size - 1; i = i + 2)
+            for (int32 i = 0; i < size - 1; i = i + 2)
             {
                 if (durotarSouthLimit[i] == 0)
                     break;
@@ -3151,7 +2337,7 @@ void TravelMgr::LoadQuestTravelTable()
 
             size = my_sizeof(valleyoftrialsSouthLimit) / my_sizeof(valleyoftrialsSouthLimit[0]);
 
-            for (uint32 i = 0; i < size - 1; i = i + 2)
+            for (int32 i = 0; i < size - 1; i = i + 2)
             {
                 if (valleyoftrialsSouthLimit[i] == 0)
                     break;
@@ -3188,7 +2374,7 @@ void TravelMgr::LoadQuestTravelTable()
 
             size = my_sizeof(middleToSouthLimit) / my_sizeof(middleToSouthLimit[0]);
 
-            for (uint32 i = 0; i < size - 1; i = i + 2)
+            for (int32 i = 0; i < size - 1; i = i + 2)
             {
                 if (middleToSouthLimit[i] == 0)
                     break;
@@ -3227,7 +2413,7 @@ void TravelMgr::LoadQuestTravelTable()
 
             size = my_sizeof(orgrimmarSouthLimit) / my_sizeof(orgrimmarSouthLimit[0]);
 
-            for (uint32 i = 0; i < size - 1; i = i + 2)
+            for (int32 i = 0; i < size - 1; i = i + 2)
             {
                 if (orgrimmarSouthLimit[i] == 0)
                     break;
@@ -3270,7 +2456,7 @@ void TravelMgr::LoadQuestTravelTable()
 
             size = my_sizeof(feralasThousandNeedlesSouthLimit) / my_sizeof(feralasThousandNeedlesSouthLimit[0]);
 
-            for (uint32 i = 0; i < size - 1; i = i + 2)
+            for (int32 i = 0; i < size - 1; i = i + 2)
             {
                 if (feralasThousandNeedlesSouthLimit[i] == 0)
                     break;
@@ -3362,6 +2548,53 @@ void TravelMgr::LoadQuestTravelTable()
             point.printWKT(points, out, 0);
 
             sPlayerbotAIConfig.log("zones.csv", out.str().c_str());
+        }
+    }
+
+    if (sPlayerbotAIConfig.hasLog("quest_map.csv"))
+    {
+        for (auto container : quests)
+        {
+            vector<pair<uint32, QuestTravelDestination*>> printQuestMap;
+
+            for (auto dest : container.second->questGivers)
+                printQuestMap.push_back(make_pair(0, dest));
+
+            for (auto dest : container.second->questObjectives)
+                printQuestMap.push_back(make_pair(1, dest));
+
+            for (auto dest : container.second->questTakers)
+                printQuestMap.push_back(make_pair(2, dest));
+
+            for (auto dest : printQuestMap)
+            {
+                ostringstream out;
+
+                out << std::fixed << std::setprecision(2);
+                out << to_string(dest.first) << ",";
+                out << to_string(dest.second->GetQuestTemplate()->GetQuestId()) << ",";
+                out << "\"" << dest.second->GetQuestTemplate()->GetTitle() << "\"" << ",";
+                if (dest.second->getName() == "QuestObjectiveTravelDestination")
+                    out << to_string(((QuestObjectiveTravelDestination*)dest.second)->getObjective()) << ",";
+                else
+                    out << to_string(0) << ",";
+
+                out << to_string(dest.second->getEntry()) << ",";
+
+                vector<WorldPosition> points;
+
+                for (auto p : dest.second->getPoints())
+                    points.push_back(*p);
+
+                WorldPosition().printWKT(points, out, 0);
+
+                out << to_string(dest.second->GetQuestTemplate()->GetQuestLevel()) << ",";
+                out << to_string(dest.second->GetQuestTemplate()->GetMinLevel()) << ",";
+                out << to_string(dest.second->GetQuestTemplate()->GetMaxLevel()) << ",";
+                out << to_string((uint32(ceilf(dest.second->GetQuestTemplate()->GetRewMoneyMaxLevel() / 0.6))));
+
+                sPlayerbotAIConfig.log("quest_map.csv", out.str().c_str());
+            }
         }
     }
 

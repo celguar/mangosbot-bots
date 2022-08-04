@@ -52,9 +52,12 @@ bool CleanQuestLogAction::Execute(Event event)
     uint8 totalQuests = 0;
 
     DropQuestType(totalQuests); //Count the total quests
-      
+     
     if (MAX_QUEST_LOG_SIZE - totalQuests > 6)
+    {
+        DropQuestType(totalQuests, MAX_QUEST_LOG_SIZE, true, true); //Drop failed quests
         return true;
+    }
 
     if (AI_VALUE(bool, "can fight equal")) //Only drop gray quests when able to fight proper lvl quests.
     {
@@ -103,27 +106,27 @@ void CleanQuestLogAction::DropQuestType(uint8 &numQuest, uint8 wantNum, bool isG
         if (wantNum == 100)
             numQuest++;
 
-            int32 lowLevelDiff = sWorld.getConfig(CONFIG_INT32_QUEST_LOW_LEVEL_HIDE_DIFF);
-            if (lowLevelDiff < 0 || bot->GetLevel() <= bot->GetQuestLevelForPlayer(quest) + uint32(lowLevelDiff)) //Quest is not gray
-            {
-                if (bot->GetLevel() + 5 > bot->GetQuestLevelForPlayer(quest))                                     //Quest is not red
-                    if (!isGreen)
-                        continue;
-            }
-            else //Quest is gray
-            {
-                if (isGreen)
+        int32 lowLevelDiff = sWorld.getConfig(CONFIG_INT32_QUEST_LOW_LEVEL_HIDE_DIFF);
+        if (lowLevelDiff < 0 || bot->GetLevel() <= bot->GetQuestLevelForPlayer(quest) + uint32(lowLevelDiff)) //Quest is not gray
+        {
+            if (bot->GetLevel() + 5 > bot->GetQuestLevelForPlayer(quest))                                     //Quest is not red
+                if (!isGreen)
                     continue;
-            }                
+        }
+        else //Quest is gray
+        {
+            if (isGreen)
+                continue;
+        }
 
 
-        if (HasProgress(bot, quest) && !hasProgress)
+        if (HasProgress(bot, quest) && !hasProgress && bot->GetQuestStatus(questId) != QUEST_STATUS_FAILED)
             continue;
 
         if (bot->GetQuestStatus(questId) == QUEST_STATUS_COMPLETE && !isComplete)
             continue;
 
-        if (numQuest <= wantNum && bot->GetQuestStatus(questId) != QUEST_STATUS_FAILED) //Always drop failed quests
+        if (numQuest <= wantNum && bot->GetQuestStatus(questId) != QUEST_STATUS_FAILED)
             continue;
 
         //Drop quest.

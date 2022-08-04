@@ -97,7 +97,7 @@ bool DebugAction::Execute(Event event)
 
         Quest const* quest = sObjectMgr.GetQuestTemplate(questId);
 
-        if (!quest)
+        if (!quest || sTravelMgr.quests.find(questId) == sTravelMgr.quests.end())
         {
             ai->TellMasterNoFacing("Quest " + text.substr(6) + " not found.");
             return false;
@@ -107,27 +107,39 @@ bool DebugAction::Execute(Event event)
 
         out << quest->GetTitle() << ": ";
 
+        ai->TellMasterNoFacing(out);
+
         QuestContainer* cont = sTravelMgr.quests[questId];
+
+        uint32 i = 0;
 
         for (auto g : cont->questGivers)
         {
-            out << g->getTitle() << " +" << cont->questGivers.size() << " ";
-            break;
+            if(i<10)
+                ai->TellMasterNoFacing(g->getTitle());
+
+            i++;
         }
+
+        i = 0;
 
         for (auto g : cont->questTakers)
         {
-            out << g->getTitle() << " +" << cont->questTakers.size() - 1;
-            break;
+            if (i < 10)
+                ai->TellMasterNoFacing(g->getTitle());
+
+            i++;
         }
+
+        i = 0;
 
         for (auto g : cont->questObjectives)
         {
-            out << g->getTitle() << " +" << cont->questObjectives.size() - 1;
-            break;
-        }
+            if (i < 10)
+                ai->TellMasterNoFacing(g->getTitle());
 
-        ai->TellMasterNoFacing(out);
+            i++;
+        }
 
         return true;
     }

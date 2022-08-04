@@ -95,16 +95,7 @@ void ChooseTravelTargetAction::getNewTarget(TravelTarget* newTarget, TravelTarge
 
     //Do quests (start, do, end)
     if (!foundTarget && urand(1, 100) > 5)                                 //95% chance
-    {
-        if (urand(1, 100) > 70)                                           //30%
-        {
-            foundTarget = SetQuestTarget(newTarget, false, true, true);   //Work on current quests
-            if(!foundTarget)
-                SetQuestTarget(newTarget, true, false, false);            //Find a new quest
-        }
-        else
-            foundTarget = SetQuestTarget(newTarget, true, true, true);    //Do any nearby                                              
-    }
+        foundTarget = SetQuestTarget(newTarget, true, true, true);    //Do any nearby                                              
 
     //Explore a nearby unexplored area.
     if (!foundTarget && ai->HasStrategy("explore", BOT_STATE_NON_COMBAT))  //Explore a unexplored sub-zone.
@@ -290,6 +281,9 @@ void ChooseTravelTargetAction::ReportTravelTarget(TravelTarget* newTarget, Trave
             out << "No where to travel. Idling a bit.";
         }
     }
+
+    if (out.str().empty())
+        return;
 
     ai->TellMaster(out);
 
@@ -559,7 +553,7 @@ bool ChooseTravelTargetAction::SetQuestTarget(TravelTarget* target, bool newQues
     vector<TravelDestination*> TravelDestinations;
 
     if (newQuests)
-        TravelDestinations = sTravelMgr.getQuestTravelDestinations(bot, -1, true, false, 0);
+        TravelDestinations = sTravelMgr.getQuestTravelDestinations(bot, -1, true, false, 400 + bot->GetLevel() * 10);
 
     if (activeQuests || completedQuests)
     {
