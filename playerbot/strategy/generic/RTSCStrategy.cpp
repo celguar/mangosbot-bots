@@ -8,7 +8,7 @@ RTSCStrategy::RTSCStrategy(PlayerbotAI* ai) : Strategy(ai)
 {
 }
 
-void RTSCStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void RTSCStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
    
 }

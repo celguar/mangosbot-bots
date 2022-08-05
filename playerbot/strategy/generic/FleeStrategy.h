@@ -6,7 +6,7 @@ namespace ai
     {
     public:
         FleeStrategy(PlayerbotAI* ai) : Strategy(ai) {}
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "flee"; };
     };
 
@@ -14,7 +14,7 @@ namespace ai
     {
     public:
         FleeFromAddsStrategy(PlayerbotAI* ai) : Strategy(ai) {}
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "flee from adds"; };
     };
 

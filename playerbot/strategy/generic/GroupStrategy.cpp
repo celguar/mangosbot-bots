@@ -4,7 +4,7 @@
 
 using namespace ai;
 
-void GroupStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void GroupStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "often",

@@ -17,7 +17,7 @@ NextAction** MeleeDruidStrategy::getDefaultActions()
             NULL);
 }
 
-void MeleeDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void MeleeDruidStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "omen of clarity",

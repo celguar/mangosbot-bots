@@ -11,7 +11,7 @@ namespace ai
         GenericRogueStrategy(PlayerbotAI* ai);
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*>& triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*>& triggers);
         virtual string getName() { return "generic"; }
     };
 
@@ -21,7 +21,7 @@ namespace ai
         DpsRogueStrategy(PlayerbotAI* ai);
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "dps"; }
     };
 
@@ -31,7 +31,7 @@ namespace ai
         AssassinationRogueStrategy(PlayerbotAI* ai);
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*>& triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*>& triggers);
         virtual string getName() { return "assassin"; }
     };
 
@@ -41,7 +41,7 @@ namespace ai
         CombatRogueStrategy(PlayerbotAI* ai);
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*>& triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*>& triggers);
         virtual string getName() { return "combat"; }
     };
 
@@ -52,7 +52,7 @@ namespace ai
         StealthedRogueStrategy(PlayerbotAI* ai);
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "stealthed"; }
     };
 
@@ -61,7 +61,7 @@ namespace ai
     public:
         StealthStrategy(PlayerbotAI* ai) : Strategy(ai) {};
         //virtual int GetType() { return STRATEGY_TYPE_NONCOMBAT; }
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "stealth"; }
     };
 
@@ -71,7 +71,7 @@ namespace ai
         RogueAoeStrategy(PlayerbotAI* ai) : Strategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "aoe"; }
     };
 
@@ -81,7 +81,7 @@ namespace ai
         RogueBoostStrategy(PlayerbotAI* ai) : Strategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "boost"; }
     };
 
@@ -91,7 +91,7 @@ namespace ai
         RogueCcStrategy(PlayerbotAI* ai) : Strategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "cc"; }
     };
 }

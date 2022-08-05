@@ -133,7 +133,7 @@ NextAction** BearTankDruidStrategy::getDefaultActions()
             NULL);
 }
 
-void BearTankDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void BearTankDruidStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     FeralDruidStrategy::InitTriggers(triggers);
 

@@ -11,7 +11,7 @@ namespace ai
         virtual string getName() { return "tank"; }
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual NextAction** getDefaultActions();
     };
 }

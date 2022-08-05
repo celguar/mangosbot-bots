@@ -5,7 +5,7 @@
 using namespace ai;
 
 
-void RangedCombatStrategy::InitTriggers(list<TriggerNode*> &triggers)
+void RangedCombatStrategy::InitTriggers(vector<TriggerNode*> &triggers)
 {
     CombatStrategy::InitTriggers(triggers);
 

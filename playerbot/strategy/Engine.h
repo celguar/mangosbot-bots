@@ -115,8 +115,8 @@ namespace ai
 
     protected:
 	    Queue queue;
-	    std::list<TriggerNode*> triggers;
-        std::list<Multiplier*> multipliers;
+	    std::vector<TriggerNode*> triggers;
+        std::vector<Multiplier*> multipliers;
         AiObjectContext* aiObjectContext;
         std::map<string, Strategy*> strategies;
         float lastRelevance;

@@ -19,7 +19,7 @@ HealDruidStrategy::HealDruidStrategy(PlayerbotAI* ai) : GenericDruidStrategy(ai)
     actionNodeFactories.Add(new HealDruidStrategyActionNodeFactory());
 }
 
-void HealDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void HealDruidStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     GenericDruidStrategy::InitTriggers(triggers);
 

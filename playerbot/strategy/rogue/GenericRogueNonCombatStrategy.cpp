@@ -7,7 +7,7 @@
 
 using namespace ai;
 
-void GenericRogueNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void GenericRogueNonCombatStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
 	//TODO Possible crash on CMSG_USE_ITEM ByteBuffer error
     NonCombatStrategy::InitTriggers(triggers);

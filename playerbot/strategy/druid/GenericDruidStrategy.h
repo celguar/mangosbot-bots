@@ -13,7 +13,7 @@ namespace ai
         GenericDruidStrategy(PlayerbotAI* ai);
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
     };
 
     class DruidCureStrategy : public Strategy
@@ -22,7 +22,7 @@ namespace ai
         DruidCureStrategy(PlayerbotAI* ai) : Strategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "cure"; }
     };
 
@@ -32,7 +32,7 @@ namespace ai
         DruidBoostStrategy(PlayerbotAI* ai) : Strategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "boost"; }
     };
 
@@ -42,7 +42,7 @@ namespace ai
         DruidCcStrategy(PlayerbotAI* ai) : Strategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "cc"; }
     };
 }

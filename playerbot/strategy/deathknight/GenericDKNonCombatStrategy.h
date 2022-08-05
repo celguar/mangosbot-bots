@@ -12,7 +12,7 @@ namespace ai
         virtual string getName() { return "nc"; }
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
     };
 
     class DKBuffDpsStrategy : public Strategy
@@ -21,7 +21,7 @@ namespace ai
         DKBuffDpsStrategy(PlayerbotAI* ai) : Strategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "bdps"; }
     };
 }

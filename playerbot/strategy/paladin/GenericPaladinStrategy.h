@@ -12,7 +12,7 @@ namespace ai
         GenericPaladinStrategy(PlayerbotAI* ai);
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "paladin"; }
     };
 
@@ -22,7 +22,7 @@ namespace ai
         PaladinCureStrategy(PlayerbotAI* ai) : Strategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "cure"; }
     };
 
@@ -32,7 +32,7 @@ namespace ai
         PaladinBoostStrategy(PlayerbotAI* ai) : Strategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "boost"; }
     };
 
@@ -42,7 +42,7 @@ namespace ai
         PaladinCcStrategy(PlayerbotAI* ai) : Strategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "cc"; }
     };
 }

@@ -35,7 +35,7 @@ NextAction** DpsWarlockStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction("incinirate", 10.0f), new NextAction("shadow bolt", 10.0f), NULL);
 }
 
-void DpsWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void DpsWarlockStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     GenericWarlockStrategy::InitTriggers(triggers);
 
@@ -44,7 +44,7 @@ void DpsWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0, new NextAction("shadow bolt", 20.0f), NULL)));
 }
 
-void DpsAoeWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void DpsAoeWarlockStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "medium aoe",
@@ -63,7 +63,7 @@ void DpsAoeWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("siphon life on attacker", 29.0f), NULL)));
 }
 
-void DpsWarlockDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void DpsWarlockDebuffStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "corruption",

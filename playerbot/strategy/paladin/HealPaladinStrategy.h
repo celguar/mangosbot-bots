@@ -10,7 +10,7 @@ namespace ai
         HealPaladinStrategy(PlayerbotAI* ai);
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "heal"; }
         virtual NextAction** getDefaultActions();
 		virtual int GetType() { return STRATEGY_TYPE_HEAL | STRATEGY_TYPE_MELEE; }

@@ -70,7 +70,7 @@ NextAction** BloodDKStrategy::getDefaultActions()
 		new NextAction("rune strike", ACTION_NORMAL + 3), NULL);
 }
 
-void BloodDKStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void BloodDKStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     GenericDKStrategy::InitTriggers(triggers);
 

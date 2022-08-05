@@ -11,7 +11,7 @@ namespace ai
         FireMageStrategy(PlayerbotAI* ai) : GenericMageStrategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "fire"; }
         virtual NextAction** getDefaultActions();
     };
@@ -22,7 +22,7 @@ namespace ai
         FireMageAoeStrategy(PlayerbotAI* ai) : CombatStrategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "fire aoe"; }
     };
 }

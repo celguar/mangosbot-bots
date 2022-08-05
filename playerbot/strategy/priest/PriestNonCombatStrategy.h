@@ -11,7 +11,7 @@ namespace ai
         PriestNonCombatStrategy(PlayerbotAI* ai);
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "nc"; }
     };
 
@@ -21,7 +21,7 @@ namespace ai
         PriestBuffStrategy(PlayerbotAI* ai) : NonCombatStrategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "buff"; }
     };
 
@@ -31,7 +31,7 @@ namespace ai
         PriestShadowResistanceStrategy(PlayerbotAI* ai) : NonCombatStrategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "rshadow"; }
     };
 }

@@ -5,7 +5,7 @@
 
 using namespace ai;
 
-void ShamanNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void ShamanNonCombatStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     NonCombatStrategy::InitTriggers(triggers);
 
@@ -62,7 +62,7 @@ void ShamanNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("ghost wolf", ACTION_EMERGENCY + 2), NULL)));
 }
 
-void ShamanNonCombatStrategy::InitMultipliers(std::list<Multiplier*> &multipliers)
+void ShamanNonCombatStrategy::InitMultipliers(std::vector<Multiplier*> &multipliers)
 {
     NonCombatStrategy::InitMultipliers(multipliers);
 }

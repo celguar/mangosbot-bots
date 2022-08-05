@@ -22,7 +22,7 @@ private:
     }
 };
 
-void ChatCommandHandlerStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void ChatCommandHandlerStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     PassTroughStrategy::InitTriggers(triggers);
 

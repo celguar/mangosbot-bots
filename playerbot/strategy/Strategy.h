@@ -40,8 +40,8 @@ namespace ai
 
     public:
         virtual NextAction** getDefaultActions() { return NULL; }
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers) {}
-        virtual void InitMultipliers(std::list<Multiplier*> &multipliers) {}
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers) {}
+        virtual void InitMultipliers(std::vector<Multiplier*> &multipliers) {}
         virtual string getName() = 0;
 		virtual int GetType() { return STRATEGY_TYPE_GENERIC; }
         virtual ActionNode* GetAction(string name);

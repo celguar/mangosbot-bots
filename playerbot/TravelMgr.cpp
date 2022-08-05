@@ -2770,7 +2770,7 @@ void TravelMgr::LoadQuestTravelTable()
                                                 actions.insert_or_assign(aout.str().c_str(), classSpecLevel);
                                             }
 
-                                        std::list<TriggerNode*> triggers;
+                                        std::vector<TriggerNode*> triggers;
                                         strat->InitTriggers(triggers);
                                         for (auto& triggerNode : triggers)
                                         {

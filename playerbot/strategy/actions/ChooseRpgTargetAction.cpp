@@ -51,7 +51,7 @@ float ChooseRpgTargetAction::getMaxRelevance(GuidPosition guidP)
 
     Strategy* rpgStrategy = ai->GetAiObjectContext()->GetStrategy("rpg");
 
-    list<TriggerNode*> triggerNodes;
+    vector<TriggerNode*> triggerNodes;
     rpgStrategy->InitTriggers(triggerNodes);
 
     float maxRelevance = 0.0f;
@@ -79,9 +79,8 @@ float ChooseRpgTargetAction::getMaxRelevance(GuidPosition guidP)
 
     SET_AI_VALUE(GuidPosition,"rpg target", currentRpgTarget);
 
-    for (list<TriggerNode*>::iterator i = triggerNodes.begin(); i != triggerNodes.end(); i++)
+    for (auto& trigger : triggerNodes)
     {
-        TriggerNode* trigger = *i;
         delete trigger;
     }
     

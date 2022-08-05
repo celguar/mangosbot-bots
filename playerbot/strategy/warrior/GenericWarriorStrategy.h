@@ -61,7 +61,7 @@ namespace ai
         GenericWarriorStrategy(PlayerbotAI* ai);
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "warrior"; }
     };
 
@@ -71,7 +71,7 @@ namespace ai
         WarrirorAoeStrategy(PlayerbotAI* ai);
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "aoe"; }
     };
 }

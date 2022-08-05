@@ -9,7 +9,7 @@ QuestStrategy::QuestStrategy(PlayerbotAI* ai) : PassTroughStrategy(ai)
     supported.push_back("accept quest");
 }
 
-void QuestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void QuestStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     PassTroughStrategy::InitTriggers(triggers);
 
@@ -19,7 +19,7 @@ void QuestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 }
 
 
-void DefaultQuestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void DefaultQuestStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     QuestStrategy::InitTriggers(triggers);
 
@@ -44,7 +44,7 @@ DefaultQuestStrategy::DefaultQuestStrategy(PlayerbotAI* ai) : QuestStrategy(ai)
 
 
 
-void AcceptAllQuestsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void AcceptAllQuestsStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     QuestStrategy::InitTriggers(triggers);
 

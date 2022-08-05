@@ -37,7 +37,7 @@ NextAction** TankPaladinStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction("melee", ACTION_NORMAL), NULL);
 }
 
-void TankPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void TankPaladinStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     GenericPaladinStrategy::InitTriggers(triggers);
 

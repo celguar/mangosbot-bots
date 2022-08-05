@@ -49,7 +49,7 @@ NextAction** TankWarlockStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction("shoot", 10.0f), NULL);
 }
 
-void TankWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void TankWarlockStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     GenericWarlockStrategy::InitTriggers(triggers);
 }

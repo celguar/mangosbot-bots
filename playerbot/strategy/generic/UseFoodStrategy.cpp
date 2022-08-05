@@ -4,7 +4,7 @@
 
 using namespace ai;
 
-void UseFoodStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void UseFoodStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     Strategy::InitTriggers(triggers);
 

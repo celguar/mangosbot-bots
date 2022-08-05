@@ -6,7 +6,7 @@
 
 using namespace ai;
 
-void ReturnStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void ReturnStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "return",

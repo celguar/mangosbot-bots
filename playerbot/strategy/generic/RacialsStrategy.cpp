@@ -14,7 +14,7 @@ public:
 private:
 };
 
-void RacialsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void RacialsStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
 	triggers.push_back(new TriggerNode(
 		"low health", 

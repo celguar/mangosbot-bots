@@ -15,7 +15,7 @@ NextAction** FrostMageStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction("frostbolt", 7.0f), NULL);
 }
 
-void FrostMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void FrostMageStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     GenericMageStrategy::InitTriggers(triggers);
 
@@ -24,7 +24,7 @@ void FrostMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("icy veins", 50.0f), NULL)));
 }
 
-void FrostMageAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void FrostMageAoeStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
 	triggers.push_back(new TriggerNode(
 		"medium aoe",

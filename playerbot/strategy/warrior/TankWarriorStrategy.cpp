@@ -44,7 +44,7 @@ NextAction** TankWarriorStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction("melee", ACTION_NORMAL), NULL);
 }
 
-void TankWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void TankWarriorStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     GenericWarriorStrategy::InitTriggers(triggers);
 

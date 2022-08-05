@@ -4,7 +4,7 @@
 
 using namespace ai;
 
-void GuildStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void GuildStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "random",

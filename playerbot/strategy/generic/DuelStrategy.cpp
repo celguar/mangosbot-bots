@@ -4,7 +4,7 @@
 
 using namespace ai;
 
-void DuelStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void DuelStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     PassTroughStrategy::InitTriggers(triggers);
 
@@ -23,7 +23,7 @@ DuelStrategy::DuelStrategy(PlayerbotAI* ai) : PassTroughStrategy(ai)
 {
 }
 
-void StartDuelStrategy::InitTriggers(std::list<TriggerNode*>& triggers)
+void StartDuelStrategy::InitTriggers(std::vector<TriggerNode*> & triggers)
 {
 }
 

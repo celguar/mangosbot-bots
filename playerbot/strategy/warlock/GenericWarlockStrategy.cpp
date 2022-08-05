@@ -40,7 +40,7 @@ NextAction** GenericWarlockStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction("shoot", 10.0f), NULL);
 }
 
-void GenericWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void GenericWarlockStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     CombatStrategy::InitTriggers(triggers);
 
@@ -65,14 +65,14 @@ void GenericWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("immolate", 13.0f), new NextAction("conflagrate", 13.0f), NULL)));
 }
 
-void WarlockBoostStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void WarlockBoostStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "amplify curse",
         NextAction::array(0, new NextAction("amplify curse", 41.0f), NULL)));
 }
 
-void WarlockCcStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void WarlockCcStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "banish",

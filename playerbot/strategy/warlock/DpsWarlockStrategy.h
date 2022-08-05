@@ -12,7 +12,7 @@ namespace ai
         virtual string getName() { return "dps"; }
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual NextAction** getDefaultActions();
     };
 
@@ -22,7 +22,7 @@ namespace ai
         DpsAoeWarlockStrategy(PlayerbotAI* ai) : CombatStrategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "aoe"; }
     };
 
@@ -32,7 +32,7 @@ namespace ai
         DpsWarlockDebuffStrategy(PlayerbotAI* ai) : CombatStrategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "dps debuff"; }
     };
 

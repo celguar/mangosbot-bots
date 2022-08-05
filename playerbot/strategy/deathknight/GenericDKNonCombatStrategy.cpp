@@ -35,7 +35,7 @@ GenericDKNonCombatStrategy::GenericDKNonCombatStrategy(PlayerbotAI* ai) : NonCom
     actionNodeFactories.Add(new GenericDKNonCombatStrategyActionNodeFactory());
 }
 
-void GenericDKNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void GenericDKNonCombatStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     NonCombatStrategy::InitTriggers(triggers);
 
@@ -54,7 +54,7 @@ void GenericDKNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 }
 
 
-void DKBuffDpsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void DKBuffDpsStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "improved icy talons",

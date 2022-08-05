@@ -13,7 +13,7 @@ namespace ai
         GenericHunterStrategy(PlayerbotAI* ai);
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "hunter"; }
     };
 
@@ -25,7 +25,7 @@ namespace ai
         virtual NextAction** getDefaultActions();
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
     };
 
     class HunterCcStrategy : public Strategy
@@ -34,7 +34,7 @@ namespace ai
         HunterCcStrategy(PlayerbotAI* ai) : Strategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "cc"; }
     };
 }

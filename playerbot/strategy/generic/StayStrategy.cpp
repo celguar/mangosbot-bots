@@ -9,7 +9,7 @@ NextAction** StayStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction("stay", 1.0f), NULL);
 }
 
-void SitStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void SitStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "sit",

@@ -71,7 +71,7 @@ NextAction** DpsPaladinStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction("crusader strike", ACTION_NORMAL + 1), NULL);
 }
 
-void DpsPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void DpsPaladinStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     GenericPaladinStrategy::InitTriggers(triggers);
 

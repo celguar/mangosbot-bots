@@ -5,7 +5,7 @@
 
 using namespace ai;
 
-void GenericWarriorNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void GenericWarriorNonCombatStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
    NonCombatStrategy::InitTriggers(triggers);
 

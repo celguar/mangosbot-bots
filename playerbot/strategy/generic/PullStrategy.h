@@ -13,8 +13,8 @@ namespace ai
         }
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
-        virtual void InitMultipliers(std::list<Multiplier*> &multipliers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
+        virtual void InitMultipliers(std::vector<Multiplier*> &multipliers);
         virtual string getName() { return "pull"; }
         virtual NextAction** getDefaultActions();
 
@@ -28,7 +28,7 @@ namespace ai
         PossibleAdsStrategy(PlayerbotAI* ai) : Strategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "ads"; }
     };
 }

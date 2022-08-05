@@ -8,7 +8,7 @@ namespace ai
     {
     public:
         MeleeCombatStrategy(PlayerbotAI* ai) : CombatStrategy(ai) {}
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual int GetType() { return STRATEGY_TYPE_COMBAT | STRATEGY_TYPE_MELEE; }
         virtual string getName() { return "close"; }
     };
@@ -17,7 +17,7 @@ namespace ai
     {
     public:
         SetBehindCombatStrategy(PlayerbotAI* ai) : CombatStrategy(ai) {}
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "behind"; }
     };
 

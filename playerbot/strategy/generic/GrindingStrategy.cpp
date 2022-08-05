@@ -10,7 +10,7 @@ NextAction** GrindingStrategy::getDefaultActions()
     return NULL;
 }
 
-void GrindingStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void GrindingStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "no target",

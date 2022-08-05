@@ -48,7 +48,7 @@ NextAction** ArcaneMageStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction("arcane barrage", 10.0f), NULL);
 }
 
-void ArcaneMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void ArcaneMageStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     GenericMageStrategy::InitTriggers(triggers);
 

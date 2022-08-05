@@ -6,7 +6,7 @@ namespace ai
     {
     public:
         CombatStrategy(PlayerbotAI* ai) : Strategy(ai) {}
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual int GetType() { return STRATEGY_TYPE_COMBAT; }
     };
 
@@ -16,6 +16,6 @@ namespace ai
         AvoidAoeStrategy(PlayerbotAI* ai);
         virtual string getName() { return "avoid aoe"; }
         virtual void InitMultipliers(std::list<Multiplier*>& multipliers);
-        virtual void InitTriggers(std::list<TriggerNode*>& triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> & triggers);
     };
 }

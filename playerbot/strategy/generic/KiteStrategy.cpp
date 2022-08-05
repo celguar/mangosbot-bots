@@ -8,7 +8,7 @@ KiteStrategy::KiteStrategy(PlayerbotAI* ai) : Strategy(ai)
 {
 }
 
-void KiteStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void KiteStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "has aggro",

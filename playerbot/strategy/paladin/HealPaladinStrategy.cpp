@@ -27,7 +27,7 @@ NextAction** HealPaladinStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction("reach party member to heal", ACTION_NORMAL + 1), new NextAction("judgement", ACTION_NORMAL), NULL);
 }
 
-void HealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void HealPaladinStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     GenericPaladinStrategy::InitTriggers(triggers);
 

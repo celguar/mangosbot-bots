@@ -11,7 +11,7 @@ namespace ai
 		virtual int GetType() { return STRATEGY_TYPE_DPS; }
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
     };
 
     class DpsAoeStrategy : public NonCombatStrategy
@@ -22,6 +22,6 @@ namespace ai
         virtual int GetType() { return STRATEGY_TYPE_DPS; }
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
     };
 }

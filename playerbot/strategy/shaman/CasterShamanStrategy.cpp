@@ -32,7 +32,7 @@ NextAction** CasterShamanStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction("lightning bolt", 10.0f), NULL);
 }
 
-void CasterShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void CasterShamanStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     GenericShamanStrategy::InitTriggers(triggers);
 
@@ -61,7 +61,7 @@ void CasterShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("flametongue totem", ACTION_LIGHT_HEAL), NULL)));
 }
 
-void CasterAoeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void CasterAoeShamanStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "light aoe",

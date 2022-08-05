@@ -10,7 +10,7 @@ NextAction** GuardStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction("guard", 4.0f), NULL);
 }
 
-void GuardStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void GuardStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
 }
 

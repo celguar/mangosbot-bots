@@ -10,7 +10,7 @@ GenericWarriorStrategy::GenericWarriorStrategy(PlayerbotAI* ai) : CombatStrategy
     //actionNodeFactories.Add(new WarriorStanceRequirementActionNodeFactory());
 }
 
-void GenericWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void GenericWarriorStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     CombatStrategy::InitTriggers(triggers);
 
@@ -47,7 +47,7 @@ WarrirorAoeStrategy::WarrirorAoeStrategy(PlayerbotAI* ai) : CombatStrategy(ai)
     actionNodeFactories.Add(new WarrirorAoeStrategyActionNodeFactory());
 }
 
-void WarrirorAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void WarrirorAoeStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "thunder clap on snare target",

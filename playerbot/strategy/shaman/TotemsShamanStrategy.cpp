@@ -9,7 +9,7 @@ TotemsShamanStrategy::TotemsShamanStrategy(PlayerbotAI* ai) : GenericShamanStrat
 {
 }
 
-void TotemsShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void TotemsShamanStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     GenericShamanStrategy::InitTriggers(triggers);
 

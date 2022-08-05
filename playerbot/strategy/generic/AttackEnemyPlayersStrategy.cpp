@@ -4,7 +4,7 @@
 
 using namespace ai;
 
-void AttackEnemyPlayersStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void AttackEnemyPlayersStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "enemy player near",

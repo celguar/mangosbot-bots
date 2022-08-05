@@ -41,7 +41,7 @@ bool RpgAction::SetNextRpgAction()
 
     vector<Action*> actions;
     vector<uint32> relevances;
-    list<TriggerNode*> triggerNodes;
+    vector<TriggerNode*> triggerNodes;
     rpgStrategy->InitTriggers(triggerNodes);
 
     for (auto& triggerNode : triggerNodes)
@@ -92,9 +92,8 @@ bool RpgAction::SetNextRpgAction()
 
     Action* action = actions.front();
 
-    for (list<TriggerNode*>::iterator i = triggerNodes.begin(); i != triggerNodes.end(); i++)
+    for (auto& trigger : triggerNodes)
     {
-        TriggerNode* trigger = *i;
         delete trigger;
     }
     triggerNodes.clear();

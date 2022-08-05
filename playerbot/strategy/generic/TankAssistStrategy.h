@@ -11,7 +11,7 @@ namespace ai
         virtual int GetType() { return STRATEGY_TYPE_TANK; }
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
     };
 
 }
