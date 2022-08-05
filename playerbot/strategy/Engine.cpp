@@ -1,44 +1,47 @@
 #include "../../botpch.h"
-#include "../playerbot.h"
-#include <stdarg.h>
 
 #include "Engine.h"
+
+#include "../playerbot.h"
 #include "../PlayerbotAIConfig.h"
 #include "../PerformanceMonitor.h"
+
 
 using namespace ai;
 using namespace std;
 
-Engine::Engine(PlayerbotAI* ai, AiObjectContext *factory) : PlayerbotAIAware(ai), aiObjectContext(factory)
+Engine::Engine(PlayerbotAI* ai, AiObjectContext *factory)
+    : PlayerbotAIAware{ ai }
+    , aiObjectContext{ factory }
+    , lastRelevance{ 0.0f }
+    , testMode{ false }
 {
-    lastRelevance = 0.0f;
-    testMode = false;
 }
 
 bool ActionExecutionListeners::Before(Action* action, Event event)
 {
     bool result = true;
-    for (list<ActionExecutionListener*>::iterator i = listeners.begin(); i!=listeners.end(); i++)
+    for (const auto& ref : listeners)
     {
-        result &= (*i)->Before(action, event);
+        result &= ref->Before(action, event);
     }
     return result;
 }
 
 void ActionExecutionListeners::After(Action* action, bool executed, Event event)
 {
-    for (list<ActionExecutionListener*>::iterator i = listeners.begin(); i!=listeners.end(); i++)
+    for (const auto& ref : listeners)
     {
-        (*i)->After(action, executed, event);
+        ref->After(action, executed, event);
     }
 }
 
 bool ActionExecutionListeners::OverrideResult(Action* action, bool executed, Event event)
 {
     bool result = executed;
-    for (list<ActionExecutionListener*>::iterator i = listeners.begin(); i!=listeners.end(); i++)
+    for (const auto& ref : listeners)
     {
-        result = (*i)->OverrideResult(action, result, event);
+        result = ref->OverrideResult(action, result, event);
     }
     return result;
 }
@@ -46,18 +49,18 @@ bool ActionExecutionListeners::OverrideResult(Action* action, bool executed, Eve
 bool ActionExecutionListeners::AllowExecution(Action* action, Event event)
 {
     bool result = true;
-    for (list<ActionExecutionListener*>::iterator i = listeners.begin(); i!=listeners.end(); i++)
+    for (const auto& ref : listeners)
     {
-        result &= (*i)->AllowExecution(action, event);
+        result &= ref->AllowExecution(action, event);
     }
     return result;
 }
 
 ActionExecutionListeners::~ActionExecutionListeners()
 {
-    for (list<ActionExecutionListener*>::iterator i = listeners.begin(); i!=listeners.end(); i++)
+    for (auto ptr : listeners)
     {
-        delete *i;
+        delete ptr;
     }
     listeners.clear();
 }
@@ -72,7 +75,7 @@ Engine::~Engine(void)
 
 void Engine::Reset()
 {
-    ActionNode* action = NULL;
+    ActionNode* action = nullptr;
     do
     {
         action = queue.Pop();
@@ -80,17 +83,15 @@ void Engine::Reset()
         delete action;
     } while (true);
 
-    for (list<TriggerNode*>::iterator i = triggers.begin(); i != triggers.end(); i++)
+    for (auto ptr : triggers)
     {
-        TriggerNode* trigger = *i;
-        delete trigger;
+        delete ptr;
     }
     triggers.clear();
 
-    for (list<Multiplier*>::iterator i = multipliers.begin(); i != multipliers.end(); i++)
+    for (auto ptr : multipliers)
     {
-        Multiplier* multiplier = *i;
-        delete multiplier;
+        delete ptr;
     }
     multipliers.clear();
 }
@@ -99,9 +100,8 @@ void Engine::Init()
 {
     Reset();
 
-    for (map<string, Strategy*>::iterator i = strategies.begin(); i != strategies.end(); i++)
+    for (auto [index, strategy] : strategies)
     {
-        Strategy* strategy = i->second;
         strategy->InitMultipliers(multipliers);
         strategy->InitTriggers(triggers);
         Event emptyEvent;
@@ -153,9 +153,8 @@ bool Engine::DoNextAction(Unit* unit, int depth, bool minimal)
             }
             else if (action->isUseful())
             {
-                for (list<Multiplier*>::iterator i = multipliers.begin(); i!= multipliers.end(); i++)
+                for (auto& multiplier : multipliers)
                 {
-                    Multiplier* multiplier = *i;
                     relevance *= multiplier->GetValue(action);
                     action->setRelevance(relevance);
                     if (!relevance)
@@ -269,9 +268,8 @@ bool Engine::DoNextAction(Unit* unit, int depth, bool minimal)
 
 ActionNode* Engine::CreateActionNode(string name)
 {
-    for (map<string, Strategy*>::iterator i = strategies.begin(); i != strategies.end(); i++)
+    for (auto [index, strategy] : strategies)
     {
-        Strategy* strategy = i->second;
         ActionNode* node = strategy->GetAction(name);
         if (node)
             return node;
@@ -366,7 +364,7 @@ ActionResult Engine::ExecuteAction(string name, Event event, string qualifier)
 	return result ? ACTION_RESULT_OK : ACTION_RESULT_FAILED;
 }
 
-void Engine::addStrategy(string name)
+void Engine::addStrategy(const string& name)
 {
     removeStrategy(name);
 
@@ -383,32 +381,13 @@ void Engine::addStrategy(string name)
     Init();
 }
 
-void Engine::addStrategies(string first, ...)
-{
-	addStrategy(first);
-
-	va_list vl;
-	va_start(vl, first);
-
-	const char* cur;
-	do
-	{
-		cur = va_arg(vl, const char*);
-		if (cur)
-			addStrategy(cur);
-	}
-	while (cur);
-
-	va_end(vl);
-}
-
-bool Engine::removeStrategy(string name)
+bool Engine::removeStrategy(const std::string& name)
 {
     map<string, Strategy*>::iterator i = strategies.find(name);
     if (i == strategies.end())
         return false;
 
-    LogAction("S:-%s", name.c_str());
+    LogAction("S:-%s", name);
     strategies.erase(i);
     Init();
     return true;
@@ -420,13 +399,13 @@ void Engine::removeAllStrategies()
     Init();
 }
 
-void Engine::toggleStrategy(string name)
+void Engine::toggleStrategy(const std::string& name)
 {
     if (!removeStrategy(name))
         addStrategy(name);
 }
 
-bool Engine::HasStrategy(string name)
+bool Engine::HasStrategy(const std::string& name)
 {
     return strategies.find(name) != strategies.end();
 }
@@ -434,9 +413,8 @@ bool Engine::HasStrategy(string name)
 void Engine::ProcessTriggers(bool minimal)
 {
     map<Trigger*, Event> fires;
-    for (list<TriggerNode*>::iterator i = triggers.begin(); i != triggers.end(); i++)
+    for (auto node : triggers)
     {
-        TriggerNode* node = *i;
         if (!node)
             continue;
 
@@ -465,9 +443,8 @@ void Engine::ProcessTriggers(bool minimal)
         }
     }
 
-    for (list<TriggerNode*>::iterator i = triggers.begin(); i != triggers.end(); i++)
+    for (auto node : triggers)
     {
-        TriggerNode* node = *i;
         Trigger* trigger = node->getTrigger();
         Event event = fires[trigger];
         if (!event)
@@ -476,46 +453,44 @@ void Engine::ProcessTriggers(bool minimal)
         MultiplyAndPush(node->getHandlers(), 0.0f, false, event, "trigger");
     }
 
-    for (list<TriggerNode*>::iterator i = triggers.begin(); i != triggers.end(); i++)
+    for (auto node : triggers)
     {
-        Trigger* trigger = (*i)->getTrigger();
+        Trigger* trigger = node->getTrigger();
         if (trigger) trigger->Reset();
     }
 }
 
 void Engine::PushDefaultActions()
 {
-    for (map<string, Strategy*>::iterator i = strategies.begin(); i != strategies.end(); i++)
+    for (auto [index, strategy] : strategies)
     {
-        Strategy* strategy = i->second;
         Event emptyEvent;
         MultiplyAndPush(strategy->getDefaultActions(), 0.0f, false, emptyEvent, "default");
     }
 }
 
-string Engine::ListStrategies()
+const std::string Engine::ListStrategies()
 {
-    string s = "Strategies: ";
+    std::stringstream s("Strategies: ");
 
     if (strategies.empty())
-        return s;
+        return s.str();
 
-    for (map<string, Strategy*>::iterator i = strategies.begin(); i != strategies.end(); i++)
+    for (auto [index, strategy] : strategies)
     {
-        s.append(i->first);
-        s.append(", ");
+        s << index << ", ";
     }
-    return s.substr(0, s.length() - 2);
+    return std::move(s.str().substr(0, s.str().length() - 2));
 }
 
-list<string> Engine::GetStrategies()
+list<string_view> Engine::GetStrategies()
 {
-    list<string> result;
-    for (map<string, Strategy*>::iterator i = strategies.begin(); i != strategies.end(); i++)
+    list<string_view> result;
+    for (const auto& ref : strategies)
     {
-        result.push_back(i->first);
+        result.push_back(ref.first);
     }
-    return result;
+    return std::move(result);
 }
 
 void Engine::PushAgain(ActionNode* actionNode, float relevance, Event event)
@@ -529,9 +504,8 @@ void Engine::PushAgain(ActionNode* actionNode, float relevance, Event event)
 
 bool Engine::ContainsStrategy(StrategyType type)
 {
-	for (map<string, Strategy*>::iterator i = strategies.begin(); i != strategies.end(); i++)
+    for (auto [index, strategy] : strategies)
 	{
-		Strategy* strategy = i->second;
 		if (strategy->GetType() & type)
 			return true;
 	}
@@ -581,16 +555,14 @@ bool Engine::ListenAndExecute(Action* action, Event event)
     return actionExecuted;
 }
 
-void Engine::LogAction(const char* format, ...)
+template<typename ...Args>
+void Engine::LogAction(Args ...args)
 {
-    char buf[1024];
+    std::stringstream buf;
 
-    va_list ap;
-    va_start(ap, format);
-    vsprintf(buf, format, ap);
-    va_end(ap);
+    ((buf << args), ...);
     lastAction += "|";
-    lastAction += buf;
+    lastAction += buf.str();
     if (lastAction.size() > 512)
     {
         lastAction = lastAction.substr(512);
@@ -600,10 +572,14 @@ void Engine::LogAction(const char* format, ...)
 
     if (testMode)
     {
-        FILE* file = fopen("test.log", "a");
-        fprintf(file, "%s",buf);
-        fprintf(file, "\n");
-        fclose(file);
+        std::ofstream outfile;
+        outfile.open("test.txt", std::ios_base::app);
+        if (outfile.is_open())
+        {
+            outfile << buf.str();
+            outfile << std::endl;
+            outfile.close();
+        }
     }
     else
     {
@@ -611,7 +587,7 @@ void Engine::LogAction(const char* format, ...)
         if (sPlayerbotAIConfig.logInGroupOnly && !bot->GetGroup())
             return;
 
-        sLog.outDetail( "%s %s", bot->GetName(), buf);
+        sLog.outDetail( "%s %s", bot->GetName(), buf.str());
     }
 }
 

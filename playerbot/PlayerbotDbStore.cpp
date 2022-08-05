@@ -61,11 +61,11 @@ void PlayerbotDbStore::Save(PlayerbotAI *ai)
     SaveValue(guid, "dead", FormatStrategies("dead", ai->GetStrategies(BOT_STATE_DEAD)));
 }
 
-string PlayerbotDbStore::FormatStrategies(string type, list<string> strategies)
+string PlayerbotDbStore::FormatStrategies(string type, list<string_view> strategies)
 {
     ostringstream out;
-    for(list<string>::iterator i = strategies.begin(); i != strategies.end(); ++i)
-        out << "+" << (*i).c_str() << ",";
+    for(const auto& value : strategies)
+        out << "+" << value << ",";
 
 	string res = out.str();
     return res.substr(0, res.size() - 1);

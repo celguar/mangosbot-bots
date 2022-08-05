@@ -312,7 +312,7 @@ void RandomItemMgr::BuildRandomItemCache()
         uint32 maxLevel = sPlayerbotAIConfig.randomBotMaxLevel;
         if (maxLevel > sWorld.getConfig(CONFIG_UINT32_MAX_PLAYER_LEVEL))
             maxLevel = sWorld.getConfig(CONFIG_UINT32_MAX_PLAYER_LEVEL);
-        for (int level = 0; level < maxLevel / 10; level++)
+        for (uint32 level = 0; level < maxLevel / 10; level++)
         {
             for (uint32 type = RANDOM_ITEM_GUILD_TASK; type <= RANDOM_ITEM_GUILD_TASK_REWARD_TRADE_RARE; type++)
             {
@@ -422,9 +422,9 @@ bool RandomItemMgr::CanEquipItemNew(ItemPrototype const* proto)
         return false;
 
     bool properSlot = false;
-    for (map<EquipmentSlots, set<InventoryType> >::iterator i = viableSlots.begin(); i != viableSlots.end(); ++i)
+    for (const auto& [index, val] : viableSlots)
     {
-        set<InventoryType> slots = viableSlots[(EquipmentSlots)i->first];
+        set<InventoryType> slots = viableSlots[(EquipmentSlots)index];
         if (slots.find((InventoryType)proto->InventoryType) != slots.end())
             properSlot = true;
     }
@@ -1085,11 +1085,11 @@ void RandomItemMgr::BuildItemInfoCache()
 
         // check possible equip slots
         EquipmentSlots slot = EQUIPMENT_SLOT_END;
-        for (map<EquipmentSlots, set<InventoryType> >::iterator i = viableSlots.begin(); i != viableSlots.end(); ++i)
+        for (const auto& [index, val] : viableSlots)
         {
-            set<InventoryType> slots = viableSlots[(EquipmentSlots)i->first];
+            set<InventoryType> slots = viableSlots[(EquipmentSlots)index];
             if (slots.find((InventoryType)proto->InventoryType) != slots.end())
-                slot = i->first;
+                slot = index;
         }
 
         if (slot == EQUIPMENT_SLOT_END)
@@ -1163,18 +1163,18 @@ void RandomItemMgr::BuildItemInfoCache()
         // check quests
         if (cacheInfo->source == ITEM_SOURCE_NONE)
         {
-            vector<uint32> questIds = GetQuestIdsForItem(proto->ItemId);
+            list<uint32> questIds = GetQuestIdsForItem(proto->ItemId);
             if (questIds.size())
             {
                 bool isAlly = false;
                 bool isHorde = false;
-                for (vector<uint32>::iterator i = questIds.begin(); i != questIds.end(); ++i)
+                for (const auto& id : questIds)
                 {
-                    Quest const* quest = sObjectMgr.GetQuestTemplate(*i);
+                    Quest const* quest = sObjectMgr.GetQuestTemplate(id);
                     if (quest)
                     {
                         cacheInfo->source = ITEM_SOURCE_QUEST;
-                        cacheInfo->sourceId = *i;
+                        cacheInfo->sourceId = id;
                         if (!cacheInfo->minLevel)
                             cacheInfo->minLevel = quest->GetMinLevel();
 
@@ -1210,9 +1210,9 @@ void RandomItemMgr::BuildItemInfoCache()
         // check vendors
         if (cacheInfo->source == ITEM_SOURCE_NONE)
         {
-            for (vector<uint32>::iterator i = vendorItems.begin(); i != vendorItems.end(); ++i)
+            for (const auto &vID : vendorItems)
             {
-                if (proto->ItemId == *i)
+                if (proto->ItemId == vID)
                 {
                     cacheInfo->source = ITEM_SOURCE_VENDOR;
                     sLog.outDetail("Item: %d, source: vendor", proto->ItemId);
@@ -1232,7 +1232,9 @@ void RandomItemMgr::BuildItemInfoCache()
             if (itr->second > 0)
                 creatures.push_back(itr->second);
             else
+            {
                 gameobjects.push_back(abs(itr->second));
+            }
         }
         
         // check creature drop
@@ -1900,7 +1902,7 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
     statWeight += socketBonus;
 
     // handle negative stats
-    if (basicStatsWeight < 0 && (abs(basicStatsWeight) >= statWeight))
+    if (basicStatsWeight < 0 && uint32(abs(basicStatsWeight) >= statWeight))
         statWeight = 0;
     else
         statWeight += basicStatsWeight;
@@ -1972,9 +1974,9 @@ uint32 RandomItemMgr::GetQuestIdForItem(uint32 itemId)
     return questId;
 }
 
-vector<uint32> RandomItemMgr::GetQuestIdsForItem(uint32 itemId)
+list<uint32> RandomItemMgr::GetQuestIdsForItem(uint32 itemId)
 {
-    vector<uint32> questIds;
+    list<uint32> questIds;
     ObjectMgr::QuestMap const& questTemplates = sObjectMgr.GetQuestTemplates();
     for (ObjectMgr::QuestMap::const_iterator i = questTemplates.begin(); i != questTemplates.end(); ++i)
     {
@@ -1988,7 +1990,7 @@ vector<uint32> RandomItemMgr::GetQuestIdsForItem(uint32 itemId)
 
             if (quest->RewItemId[i] == itemId)
             {
-                questIds.push_back(quest->GetQuestId());
+                questIds.emplace_back(quest->GetQuestId());
                 break;
             }
         }
@@ -2001,7 +2003,7 @@ vector<uint32> RandomItemMgr::GetQuestIdsForItem(uint32 itemId)
 
             if (quest->RewChoiceItemId[i] == itemId)
             {
-                questIds.push_back(quest->GetQuestId());
+                questIds.emplace_back(quest->GetQuestId());
                 break;
             }
         }

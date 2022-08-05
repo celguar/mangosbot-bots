@@ -98,7 +98,7 @@ void GossipHelloAction::TellGossipMenus()
         TellGossipText(textId);
     }
 
-    for (int i = 0; i < menu.MenuItemCount(); i++)
+    for (uint32 i = 0; i < menu.MenuItemCount(); i++)
     {
         GossipMenuItem const& item = menu.GetItem(i);
         ostringstream out; out << "[" << (i+1) << "] " << item.m_gMessage;
@@ -128,4 +128,6 @@ bool GossipHelloAction::ProcessGossip(int menuToSelect)
     bot->GetSession()->HandleGossipSelectOptionOpcode(p);
 
     TellGossipMenus();
+
+    return true;
 }

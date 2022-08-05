@@ -708,7 +708,7 @@ void RandomPlayerbotFactory::CreateRandomArenaTeams()
         sLog.outString("Random bot arena teams deleted");
     }
 
-    int arenaTeamNumber = 0;
+    uint32 arenaTeamNumber = 0;
     vector<ObjectGuid> availableCaptains;
     for (vector<uint32>::iterator i = randomBots.begin(); i != randomBots.end(); ++i)
     {

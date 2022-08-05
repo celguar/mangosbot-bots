@@ -1418,11 +1418,11 @@ void PlayerbotAI::ClearStrategies(BotState type)
     e->removeAllStrategies();
 }
 
-list<string> PlayerbotAI::GetStrategies(BotState type)
+list<string_view> PlayerbotAI::GetStrategies(BotState type)
 {
     Engine* e = engines[type];
     if (!e)
-        return list<string>();
+        return list<string_view>();
 
     return e->GetStrategies();
 }

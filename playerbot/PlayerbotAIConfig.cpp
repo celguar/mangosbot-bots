@@ -51,35 +51,19 @@ void LoadListString(string value, T& list)
     }
 }
 
-
-bool PlayerbotAIConfig::Initialize()
+void PlayerbotAIConfig::loadConfigParameters()
 {
-    sLog.outString("Initializing AI Playerbot by ike3, based on the original Playerbot by blueboy");
-
-    if (!config.SetSource(SYSCONFDIR"aiplayerbot.conf"))
-    {
-        sLog.outString("AI Playerbot is Disabled. Unable to open configuration file aiplayerbot.conf");
-        return false;
-    }
-
-    enabled = config.GetBoolDefault("AiPlayerbot.Enabled", true);
-    if (!enabled)
-    {
-        sLog.outString("AI Playerbot is Disabled in aiplayerbot.conf");
-        return false;
-    }
-
-    globalCoolDown = (uint32) config.GetIntDefault("AiPlayerbot.GlobalCooldown", 500);
+    globalCoolDown = (uint32)config.GetIntDefault("AiPlayerbot.GlobalCooldown", 500);
     maxWaitForMove = config.GetIntDefault("AiPlayerbot.MaxWaitForMove", 3000);
     expireActionTime = config.GetIntDefault("AiPlayerbot.ExpireActionTime", 5000);
     dispelAuraDuration = config.GetIntDefault("AiPlayerbot.DispelAuraDuration", 2000);
-    reactDelay = (uint32) config.GetIntDefault("AiPlayerbot.ReactDelay", 100);
-    passiveDelay = (uint32) config.GetIntDefault("AiPlayerbot.PassiveDelay", 4000);
-    repeatDelay = (uint32) config.GetIntDefault("AiPlayerbot.RepeatDelay", 5000);
-    errorDelay = (uint32) config.GetIntDefault("AiPlayerbot.ErrorDelay", 5000);
-    rpgDelay = (uint32) config.GetIntDefault("AiPlayerbot.RpgDelay", 3000);
-    sitDelay = (uint32) config.GetIntDefault("AiPlayerbot.SitDelay", 30000);
-    returnDelay = (uint32) config.GetIntDefault("AiPlayerbot.ReturnDelay", 7000);
+    reactDelay = (uint32)config.GetIntDefault("AiPlayerbot.ReactDelay", 100);
+    passiveDelay = (uint32)config.GetIntDefault("AiPlayerbot.PassiveDelay", 4000);
+    repeatDelay = (uint32)config.GetIntDefault("AiPlayerbot.RepeatDelay", 5000);
+    errorDelay = (uint32)config.GetIntDefault("AiPlayerbot.ErrorDelay", 5000);
+    rpgDelay = (uint32)config.GetIntDefault("AiPlayerbot.RpgDelay", 3000);
+    sitDelay = (uint32)config.GetIntDefault("AiPlayerbot.SitDelay", 30000);
+    returnDelay = (uint32)config.GetIntDefault("AiPlayerbot.ReturnDelay", 7000);
     lootDelay = (uint32)config.GetIntDefault("AiPlayerbot.LootDelayDelay", 750);
 
     farDistance = config.GetFloatDefault("AiPlayerbot.FarDistance", 20.0f);
@@ -122,8 +106,8 @@ bool PlayerbotAIConfig::Initialize()
     LoadList<vector<uint32> >(randomBotMapsAsString, randomBotMaps);
     LoadList<list<uint32> >(config.GetStringDefault("AiPlayerbot.RandomBotQuestItems", "6948,5175,5176,5177,5178,16309,12382,13704,11000,22754"), randomBotQuestItems);
     LoadList<list<uint32> >(config.GetStringDefault("AiPlayerbot.RandomBotSpellIds", "54197"), randomBotSpellIds);
-	LoadList<list<uint32> >(config.GetStringDefault("AiPlayerbot.PvpProhibitedZoneIds", "2255,656,2361,2362,2363,976,35,2268,3425,392,541,1446,3828,3712,3738,3565,3539,3623,4152,3988,4658,4284,4418,4436,4275,4323"), pvpProhibitedZoneIds);
-    
+    LoadList<list<uint32> >(config.GetStringDefault("AiPlayerbot.PvpProhibitedZoneIds", "2255,656,2361,2362,2363,976,35,2268,3425,392,541,1446,3828,3712,3738,3565,3539,3623,4152,3988,4658,4284,4418,4436,4275,4323"), pvpProhibitedZoneIds);
+
 #ifndef MANGOSBOT_ZERO
     // disable pvp near dark portal if event is active
     if (sWorldState.GetExpansion() == EXPANSION_NONE)
@@ -178,11 +162,68 @@ bool PlayerbotAIConfig::Initialize()
     commandServerPort = config.GetIntDefault("AiPlayerbot.CommandServerPort", 0);
     perfMonEnabled = config.GetBoolDefault("AiPlayerbot.PerfMonEnabled", false);
 
-    sLog.outString("---------------------------------------");
-    sLog.outString("          Loading TalentSpecs          ");
-    sLog.outString("---------------------------------------");
-    sLog.outString();
-    
+    randomBotAccountPrefix = config.GetStringDefault("AiPlayerbot.RandomBotAccountPrefix", "rndbot");
+    randomBotAccountCount = config.GetIntDefault("AiPlayerbot.RandomBotAccountCount", 50);
+    deleteRandomBotAccounts = config.GetBoolDefault("AiPlayerbot.DeleteRandomBotAccounts", false);
+    randomBotGuildCount = config.GetIntDefault("AiPlayerbot.RandomBotGuildCount", 20);
+    deleteRandomBotGuilds = config.GetBoolDefault("AiPlayerbot.DeleteRandomBotGuilds", false);
+
+    //arena
+    randomBotArenaTeamCount = config.GetIntDefault("AiPlayerbot.RandomBotArenaTeamCount", 20);
+    deleteRandomBotArenaTeams = config.GetBoolDefault("AiPlayerbot.DeleteRandomBotArenaTeams", false);
+
+    guildTaskEnabled = config.GetBoolDefault("AiPlayerbot.EnableGuildTasks", true);
+    minGuildTaskChangeTime = config.GetIntDefault("AiPlayerbot.MinGuildTaskChangeTime", 3 * 24 * 3600);
+    maxGuildTaskChangeTime = config.GetIntDefault("AiPlayerbot.MaxGuildTaskChangeTime", 4 * 24 * 3600);
+    minGuildTaskAdvertisementTime = config.GetIntDefault("AiPlayerbot.MinGuildTaskAdvertisementTime", 60);
+    maxGuildTaskAdvertisementTime = config.GetIntDefault("AiPlayerbot.MaxGuildTaskAdvertisementTime", 12 * 3600);
+    minGuildTaskRewardTime = config.GetIntDefault("AiPlayerbot.MinGuildTaskRewardTime", 30);
+    maxGuildTaskRewardTime = config.GetIntDefault("AiPlayerbot.MaxGuildTaskRewardTime", 120);
+    guildTaskAdvertCleanupTime = config.GetIntDefault("AiPlayerbot.GuildTaskAdvertCleanupTime", 300);
+
+    //cosmetics (by lidocain)
+    randomBotShowCloak = config.GetBoolDefault("AiPlayerbot.RandomBotShowCloak", false);
+    randomBotShowHelmet = config.GetBoolDefault("AiPlayerbot.RandomBotShowHelmet", false);
+
+    //SPP switches
+    enableGreet = config.GetBoolDefault("AiPlayerbot.EnableGreet", false);
+    disableRandomLevels = config.GetBoolDefault("AiPlayerbot.DisableRandomLevels", false);
+    randomBotRandomPassword = config.GetBoolDefault("AiPlayerbot.RandomBotRandomPassword", true);
+    playerbotsXPrate = config.GetIntDefault("AiPlayerbot.KillXPRate", 1);
+    botActiveAlone = config.GetIntDefault("AiPlayerbot.botActiveAlone", 10); //hidden config
+    RandombotsWalkingRPG = config.GetBoolDefault("AiPlayerbot.RandombotsWalkingRPG", false);
+    RandombotsWalkingRPGInDoors = config.GetBoolDefault("AiPlayerbot.RandombotsWalkingRPG.InDoors", false);
+    minEnchantingBotLevel = config.GetIntDefault("AiPlayerbot.minEnchantingBotLevel", 60);
+    randombotStartingLevel = config.GetIntDefault("AiPlayerbot.randombotStartingLevel", 5);
+    gearscorecheck = config.GetBoolDefault("AiPlayerbot.GearScoreCheck", false);
+    randomBotPreQuests = config.GetBoolDefault("AiPlayerbot.PreQuests", true);
+    randomBotSayWithoutMaster = config.GetBoolDefault("AiPlayerbot.RandomBotSayWithoutMaster", false);
+    randomBotGroupNearby = config.GetBoolDefault("AiPlayerbot.RandomBotGroupNearby", false);
+
+    //SPP automation
+    autoPickReward = config.GetStringDefault("AiPlayerbot.AutoPickReward", "no");
+    autoEquipUpgradeLoot = config.GetBoolDefault("AiPlayerbot.AutoEquipUpgradeLoot", false);
+    syncQuestWithPlayer = config.GetBoolDefault("AiPlayerbot.SyncQuestWithPlayer", false);
+    syncQuestForPlayer = config.GetBoolDefault("AiPlayerbot.SyncQuestForPlayer", false);
+    autoTrainSpells = config.GetStringDefault("AiPlayerbot.AutoTrainSpells", "no");
+    autoPickTalents = config.GetStringDefault("AiPlayerbot.AutoPickTalents", "no");
+    autoLearnTrainerSpells = config.GetBoolDefault("AiPlayerbot.AutoLearnTrainerSpells", false);
+    autoLearnQuestSpells = config.GetBoolDefault("AiPlayerbot.AutoLearnQuestSpells", false);
+    autoDoQuests = config.GetBoolDefault("AiPlayerbot.AutoDoQuests", false);
+    syncLevelWithPlayers = config.GetBoolDefault("AiPlayerbot.SyncLevelWithPlayers", false);
+    tweakValue = config.GetIntDefault("AiPlayerbot.TweakValue", 0);
+    freeFood = config.GetBoolDefault("AiPlayerbot.FreeFood", true);
+
+    selfBotLevel = config.GetIntDefault("AiPlayerbot.SelfBotLevel", 1);
+
+    targetPosRecalcDistance = config.GetFloatDefault("AiPlayerbot.TargetPosRecalcDistance", 0.1f);
+
+    /* FORCE IT TO FALSE DUE TO ASYNC LOADING */
+    BarGoLink::SetOutputState(false);
+    //BarGoLink::SetOutputState(config.GetBoolDefault("AiPlayerbot.ShowProgressBars", false));
+}
+void PlayerbotAIConfig::loadTalent()
+{
     for (uint32 cls = 1; cls < MAX_CLASSES; ++cls)
     {
         classSpecs[cls] = ClassSpecs(1 << (cls - 1));
@@ -231,12 +272,14 @@ bool PlayerbotAIConfig::Initialize()
                 }
 
                 //Only add paths that have atleast 1 spec.
-                if(talentPath.talentSpec.size() > 0)
+                if (talentPath.talentSpec.size() > 0)
                     classSpecs[cls].talentPath.push_back(talentPath);
             }
         }
     }
-
+}
+void PlayerbotAIConfig::loadBotCheat()
+{
     botCheats.clear();
     LoadListString<list<string>>(config.GetStringDefault("AiPlayerbot.BotCheats", "taxi"), botCheats);
 
@@ -252,12 +295,13 @@ bool PlayerbotAIConfig::Initialize()
         botCheatMask |= (uint32)BotCheatMask::mana;
     if (std::find(botCheats.begin(), botCheats.end(), "power") != botCheats.end())
         botCheatMask |= (uint32)BotCheatMask::power;
-
-
+}
+void PlayerbotAIConfig::loadWorldBuff()
+{
     LoadListString<list<string>>(config.GetStringDefault("AiPlayerbot.AllowedLogFiles", ""), allowedLogFiles);
 
     worldBuffs.clear();
-    
+
     for (uint32 factionId = 0; factionId < 3; factionId++)
     {
         for (uint32 classId = 0; classId < MAX_CLASSES; classId++)
@@ -274,75 +318,46 @@ bool PlayerbotAIConfig::Initialize()
             }
         }
     }
+}
 
-    randomBotAccountPrefix = config.GetStringDefault("AiPlayerbot.RandomBotAccountPrefix", "rndbot");
-    randomBotAccountCount = config.GetIntDefault("AiPlayerbot.RandomBotAccountCount", 50);
-    deleteRandomBotAccounts = config.GetBoolDefault("AiPlayerbot.DeleteRandomBotAccounts", false);
-    randomBotGuildCount = config.GetIntDefault("AiPlayerbot.RandomBotGuildCount", 20);
-    deleteRandomBotGuilds = config.GetBoolDefault("AiPlayerbot.DeleteRandomBotGuilds", false);
+bool PlayerbotAIConfig::Initialize()
+{
+    sLog.outString("Initializing AI Playerbot by ike3, based on the original Playerbot by blueboy");
+    if (!config.SetSource(SYSCONFDIR"aiplayerbot.conf"))
+    {
+        sLog.outString("AI Playerbot is Disabled. Unable to open configuration file aiplayerbot.conf");
+        return false;
+    }
+    enabled = config.GetBoolDefault("AiPlayerbot.Enabled", true);
+    if (!enabled)
+    {
+        sLog.outString("AI Playerbot is Disabled in aiplayerbot.conf");
+        return false;
+    }
 
-    //arena
-    randomBotArenaTeamCount = config.GetIntDefault("AiPlayerbot.RandomBotArenaTeamCount", 20);
-    deleteRandomBotArenaTeams = config.GetBoolDefault("AiPlayerbot.DeleteRandomBotArenaTeams", false);
+    loadConfigParameters();
 
-    guildTaskEnabled = config.GetBoolDefault("AiPlayerbot.EnableGuildTasks", true);
-    minGuildTaskChangeTime = config.GetIntDefault("AiPlayerbot.MinGuildTaskChangeTime", 3 * 24 * 3600);
-    maxGuildTaskChangeTime = config.GetIntDefault("AiPlayerbot.MaxGuildTaskChangeTime", 4 * 24 * 3600);
-    minGuildTaskAdvertisementTime = config.GetIntDefault("AiPlayerbot.MinGuildTaskAdvertisementTime", 60);
-    maxGuildTaskAdvertisementTime = config.GetIntDefault("AiPlayerbot.MaxGuildTaskAdvertisementTime", 12 * 3600);
-    minGuildTaskRewardTime = config.GetIntDefault("AiPlayerbot.MinGuildTaskRewardTime", 30);
-    maxGuildTaskRewardTime = config.GetIntDefault("AiPlayerbot.MaxGuildTaskRewardTime", 120);
-    guildTaskAdvertCleanupTime = config.GetIntDefault("AiPlayerbot.GuildTaskAdvertCleanupTime", 300);
-
-    //cosmetics (by lidocain)
-    randomBotShowCloak = config.GetBoolDefault("AiPlayerbot.RandomBotShowCloak", false);
-    randomBotShowHelmet = config.GetBoolDefault("AiPlayerbot.RandomBotShowHelmet", false);
-
-	//SPP switches
-    enableGreet = config.GetBoolDefault("AiPlayerbot.EnableGreet", false);
-	disableRandomLevels = config.GetBoolDefault("AiPlayerbot.DisableRandomLevels", false);
-    randomBotRandomPassword = config.GetBoolDefault("AiPlayerbot.RandomBotRandomPassword", true);
-    playerbotsXPrate = config.GetIntDefault("AiPlayerbot.KillXPRate", 1);
-    botActiveAlone = config.GetIntDefault("AiPlayerbot.botActiveAlone", 10); //hidden config
-    RandombotsWalkingRPG = config.GetBoolDefault("AiPlayerbot.RandombotsWalkingRPG", false);
-    RandombotsWalkingRPGInDoors = config.GetBoolDefault("AiPlayerbot.RandombotsWalkingRPG.InDoors", false);
-    minEnchantingBotLevel = config.GetIntDefault("AiPlayerbot.minEnchantingBotLevel", 60);
-    randombotStartingLevel = config.GetIntDefault("AiPlayerbot.randombotStartingLevel", 5);
-    gearscorecheck = config.GetBoolDefault("AiPlayerbot.GearScoreCheck", false);
-	randomBotPreQuests = config.GetBoolDefault("AiPlayerbot.PreQuests", true);
-    randomBotSayWithoutMaster = config.GetBoolDefault("AiPlayerbot.RandomBotSayWithoutMaster", false);
-    randomBotGroupNearby = config.GetBoolDefault("AiPlayerbot.RandomBotGroupNearby", false);
-
-    //SPP automation
-    autoPickReward = config.GetStringDefault("AiPlayerbot.AutoPickReward", "no");
-    autoEquipUpgradeLoot = config.GetBoolDefault("AiPlayerbot.AutoEquipUpgradeLoot", false);
-    syncQuestWithPlayer = config.GetBoolDefault("AiPlayerbot.SyncQuestWithPlayer", false);
-    syncQuestForPlayer = config.GetBoolDefault("AiPlayerbot.SyncQuestForPlayer", false);
-    autoTrainSpells = config.GetStringDefault("AiPlayerbot.AutoTrainSpells", "no");
-    autoPickTalents = config.GetStringDefault("AiPlayerbot.AutoPickTalents", "no");
-    autoLearnTrainerSpells = config.GetBoolDefault("AiPlayerbot.AutoLearnTrainerSpells", false);
-    autoLearnQuestSpells = config.GetBoolDefault("AiPlayerbot.AutoLearnQuestSpells", false);
-    autoDoQuests = config.GetBoolDefault("AiPlayerbot.AutoDoQuests", false);
-    syncLevelWithPlayers = config.GetBoolDefault("AiPlayerbot.SyncLevelWithPlayers", false);
-    tweakValue = config.GetIntDefault("AiPlayerbot.TweakValue", 0);
-    freeFood = config.GetBoolDefault("AiPlayerbot.FreeFood", true);
-
-    selfBotLevel = config.GetIntDefault("AiPlayerbot.SelfBotLevel", 1);
-
-    targetPosRecalcDistance = config.GetFloatDefault("AiPlayerbot.TargetPosRecalcDistance", 0.1f),
-    BarGoLink::SetOutputState(config.GetBoolDefault("AiPlayerbot.ShowProgressBars", false));
+    sLog.outString("---------------------------------------");
+    sLog.outString("          Loading TalentSpecs          ");
+    sLog.outString("---------------------------------------");
+    sLog.outString();
+    
+    loadTalent();
+    loadBotCheat();
+    loadWorldBuff();
 
     RandomPlayerbotFactory::CreateRandomBots();
     PlayerbotFactory::Init();
     sRandomItemMgr.Init();
+
     auctionbot.Init();
     sRandomItemMgr.InitAfterAhBot();
+
     sPlayerbotTextMgr.LoadBotTexts();
     sPlayerbotTextMgr.LoadBotTextChance();
 
     if (sPlayerbotAIConfig.autoDoQuests)
     {
-        sLog.outString("Loading Quest Detail Data...");
         sTravelMgr.LoadQuestTravelTable();
     }
 

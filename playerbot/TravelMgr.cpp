@@ -845,7 +845,7 @@ string QuestTravelDestination::getTitle() {
 bool QuestRelationTravelDestination::isActive(Player* bot) {
     if (relation == 0)
     {
-        if (questTemplate->GetQuestLevel() >= bot->GetLevel() + (uint32)5)
+        if (uint32(questTemplate->GetQuestLevel()) >= bot->GetLevel() + (uint32)5)
             return false;
         //if (questTemplate->XPValue(bot) == 0)
         //    return false;
@@ -920,7 +920,7 @@ string QuestRelationTravelDestination::getTitle() {
 }
 
 bool QuestObjectiveTravelDestination::isActive(Player* bot) {
-    if (questTemplate->GetQuestLevel() > bot->GetLevel() + (uint32)1)
+    if (uint32(questTemplate->GetQuestLevel()) > bot->GetLevel() + (uint32)1)
         return false;
 
     PlayerbotAI* ai = bot->GetPlayerbotAI();
@@ -1595,6 +1595,7 @@ void TravelMgr::SetMobAvoidArea()
 
 void TravelMgr::LoadQuestTravelTable()
 {
+    sLog.outString("Loading Quest Detail Data...");
     if (!sTravelMgr.quests.empty())
         return;
 
@@ -2726,7 +2727,7 @@ void TravelMgr::LoadQuestTravelTable()
 
                                     AiObjectContext* con = ai->GetAiObjectContext();
 
-                                    list<string> tstrats;
+                                    list<string_view> tstrats;
                                     set<string> strategies, sstrats;
 
                                     tstrats = ai->GetStrategies(BOT_STATE_COMBAT);

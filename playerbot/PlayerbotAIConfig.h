@@ -169,6 +169,13 @@ public:
     bool openLog(string fileName, char const* mode = "a");
     bool isLogOpen(string fileName) { auto it = logFiles.find(fileName); return it != logFiles.end() && it->second.second;}
     void log(string fileName, const char* str, ...);
+
+private:
+    void loadConfigParameters();
+    void loadTalent();
+    void loadBotCheat();
+    void loadWorldBuff();
+
 private:
     Config config;
 };

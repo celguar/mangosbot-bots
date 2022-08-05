@@ -173,7 +173,7 @@ class RandomItemMgr
         bool CheckItemSpec(uint8 spec, ItemSpecType itSpec);
         float GetItemRarity(uint32 itemId);
         uint32 GetQuestIdForItem(uint32 itemId);
-        vector<uint32> GetQuestIdsForItem(uint32 itemId);
+        list<uint32> GetQuestIdsForItem(uint32 itemId);
         std::string GetPlayerSpecName(Player* player);
         uint32 GetPlayerSpecId(Player* player);
 

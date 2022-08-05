@@ -51,8 +51,8 @@ PlayerbotSecurityLevel PlayerbotSecurity::LevelFor(Player* from, DenyReason* rea
             }
         }
 
-        int botGS = (int)bot->GetPlayerbotAI()->GetEquipGearScore(bot, false, false);
-        int fromGS = (int)bot->GetPlayerbotAI()->GetEquipGearScore(from, false, false);
+        uint32 botGS = bot->GetPlayerbotAI()->GetEquipGearScore(bot, false, false);
+        uint32 fromGS = bot->GetPlayerbotAI()->GetEquipGearScore(from, false, false);
         if (sPlayerbotAIConfig.gearscorecheck)
         {
             if (botGS && bot->GetLevel() > 15 && botGS > fromGS && (100 * (botGS - fromGS) / botGS) >= 12 * sWorld.getConfig(CONFIG_UINT32_MAX_PLAYER_LEVEL) / from->GetLevel())

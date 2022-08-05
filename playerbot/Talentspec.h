@@ -14,9 +14,9 @@ class TalentSpec {
 
         struct TalentListEntry
         {
-            int entry;
-            int rank;
-            int maxRank;
+            uint32 entry;
+            uint32 rank;
+            uint32 maxRank;
             TalentEntry const* talentInfo;
             TalentTabEntry const* talentTabInfo;
             int tabPage() { return talentTabInfo->TalentTabID == 41 ? 1 : talentTabInfo->tabpage; }
@@ -32,20 +32,20 @@ class TalentSpec {
         TalentSpec(Player* bot, string link) { GetTalents(bot->getClassMask()); ReadTalents(link); }
 
         bool CheckTalentLink(string link, ostringstream* out);
-        virtual bool CheckTalents(int maxPoints, ostringstream* out);
+        virtual bool CheckTalents(uint32 maxPoints, ostringstream* out);
         void CropTalents(uint32 level);
         void ShiftTalents(TalentSpec* oldTalents, uint32 level);
         void ApplyTalents(Player* bot, ostringstream* out);
 
-        int GetTalentPoints(std::vector<TalentListEntry>& talents, int tabpage = -1);
-        int GetTalentPoints(int tabpage = -1) { return GetTalentPoints(talents, tabpage); };
+        uint32 GetTalentPoints(std::vector<TalentListEntry>& talents, int tabpage = -1);
+        uint32 GetTalentPoints(int tabpage = -1) { return GetTalentPoints(talents, tabpage); };
         bool isEarlierVersionOf(TalentSpec& newSpec);
 
         string GetTalentLink();
-        int highestTree();
+        uint32 highestTree();
         string formatSpec(Player* bot);
     protected:
-        int LeveltoPoints(uint32 level) const;
+        uint32 LeveltoPoints(uint32 level) const;
         uint32 PointstoLevel(int points) const;
         void GetTalents(uint32 classMask);
         void SortTalents(std::vector<TalentListEntry>& talents, int sortBy);
@@ -54,16 +54,16 @@ class TalentSpec {
         void ReadTalents(Player* bot);
         void ReadTalents(string link);
 
-        std::vector<TalentListEntry> GetTalentTree(int tabpage);
+        std::vector<TalentListEntry> GetTalentTree(uint32 tabpage);
         std::vector<TalentListEntry> SubTalentList(std::vector<TalentListEntry>& oldList, std::vector<TalentListEntry>& newList, int reverse);
     };
 
     class TalentPath {
     public:
         TalentPath(int pathId, string pathName, int pathProbability) { id = pathId; name = pathName; probability = pathProbability; };
-        int id =0;
+        uint32 id =0;
         string name = "";
-        int probability = 100;
+        uint32 probability = 100;
         std::vector<TalentSpec> talentSpec;
     };
 

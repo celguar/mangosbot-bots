@@ -2785,7 +2785,7 @@ void PlayerbotFactory::InitAmmo()
 
     if (count < maxCount)
     {
-        for (int i = 0; i < maxCount - count; i++)
+        for (uint32 i = 0; i < maxCount - count; i++)
         {
             Item* newItem = bot->StoreNewItemInInventorySlot(entry, 200);
             if (newItem)
