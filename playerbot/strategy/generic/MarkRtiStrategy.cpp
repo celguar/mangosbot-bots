@@ -4,7 +4,7 @@
 
 using namespace ai;
 
-void MarkRtiStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void MarkRtiStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "no rti target",

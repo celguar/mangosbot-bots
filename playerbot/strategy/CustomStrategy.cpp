@@ -44,7 +44,7 @@ TriggerNode* toTriggerNode(string actionLine)
     return NULL;
 }
 
-void CustomStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void CustomStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     if (actionLines.empty())
     {

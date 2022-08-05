@@ -6,7 +6,7 @@
 using namespace ai;
 
 
-void EmoteStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void EmoteStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "random",

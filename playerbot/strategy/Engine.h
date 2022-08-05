@@ -7,6 +7,9 @@
 #include "AiObjectContext.h"
 #include "Strategy.h"
 
+#include <utility>
+#include <climits>
+
 namespace ai
 {
     class ActionExecutionListener
@@ -64,17 +67,20 @@ namespace ai
         Engine(PlayerbotAI* ai, AiObjectContext *factory);
 
 	    void Init();
-        void addStrategy(string name);
-		void addStrategies(string first, ...);
-        bool removeStrategy(string name);
-        bool HasStrategy(string name);
+        template<typename ...Args>
+        void addStrategies(Args ...args) {
+            (addStrategy(std::forward<Args>(args)), ...);
+        }
+        void addStrategy(const string& name);
+        bool removeStrategy(const std::string& name);
+        bool HasStrategy(const std::string& name);
         void removeAllStrategies();
-        void toggleStrategy(string name);
-        std::string ListStrategies();
-        list<string> GetStrategies();
+        void toggleStrategy(const std::string& name);
+        const std::string ListStrategies();
+        list<string_view> GetStrategies();
 		bool ContainsStrategy(StrategyType type);
 		void ChangeStrategy(string names);
-		string GetLastAction() { return lastAction; }
+		const std::string& GetLastAction() { return lastAction; }
 
     public:
 	    virtual bool DoNextAction(Unit*, int depth = 0, bool minimal = false);
@@ -104,13 +110,13 @@ namespace ai
         bool ListenAndExecute(Action* action, Event event);
 
     private:
-        void LogAction(const char* format, ...);
+        template<typename ...Args> void LogAction(Args ...args);
         void LogValues();
 
     protected:
 	    Queue queue;
-	    std::list<TriggerNode*> triggers;
-        std::list<Multiplier*> multipliers;
+	    std::vector<TriggerNode*> triggers;
+        std::vector<Multiplier*> multipliers;
         AiObjectContext* aiObjectContext;
         std::map<string, Strategy*> strategies;
         float lastRelevance;

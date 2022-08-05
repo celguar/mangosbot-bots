@@ -4,7 +4,7 @@
 
 using namespace ai;
 
-void LfgStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void LfgStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "random",

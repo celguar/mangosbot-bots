@@ -12,7 +12,7 @@ namespace ai
         virtual string getName() { return "nc"; }
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
     };
 
     class MageBuffManaStrategy : public Strategy
@@ -21,7 +21,7 @@ namespace ai
         MageBuffManaStrategy(PlayerbotAI* ai) : Strategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "bmana"; }
     };
 
@@ -31,7 +31,7 @@ namespace ai
         MageBuffDpsStrategy(PlayerbotAI* ai) : Strategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "bdps"; }
     };
 
@@ -41,7 +41,7 @@ namespace ai
         MageBuffStrategy(PlayerbotAI* ai) : Strategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "buff"; }
     };
 }

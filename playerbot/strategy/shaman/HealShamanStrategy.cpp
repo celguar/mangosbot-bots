@@ -36,7 +36,7 @@ HealShamanStrategy::HealShamanStrategy(PlayerbotAI* ai) : GenericShamanStrategy(
     actionNodeFactories.Add(new HealShamanStrategyActionNodeFactory());
 }
 
-void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void HealShamanStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     GenericShamanStrategy::InitTriggers(triggers);
 

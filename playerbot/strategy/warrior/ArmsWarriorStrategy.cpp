@@ -37,7 +37,7 @@ NextAction** ArmsWarriorStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction("melee", ACTION_NORMAL), NULL);
 }
 
-void ArmsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void ArmsWarriorStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     GenericWarriorStrategy::InitTriggers(triggers);
 

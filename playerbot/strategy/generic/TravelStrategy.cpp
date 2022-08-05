@@ -13,7 +13,7 @@ NextAction** TravelStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction("travel", 1.0f), NULL);
 }
 
-void TravelStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void TravelStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         //"random",

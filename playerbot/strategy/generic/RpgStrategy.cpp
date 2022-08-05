@@ -27,7 +27,7 @@ NextAction** RpgStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction("rpg", 1.1f), NULL);
 }
 
-void RpgStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void RpgStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "no rpg target",

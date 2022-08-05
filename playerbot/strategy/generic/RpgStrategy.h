@@ -19,7 +19,7 @@ namespace ai
 
     public:
         virtual NextAction** getDefaultActions();
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         void InitMultipliers(std::list<Multiplier*>& multipliers);
     };
 

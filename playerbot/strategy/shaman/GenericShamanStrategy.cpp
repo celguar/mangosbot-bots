@@ -99,7 +99,7 @@ GenericShamanStrategy::GenericShamanStrategy(PlayerbotAI* ai) : CombatStrategy(a
     actionNodeFactories.Add(new GenericShamanStrategyActionNodeFactory());
 }
 
-void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void GenericShamanStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     CombatStrategy::InitTriggers(triggers);
 
@@ -148,21 +148,21 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("ghost wolf", ACTION_EMERGENCY + 2), NULL)));
 }
 
-void ShamanBuffDpsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void ShamanBuffDpsStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "lightning shield",
         NextAction::array(0, new NextAction("lightning shield", 22.0f), NULL)));
 }
 
-void ShamanBuffManaStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void ShamanBuffManaStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "water shield",
         NextAction::array(0, new NextAction("water shield", 22.0f), NULL)));
 }
 
-void ShamanCureStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void ShamanCureStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "cure poison",

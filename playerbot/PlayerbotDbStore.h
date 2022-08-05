@@ -24,7 +24,7 @@ public:
 
 private:
     void SaveValue(uint64 guid, string key, string value);
-    string FormatStrategies(string type, list<string> strategies);
+    string FormatStrategies(string type, list<string_view> strategies);
 };
 
 #define sPlayerbotDbStore PlayerbotDbStore::instance()

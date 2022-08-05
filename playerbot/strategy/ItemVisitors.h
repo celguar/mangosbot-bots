@@ -93,7 +93,7 @@ namespace ai
 
     private:
         uint32 quality;
-        int count;
+        uint32 count;
         list<Item*> result;
     };
 
@@ -140,7 +140,7 @@ namespace ai
     private:
         uint32 itemClass;
         uint32 itemSubClass;
-        int count;
+        uint32 count;
         list<Item*> result;
     };
 
@@ -161,10 +161,10 @@ namespace ai
             return true;
         }
 
-        int GetCount() { return count; }
+        uint32 GetCount() { return count; }
 
     protected:
-        int count;
+        uint32 count;
         uint32 itemId;
     };
 

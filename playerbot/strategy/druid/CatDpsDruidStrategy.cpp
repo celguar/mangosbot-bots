@@ -112,7 +112,7 @@ NextAction** CatDpsDruidStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction("mangle (cat)", ACTION_NORMAL + 1), NULL);
 }
 
-void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void CatDpsDruidStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     FeralDruidStrategy::InitTriggers(triggers);
 
@@ -161,7 +161,7 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("dash", ACTION_HIGH + 5), NULL)));
 }
 
-void CatAoeDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void CatAoeDruidStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "medium aoe",

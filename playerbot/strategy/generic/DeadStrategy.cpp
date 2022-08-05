@@ -5,7 +5,7 @@
 
 using namespace ai;
 
-void DeadStrategy::InitTriggers(std::list<TriggerNode*>& triggers)
+void DeadStrategy::InitTriggers(std::vector<TriggerNode*> & triggers)
 {
     PassTroughStrategy::InitTriggers(triggers);
 

@@ -4,7 +4,7 @@
 
 using namespace ai;
 
-void BGStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void BGStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "random",
@@ -19,7 +19,7 @@ BGStrategy::BGStrategy(PlayerbotAI* ai) : PassTroughStrategy(ai)
 {
 }
 
-void WarsongStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void WarsongStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "bg active",
@@ -46,12 +46,12 @@ void WarsongStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("bg move to objective", 90.0f), NULL)));
 }
 
-void AlteracStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void AlteracStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     /* placeholder */
 }
 
-void ArathiStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void ArathiStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "bg active",
@@ -70,7 +70,7 @@ void ArathiStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("bg use buff", 30.0f), NULL)));
 }
 
-void BattlegroundStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void BattlegroundStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "bg waiting",
@@ -97,7 +97,7 @@ void BattlegroundStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("bg move to objective", 90.0f), NULL)));*/
 }
 
-void EyeStrategy::InitTriggers(std::list<TriggerNode*>& triggers)
+void EyeStrategy::InitTriggers(std::vector<TriggerNode*> & triggers)
 {
     triggers.push_back(new TriggerNode(
         "bg active",
@@ -124,7 +124,7 @@ void EyeStrategy::InitTriggers(std::list<TriggerNode*>& triggers)
         NextAction::array(0, new NextAction("bg move to objective", 90.0f), NULL)));
 }
 
-void IsleStrategy::InitTriggers(std::list<TriggerNode*>& triggers)
+void IsleStrategy::InitTriggers(std::vector<TriggerNode*> & triggers)
 {
     triggers.push_back(new TriggerNode(
         "bg active",
@@ -183,7 +183,7 @@ void IsleStrategy::InitTriggers(std::list<TriggerNode*>& triggers)
         NextAction::array(0, new NextAction("glaive throw", 70.0f), NULL)));
 }
 
-void ArenaStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void ArenaStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "no possible targets",

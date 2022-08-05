@@ -74,7 +74,7 @@ public:
 		new NextAction("obliterate", ACTION_NORMAL + 4), NULL);
 	}
 
-void FrostDKStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void FrostDKStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     GenericDKStrategy::InitTriggers(triggers);
 
@@ -83,7 +83,7 @@ void FrostDKStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("empower weapon", ACTION_NORMAL + 4), NULL)));
 }
 
-void FrostDKAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void FrostDKAoeStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
 	triggers.push_back(new TriggerNode(
 		"light aoe",

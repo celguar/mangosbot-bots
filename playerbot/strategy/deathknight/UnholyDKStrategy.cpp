@@ -60,7 +60,7 @@ private:
     return NextAction::array(0, new NextAction("melee", ACTION_NORMAL), new NextAction("scourge strike" , ACTION_NORMAL + 3), NULL);
 	}
 
-void UnholyDKStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void UnholyDKStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     GenericDKStrategy::InitTriggers(triggers);
 
@@ -74,7 +74,7 @@ void UnholyDKStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 }
 
 
-void UnholyDKAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void UnholyDKAoeStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
 	triggers.push_back(new TriggerNode(
 		"loot available",

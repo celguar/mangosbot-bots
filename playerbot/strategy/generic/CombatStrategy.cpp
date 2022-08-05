@@ -5,7 +5,7 @@
 
 using namespace ai;
 
-void CombatStrategy::InitTriggers(list<TriggerNode*> &triggers)
+void CombatStrategy::InitTriggers(vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "enemy out of spell",
@@ -85,7 +85,7 @@ float AvoidAoeStrategyMultiplier::GetValue(Action* action)
 }
 
 
-void AvoidAoeStrategy::InitTriggers(std::list<TriggerNode*>& triggers)
+void AvoidAoeStrategy::InitTriggers(std::vector<TriggerNode*> & triggers)
 {
     triggers.push_back(new TriggerNode(
         "has area debuff",

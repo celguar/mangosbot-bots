@@ -4,7 +4,7 @@
 
 using namespace ai;
 
-void LootNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void LootNonCombatStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "loot available",
@@ -23,14 +23,14 @@ void LootNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("add all loot", 1.0f), NULL)));
 }
 
-void GatherStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void GatherStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "timer",
         NextAction::array(0, new NextAction("add gathering loot", 2.0f), NULL)));
 }
 
-void RevealStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void RevealStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "often",

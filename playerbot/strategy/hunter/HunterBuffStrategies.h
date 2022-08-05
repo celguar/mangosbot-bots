@@ -12,7 +12,7 @@ namespace ai
         virtual string getName() { return "bspeed"; }
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
     };
 
     class HunterBuffManaStrategy : public NonCombatStrategy
@@ -22,7 +22,7 @@ namespace ai
         virtual string getName() { return "bmana"; }
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
     };
 
 	class HunterBuffDpsStrategy : public NonCombatStrategy
@@ -32,7 +32,7 @@ namespace ai
 		virtual string getName() { return "bdps"; }
 
 	public:
-		virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+		virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
 	};
 
 	class HunterNatureResistanceStrategy : public NonCombatStrategy
@@ -42,6 +42,6 @@ namespace ai
 		virtual string getName() { return "rnature"; }
 
 	public:
-		virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+		virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
 	};
 }

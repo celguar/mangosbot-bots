@@ -4,7 +4,7 @@
 
 using namespace ai;
 
-void WorldPacketHandlerStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void WorldPacketHandlerStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     PassTroughStrategy::InitTriggers(triggers);
 
@@ -148,7 +148,7 @@ WorldPacketHandlerStrategy::WorldPacketHandlerStrategy(PlayerbotAI* ai) : PassTr
 }
 
 
-void ReadyCheckStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void ReadyCheckStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "timer",

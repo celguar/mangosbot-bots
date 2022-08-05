@@ -39,18 +39,18 @@ NextAction** PullStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction(action, 105.0f), new NextAction("follow", 104.0f), new NextAction("end pull", 103.0f), NULL);
 }
 
-void PullStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void PullStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     CombatStrategy::InitTriggers(triggers);
 }
 
-void PullStrategy::InitMultipliers(std::list<Multiplier*> &multipliers)
+void PullStrategy::InitMultipliers(std::vector<Multiplier*> &multipliers)
 {
     multipliers.push_back(new MagePullMultiplier(ai, action));
     CombatStrategy::InitMultipliers(multipliers);
 }
 
-void PossibleAdsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void PossibleAdsStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     Strategy::InitTriggers(triggers);
 

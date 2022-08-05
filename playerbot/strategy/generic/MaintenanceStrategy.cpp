@@ -10,7 +10,7 @@ NextAction** MaintenanceStrategy::getDefaultActions()
     return NULL;
 }
 
-void MaintenanceStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void MaintenanceStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "random",

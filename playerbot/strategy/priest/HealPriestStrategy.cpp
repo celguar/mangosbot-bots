@@ -16,7 +16,7 @@ NextAction** HealPriestStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction("reach party member to heal", 1.0f), NULL);
 }
 
-void HealPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void HealPriestStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     GenericPriestStrategy::InitTriggers(triggers);
 

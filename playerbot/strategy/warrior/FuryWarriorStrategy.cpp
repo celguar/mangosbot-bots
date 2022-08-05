@@ -36,7 +36,7 @@ NextAction** FuryWarriorStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction("melee", ACTION_NORMAL), NULL);
 }
 
-void FuryWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void FuryWarriorStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     GenericWarriorStrategy::InitTriggers(triggers);
 

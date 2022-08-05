@@ -29,7 +29,7 @@ bool TalentSpec::CheckTalentLink(string link, ostringstream* out) {
     return true;
 }
 
-int TalentSpec::LeveltoPoints(uint32 level) const
+uint32 TalentSpec::LeveltoPoints(uint32 level) const
 {
     uint32 talentPointsForLevel = level < 10 ? 0 : level - 9;
     return uint32(talentPointsForLevel * sWorld.getConfig(CONFIG_FLOAT_RATE_TALENT));
@@ -41,7 +41,7 @@ uint32 TalentSpec::PointstoLevel(int points) const
 }
 
 //Check the talentspec for errors.
-bool TalentSpec::CheckTalents(int level, ostringstream* out)
+bool TalentSpec::CheckTalents(uint32 level, ostringstream* out)
 {
     for (auto& entry : talents)
     {
@@ -80,7 +80,7 @@ bool TalentSpec::CheckTalents(int level, ostringstream* out)
     for (int i = 0; i < 3; i++)
     {
         std::vector<TalentListEntry> talentTree = GetTalentTree(i);
-        int points = 0;
+        uint32 points = 0;
 
         for (auto& entry : talentTree)
         {
@@ -274,7 +274,7 @@ void TalentSpec::ReadTalents(string link) {
 }
 
 //Returns only a specific tree from a talent list.
-std::vector<TalentSpec::TalentListEntry> TalentSpec::GetTalentTree(int tabpage)
+std::vector<TalentSpec::TalentListEntry> TalentSpec::GetTalentTree(uint32 tabpage)
 {
     std::vector<TalentListEntry> retList;
 
@@ -286,7 +286,7 @@ std::vector<TalentSpec::TalentListEntry> TalentSpec::GetTalentTree(int tabpage)
 }
 
 //Counts the point in a talent list.
-int TalentSpec::GetTalentPoints(std::vector<TalentListEntry>& talents, int tabpage)
+uint32 TalentSpec::GetTalentPoints(std::vector<TalentListEntry>& talents, int tabpage)
 {
     if (tabpage == -1)
         return points;
@@ -332,11 +332,11 @@ string TalentSpec::GetTalentLink()
 }
 
 
-int TalentSpec::highestTree()
+uint32 TalentSpec::highestTree()
 {
-    int p1 = GetTalentPoints(0);
-    int p2 = GetTalentPoints(1);
-    int p3 = GetTalentPoints(2);
+    uint32 p1 = GetTalentPoints(0);
+    uint32 p2 = GetTalentPoints(1);
+    uint32 p3 = GetTalentPoints(2);
 
     if (p1 > p2 && p1 > p3)
         return 0;
@@ -360,9 +360,9 @@ string TalentSpec::formatSpec(Player* bot)
     ostringstream out;
     //out << chathelper:: specs[cls][highestTree()] << " (";
 
-    int c0 = GetTalentPoints(0);
-    int c1 = GetTalentPoints(1);
-    int c2 = GetTalentPoints(2);
+    uint32 c0 = GetTalentPoints(0);
+    uint32 c1 = GetTalentPoints(1);
+    uint32 c2 = GetTalentPoints(2);
 
     out << (c0 ? "|h|cff00ff00" : "") << c0 << "|h|cffffffff/";
     out << (c1 ? "|h|cff00ff00" : "") << c1 << "|h|cffffffff/";
@@ -384,7 +384,7 @@ void TalentSpec::CropTalents(uint32 level)
     for (auto& entry : talents)
     {
         if (points + entry.rank > LeveltoPoints(level))
-            entry.rank = max(0, LeveltoPoints(level) - points);
+            entry.rank = std::max(uint32(0), LeveltoPoints(level) - points);
         points += entry.rank;
     }
 
@@ -398,9 +398,9 @@ std::vector<TalentSpec::TalentListEntry> TalentSpec::SubTalentList(std::vector<T
         for (auto& oldentry : oldList)
             if (oldentry.entry == newentry.entry)
                 if (reverse == ABSOLUTE_DIST)
-                    newentry.rank = abs(newentry.rank - oldentry.rank);
+                    newentry.rank = std::abs(long long(newentry.rank - oldentry.rank));
                 else if (reverse == ADDED_POINTS || reverse == REMOVED_POINTS)
-                    newentry.rank = max(0, (newentry.rank - oldentry.rank) * (reverse / 2));
+                    newentry.rank = std::max(uint32(0), (newentry.rank - oldentry.rank) * (reverse / 2));
                 else
                     newentry.rank = (newentry.rank - oldentry.rank) * reverse;
 

@@ -7,7 +7,7 @@ namespace ai
     public:
         PassTroughStrategy(PlayerbotAI* ai, float relevance = 100.0f) : Strategy(ai), relevance(relevance) {}
 
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers)
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers)
         {
             for (list<string>::iterator i = supported.begin(); i != supported.end(); i++)
             {

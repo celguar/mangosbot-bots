@@ -12,7 +12,7 @@ namespace ai
         virtual string getName() { return "DK"; }
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
     };
 
 }

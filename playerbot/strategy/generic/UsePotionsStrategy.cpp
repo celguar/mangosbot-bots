@@ -26,7 +26,7 @@ UsePotionsStrategy::UsePotionsStrategy(PlayerbotAI* ai) : Strategy(ai)
     actionNodeFactories.Add(new UsePotionsStrategyActionNodeFactory());
 }
 
-void UsePotionsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void UsePotionsStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     Strategy::InitTriggers(triggers);
 

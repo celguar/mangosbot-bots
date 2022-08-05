@@ -11,7 +11,7 @@ namespace ai
         DpsHunterStrategy(PlayerbotAI* ai);
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "dps"; }
         virtual NextAction** getDefaultActions();
 
@@ -23,7 +23,7 @@ namespace ai
         DpsAoeHunterStrategy(PlayerbotAI* ai) : CombatStrategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "aoe"; }
     };
 
@@ -33,7 +33,7 @@ namespace ai
         DpsHunterDebuffStrategy(PlayerbotAI* ai) : CombatStrategy(ai) {}
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual string getName() { return "dps debuff"; }
     };
 }

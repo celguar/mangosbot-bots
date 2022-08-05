@@ -142,7 +142,7 @@ GenericDKStrategy::GenericDKStrategy(PlayerbotAI* ai) : MeleeCombatStrategy(ai)
     actionNodeFactories.Add(new GenericDKStrategyActionNodeFactory());
 }
 
-void GenericDKStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void GenericDKStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
 	MeleeCombatStrategy::InitTriggers(triggers);
 

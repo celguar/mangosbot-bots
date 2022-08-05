@@ -16,7 +16,7 @@ NextAction** ShadowPriestStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction("mind blast", 10.0f), new NextAction("mana burn", 9.0f), new NextAction("starshards", 8.0f), new NextAction("shoot", 7.0f), NULL);
 }
 
-void ShadowPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void ShadowPriestStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     GenericPriestStrategy::InitTriggers(triggers);
 
@@ -57,14 +57,14 @@ void ShadowPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("mana burn", ACTION_HIGH), NULL)));
 }
 
-void ShadowPriestAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void ShadowPriestAoeStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "shadow word: pain on attacker",
         NextAction::array(0, new NextAction("shadow word: pain on attacker", 11.0f), NULL)));
 }
 
-void ShadowPriestDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void ShadowPriestDebuffStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "devouring plague",

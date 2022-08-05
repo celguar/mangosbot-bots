@@ -48,7 +48,7 @@ NextAction** MeleeShamanStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction("stormstrike", ACTION_HIGH), NULL);
 }
 
-void MeleeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void MeleeShamanStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     GenericShamanStrategy::InitTriggers(triggers);
 
@@ -77,7 +77,7 @@ void MeleeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("strength of earth totem", ACTION_LIGHT_HEAL), NULL)));
 }
 
-void MeleeAoeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void MeleeAoeShamanStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "enemy out of melee",

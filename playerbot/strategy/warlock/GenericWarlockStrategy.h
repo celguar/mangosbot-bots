@@ -12,7 +12,7 @@ namespace ai
         virtual string getName() { return "warlock"; }
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
         virtual NextAction** getDefaultActions();
     };
 
@@ -23,7 +23,7 @@ namespace ai
         virtual string getName() { return "boost"; }
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
     };
 
     class WarlockCcStrategy : public Strategy
@@ -33,6 +33,6 @@ namespace ai
         virtual string getName() { return "cc"; }
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
     };
 }

@@ -64,8 +64,8 @@ public:
 
         if (message.find("-") != string::npos)
         {
-            int fromLevel = atoi(message.substr(message.find("@") + 1, message.find("-")).c_str());
-            int toLevel = atoi(message.substr(message.find("-") + 1, message.find(" ")).c_str());
+            uint32 fromLevel = std::atoll(message.substr(message.find("@") + 1, message.find("-")).c_str());
+            uint32 toLevel = std::atoll(message.substr(message.find("-") + 1, message.find(" ")).c_str());
 
             if (bot->GetLevel() >= fromLevel && bot->GetLevel() <= toLevel)
                 return ChatFilter::Filter(message);

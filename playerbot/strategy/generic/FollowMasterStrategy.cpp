@@ -4,7 +4,7 @@
 
 using namespace ai;
 
-void FollowMasterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void FollowMasterStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "out of react range",

@@ -66,7 +66,7 @@ NextAction** DpsHunterStrategy::getDefaultActions()
     return NextAction::array(0, new NextAction("explosive shot", 11.0f), new NextAction("auto shot", 10.0f), new NextAction("auto attack", 9.0f), NULL);
 }
 
-void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void DpsHunterStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     GenericHunterStrategy::InitTriggers(triggers);
 
@@ -91,7 +91,7 @@ void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("concussive shot", 20.0f), NULL)));*/
 }
 
-void DpsAoeHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void DpsAoeHunterStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "light aoe",
@@ -106,7 +106,7 @@ void DpsAoeHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0, new NextAction("serpent sting on attacker", 17.0f), NULL)));
 }
 
-void DpsHunterDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void DpsHunterDebuffStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "no stings",

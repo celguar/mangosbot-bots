@@ -11,7 +11,7 @@ namespace ai
         virtual string getName() { return "nc"; }
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
     };
 
     class GenericDruidBuffStrategy : public NonCombatStrategy
@@ -21,6 +21,6 @@ namespace ai
         virtual string getName() { return "buff"; }
 
     public:
-        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void InitTriggers(std::vector<TriggerNode*> &triggers);
     };
 }

@@ -62,6 +62,7 @@ bool ImbueWithPoisonAction::Execute(Event event)
          }
       }
 
+      return true;
    }
 
 // Search and apply stone to weapons
@@ -113,6 +114,7 @@ bool ImbueWithStoneAction::Execute(Event event)
       }
    }
 
+   return true;
 }
 
 // Search and apply oil to weapons
@@ -152,6 +154,8 @@ bool ImbueWithOilAction::Execute(Event event)
          ai->SetNextCheckDelay(5);
       }
    }
+
+   return true;
 }
 
 TryEmergencyAction::TryEmergencyAction(PlayerbotAI* ai) : Action(ai, "try emergency")
@@ -185,4 +189,6 @@ bool TryEmergencyAction::Execute(Event event)
          ai->ImbueItem(healthItem);
       }
    }
+
+   return true;
 }

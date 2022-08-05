@@ -5,14 +5,14 @@
 
 using namespace ai;
 
-void HunterBuffDpsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void HunterBuffDpsStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
 	triggers.push_back(new TriggerNode(
 		"aspect of the hawk", 
 		NextAction::array(0, new NextAction("aspect of the hawk", 90.0f), NULL)));
 }
 
-void HunterNatureResistanceStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void HunterNatureResistanceStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
 	triggers.push_back(new TriggerNode(
 		"aspect of the wild", 
@@ -20,14 +20,14 @@ void HunterNatureResistanceStrategy::InitTriggers(std::list<TriggerNode*> &trigg
 }
 
 
-void HunterBuffSpeedStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void HunterBuffSpeedStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "aspect of the pack",
         NextAction::array(0, new NextAction("aspect of the pack", 10.0f), NULL)));
 }
 
-void HunterBuffManaStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void HunterBuffManaStrategy::InitTriggers(std::vector<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "aspect of the viper",

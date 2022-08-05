@@ -5,7 +5,7 @@
 using namespace ai;
 
 
-void MeleeCombatStrategy::InitTriggers(list<TriggerNode*> &triggers)
+void MeleeCombatStrategy::InitTriggers(vector<TriggerNode*> &triggers)
 {
     CombatStrategy::InitTriggers(triggers);
 
@@ -22,7 +22,7 @@ void MeleeCombatStrategy::InitTriggers(list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("move out of enemy contact", ACTION_NORMAL + 8), NULL)));
 }
 
-void SetBehindCombatStrategy::InitTriggers(list<TriggerNode*> &triggers)
+void SetBehindCombatStrategy::InitTriggers(vector<TriggerNode*> &triggers)
 {
     CombatStrategy::InitTriggers(triggers);
 
