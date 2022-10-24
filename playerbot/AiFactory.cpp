@@ -205,7 +205,7 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             else
                 engine->addStrategies("heal", "threat", NULL);
 
-            engine->addStrategies("dps assist", "flee", "cure", "ranged", "cc", NULL);
+            engine->addStrategies("dps assist", "flee", "cure", "cc", NULL);
             break;
         case CLASS_MAGE:
             if (tab == 0)
@@ -215,7 +215,7 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             else
                 engine->addStrategies("frost", "frost aoe", "threat", NULL);
 
-            engine->addStrategies("dps", "dps assist", "flee", "cure", "ranged", "cc", NULL);
+            engine->addStrategies("dps", "dps assist", "flee", "cure", "cc", NULL);
             break;
         case CLASS_WARRIOR:
             if (tab == 2)
@@ -229,7 +229,7 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             if (tab == 0)
                 engine->addStrategies("caster", "caster aoe", "bmana", "threat", "flee", "ranged", NULL);
             else if (tab == 2)
-                engine->addStrategies("heal", "bmana", "flee", "ranged", NULL);
+                engine->addStrategies("heal", "bmana", "flee", NULL);
             else
                 engine->addStrategies("dps", "melee aoe", "bdps", "threat", "close", NULL);
 
@@ -239,7 +239,7 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             if (tab == 1)
                 engine->addStrategies("tank", "tank assist", "bthreat", "cure", "close", "cc", NULL);
 			else if(tab == 0)
-                engine->addStrategies("heal", "dps assist", "cure", "flee", "cc", "ranged", NULL);
+                engine->addStrategies("heal", "dps assist", "cure", "flee", "cc", NULL);
             else
                 engine->addStrategies("dps", "dps assist", "cure", "close", "cc", NULL);
 
@@ -255,12 +255,12 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
         case CLASS_DRUID:
             if (tab == 0)
             {
-                engine->addStrategies("caster", "cure", "caster aoe", "threat", "flee", "dps assist", "ranged", "cc", NULL);
+                engine->addStrategies("caster", "cure", "caster aoe", "threat", "flee", "dps assist", "cc", NULL);
                 if (player->GetLevel() > 19)
                     engine->addStrategy("caster debuff");
             }
             else if (tab == 2)
-                engine->addStrategies("heal", "cure", "flee", "dps assist", "ranged", "cc", NULL);
+                engine->addStrategies("heal", "cure", "flee", "dps assist", "cc", NULL);
             else
             {
                 engine->removeStrategy("ranged");
@@ -287,7 +287,7 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             if (player->GetLevel() > 19)
                 engine->addStrategy("dps debuff");
 
-            engine->addStrategies("dps assist", "dps", "flee", "ranged", "cc", "pet", "threat", "aoe", NULL);
+            engine->addStrategies("dps assist", "dps", "flee", "cc", "pet", "threat", "aoe", NULL);
             break;
 #ifdef MANGOSBOT_TWO
         case CLASS_DEATH_KNIGHT:
