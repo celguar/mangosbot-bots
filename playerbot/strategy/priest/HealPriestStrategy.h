@@ -11,7 +11,6 @@ namespace ai
 
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
-        virtual NextAction** getDefaultActions();
         virtual string getName() { return "heal"; }
 		virtual int GetType() { return STRATEGY_TYPE_HEAL; }
     };

@@ -22,11 +22,6 @@ HealPaladinStrategy::HealPaladinStrategy(PlayerbotAI* ai) : GenericPaladinStrate
     actionNodeFactories.Add(new HealPaladinStrategyActionNodeFactory());
 }
 
-NextAction** HealPaladinStrategy::getDefaultActions()
-{
-    return NextAction::array(0, new NextAction("reach party member to heal", ACTION_NORMAL + 1), new NextAction("judgement", ACTION_NORMAL), NULL);
-}
-
 void HealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     GenericPaladinStrategy::InitTriggers(triggers);
