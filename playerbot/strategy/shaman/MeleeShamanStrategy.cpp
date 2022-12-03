@@ -38,7 +38,7 @@ private:
         return new ActionNode("flametongue totem",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("searing totem"), NULL),
-            /*C*/ NextAction::array(0, new NextAction("reach melee", 22.0f), NULL));
+            /*C*/ NULL);
     }
     static ActionNode* fire_totem_aoe(PlayerbotAI* ai)
     {
