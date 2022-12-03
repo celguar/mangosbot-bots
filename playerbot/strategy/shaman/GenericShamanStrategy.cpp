@@ -214,11 +214,13 @@ void ShamanCureStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
         "party member cleanse spirit curse",
         NextAction::array(0, new NextAction("cleanse spirit curse on party", 23.0f), NULL)));
 
+#ifdef MANGOSBOT_TWO
     if (sRandomPlayerbotMgr.IsRandomBot(ai->GetBot())) {
         triggers.push_back(new TriggerNode(
             "levelup",
             NextAction::array(0, new NextAction("set totembars on levelup", 20.0f), NULL)));
     }
+#endif
 }
 
 void ShamanCureStrategy::InitNonCombatTriggers(std::list<TriggerNode*>& triggers)
