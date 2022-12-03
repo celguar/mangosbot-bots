@@ -48,47 +48,117 @@ namespace ai
         int attackerCount;
     };
 
-    class WindfuryTotemTrigger : public TotemTrigger {
+    class FireTotemTrigger : public Trigger {
     public:
-        WindfuryTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "windfury totem") {}
-    };
-
-    class GraceOfAirTotemTrigger : public TotemTrigger
-    {
-    public:
-        GraceOfAirTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "grace of air totem") {}
-    };
-
-    class ManaSpringTotemTrigger : public TotemTrigger {
-    public:
-        ManaSpringTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "mana spring totem") {}
+        FireTotemTrigger(PlayerbotAI* ai) : Trigger(ai, "trigger spec appropriate fire totem") {}
         virtual bool IsActive()
         {
-            return AI_VALUE(uint8, "attackers count") >= attackerCount &&
-                    !AI_VALUE2(bool, "has totem", "mana tide totem") &&
-                    !AI_VALUE2(bool, "has totem", name);
+            return !AI_VALUE2(bool, "has totem", "searing totem") &&
+                !AI_VALUE2(bool, "has totem", "magma totem") &&
+                !AI_VALUE2(bool, "has totem", "frost resistance totem") &&
+                !AI_VALUE2(bool, "has totem", "flametongue totem") &&
+                !AI_VALUE2(bool, "has totem", "totem of wrath") &&
+                !AI_VALUE2(bool, "has totem", "fire elemental totem");
         }
     };
 
-    class FlametongueTotemTrigger : public TotemTrigger {
+    class FireTotemAoeTrigger : public Trigger {
     public:
-        FlametongueTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "flametongue totem") {}
+        FireTotemAoeTrigger(PlayerbotAI* ai) : Trigger(ai, "trigger spec appropriate fire totem aoe", 2) {}
+        virtual bool IsActive()
+        {
+            return AI_VALUE(uint8, "attackers count") >= 3 &&
+                !AI_VALUE2(bool, "has totem", "searing totem") &&
+                !AI_VALUE2(bool, "has totem", "magma totem") &&
+                !AI_VALUE2(bool, "has totem", "frost resistance totem") &&
+                !AI_VALUE2(bool, "has totem", "flametongue totem") &&
+                !AI_VALUE2(bool, "has totem", "totem of wrath") &&
+                !AI_VALUE2(bool, "has totem", "fire elemental totem");
+        }
     };
 
-    class StrengthOfEarthTotemTrigger : public TotemTrigger {
+    class EarthTotemTrigger : public Trigger {
     public:
-        StrengthOfEarthTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "strength of earth totem") {}
+        EarthTotemTrigger(PlayerbotAI* ai) : Trigger(ai, "trigger spec appropriate earth totem") {}
+        virtual bool IsActive()
+        {
+            return !AI_VALUE2(bool, "has totem", "earthbind totem") &&
+                !AI_VALUE2(bool, "has totem", "stoneskin totem") &&
+                !AI_VALUE2(bool, "has totem", "stoneclaw totem") &&
+                !AI_VALUE2(bool, "has totem", "strength of earth totem") &&
+                !AI_VALUE2(bool, "has totem", "tremor totem") &&
+                !AI_VALUE2(bool, "has totem", "earth elemental totem");
+        }
     };
 
-    class MagmaTotemTrigger : public TotemTrigger {
+    class AirTotemTrigger : public Trigger {
     public:
-        MagmaTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "magma totem", 3) {}
+        AirTotemTrigger(PlayerbotAI* ai) : Trigger(ai, "trigger spec appropriate air totem") {}
+        virtual bool IsActive()
+        {
+            return !AI_VALUE2(bool, "has totem", "windfury totem") &&
+                !AI_VALUE2(bool, "has totem", "grounding totem") &&
+                !AI_VALUE2(bool, "has totem", "sentry totem") &&
+                !AI_VALUE2(bool, "has totem", "nature resistance totem") &&
+                !AI_VALUE2(bool, "has totem", "wrath of air totem");
+        }
     };
 
-    class SearingTotemTrigger : public TotemTrigger {
+    class WaterTotemTrigger : public Trigger {
     public:
-        SearingTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "searing totem", 1) {}
+        WaterTotemTrigger(PlayerbotAI* ai) : Trigger(ai, "trigger spec appropriate water totem") {}
+        virtual bool IsActive()
+        {
+            return !AI_VALUE2(bool, "has totem", "healing stream totem") &&
+                !AI_VALUE2(bool, "has totem", "mana spring totem") &&
+                !AI_VALUE2(bool, "has totem", "poison cleansing totem") &&
+                !AI_VALUE2(bool, "has totem", "disease cleansing totem") &&
+                !AI_VALUE2(bool, "has totem", "mana tide totem") &&
+                !AI_VALUE2(bool, "has totem", "fire resistance totem");
+        }
     };
+
+    //class WindfuryTotemTrigger : public TotemTrigger {
+    //public:
+    //    WindfuryTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "windfury totem") {}
+    //};
+
+    //class GraceOfAirTotemTrigger : public TotemTrigger
+    //{
+    //public:
+    //    GraceOfAirTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "grace of air totem") {}
+    //};
+
+    //class ManaSpringTotemTrigger : public TotemTrigger {
+    //public:
+    //    ManaSpringTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "mana spring totem") {}
+    //    virtual bool IsActive()
+    //    {
+    //        return AI_VALUE(uint8, "attackers count") >= attackerCount &&
+    //                !AI_VALUE2(bool, "has totem", "mana tide totem") &&
+    //                !AI_VALUE2(bool, "has totem", name);
+    //    }
+    //};
+
+    //class FlametongueTotemTrigger : public TotemTrigger {
+    //public:
+    //    FlametongueTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "flametongue totem") {}
+    //};
+
+    //class StrengthOfEarthTotemTrigger : public TotemTrigger {
+    //public:
+    //    StrengthOfEarthTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "strength of earth totem") {}
+    //};
+
+    //class MagmaTotemTrigger : public TotemTrigger {
+    //public:
+    //    MagmaTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "magma totem", 3) {}
+    //};
+
+    //class SearingTotemTrigger : public TotemTrigger {
+    //public:
+    //    SearingTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "searing totem", 1) {}
+    //};
 
     class WindShearInterruptSpellTrigger : public InterruptSpellTrigger
     {

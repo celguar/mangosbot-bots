@@ -9,19 +9,52 @@ void TotemsShamanStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
 {
     GenericShamanStrategy::InitCombatTriggers(triggers);
 
+    //sLog.outError("TotemsShamanStrategy - setting triggers fire");
     triggers.push_back(new TriggerNode(
-        "windfury totem",
-        NextAction::array(0, new NextAction("windfury totem", 16.0f), NULL)));
+        "fire totem",
+        NextAction::array(0, new NextAction("fire totem", 25.0f), NULL)));;
 
+    //sLog.outError("TotemsShamanStrategy - setting triggers aoe");
     triggers.push_back(new TriggerNode(
-        "mana spring totem",
-        NextAction::array(0, new NextAction("mana spring totem", 19.0f), NULL)));
+        "fire totem aoe",
+        NextAction::array(0, new NextAction("fire totem aoe", 26.0f), NULL)));
 
+    //sLog.outError("TotemsShamanStrategy - setting triggers earth");
     triggers.push_back(new TriggerNode(
-        "strength of earth totem",
-        NextAction::array(0, new NextAction("strength of earth totem", 18.0f), NULL)));
+        "earth totem",
+        NextAction::array(0, new NextAction("earth totem", 27.0f), NULL)));
 
+    //sLog.outError("TotemsShamanStrategy - setting triggers water");
     triggers.push_back(new TriggerNode(
-        "searing totem",
-        NextAction::array(0, new NextAction("searing totem", 17.0f), NULL)));
+        "water totem",
+        NextAction::array(0, new NextAction("water totem", 28.0f), NULL)));
+
+    //sLog.outError("TotemsShamanStrategy - setting triggers air");
+    triggers.push_back(new TriggerNode(
+        "air totem",
+        NextAction::array(0, new NextAction("air totem", 29.0f), NULL)));
+}
+
+void ShamanTotemBarElementsStrategy::InitCombatTriggers(std::list<TriggerNode*>& triggers)
+{
+    GenericShamanStrategy::InitCombatTriggers(triggers);
+    triggers.push_back(new TriggerNode(
+        "call of the elements",
+        NextAction::array(0, new NextAction("call of the elements", 30.0f), NULL)));
+}
+
+void ShamanTotemBarAncestorsStrategy::InitCombatTriggers(std::list<TriggerNode*>& triggers)
+{
+    GenericShamanStrategy::InitCombatTriggers(triggers);;
+    triggers.push_back(new TriggerNode(
+        "call of the ancestors",
+        NextAction::array(0, new NextAction("call of the ancestors", 30.0f), NULL)));
+}
+
+void ShamanTotemBarSpiritsStrategy::InitCombatTriggers(std::list<TriggerNode*>& triggers)
+{
+    GenericShamanStrategy::InitCombatTriggers(triggers);
+    triggers.push_back(new TriggerNode(
+        "call of the ancestors",
+        NextAction::array(0, new NextAction("call of the spirits", 30.0f), NULL)));
 }

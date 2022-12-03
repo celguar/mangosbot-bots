@@ -12,7 +12,11 @@ public:
     {
         creators["stormstrike"] = &stormstrike;
         creators["lava lash"] = &lava_lash;
-        creators["magma totem"] = &magma_totem;
+        creators["fire totem"] = &fire_totem;
+        creators["fire totem aoe"] = &fire_totem_aoe;
+        creators["earth totem"] = &earth_totem;
+        creators["air totem"] = &air_totem;
+        creators["water totem"] = &water_totem;
     }
 private:
     static ActionNode* stormstrike(PlayerbotAI* ai)
@@ -29,12 +33,40 @@ private:
             /*A*/ NextAction::array(0, new NextAction("melee"), NULL),
             /*C*/ NULL);
     }
-    static ActionNode* magma_totem(PlayerbotAI* ai)
+    static ActionNode* fire_totem(PlayerbotAI* ai)
     {
-        return new ActionNode ("magma totem",
+        return new ActionNode("flametongue totem",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("searing totem"), NULL),
+            /*C*/ NextAction::array(0, new NextAction("reach melee", 22.0f), NULL));
+    }
+    static ActionNode* fire_totem_aoe(PlayerbotAI* ai)
+    {
+        return new ActionNode("magma totem",
             /*P*/ NULL,
             /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("fire nova"), NULL));
+    }
+    static ActionNode* earth_totem(PlayerbotAI* ai)
+    {
+        return new ActionNode("strength of earth totem",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("stoneskin totem"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* air_totem(PlayerbotAI* ai)
+    {
+        return new ActionNode("windfury totem",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("wrath of air totem"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* water_totem(PlayerbotAI* ai)
+    {
+        return new ActionNode("mana spring totem",
+            /*P*/ NULL,
+            /*A*/ NULL,
+            /*C*/ NULL);
     }
 };
 
@@ -57,16 +89,8 @@ void MeleeShamanStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("windfury weapon", 22.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "searing totem",
-        NextAction::array(0, new NextAction("searing totem", 22.0f), NULL)));
-
-    triggers.push_back(new TriggerNode(
         "shock",
         NextAction::array(0, new NextAction("earth shock", 20.0f), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "medium aoe",
-        NextAction::array(0, new NextAction("strength of earth totem", ACTION_LIGHT_HEAL), NULL)));
 
     triggers.push_back(new TriggerNode(
         "frost shock snare",
@@ -75,10 +99,6 @@ void MeleeShamanStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
 
 void MeleeAoeShamanStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
 {
-    triggers.push_back(new TriggerNode(
-        "magma totem",
-        NextAction::array(0, new NextAction("magma totem", 26.0f), NULL)));
-
     triggers.push_back(new TriggerNode(
         "medium aoe",
         NextAction::array(0, new NextAction("fire nova", 25.0f), NULL)));

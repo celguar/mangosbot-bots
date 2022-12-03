@@ -20,7 +20,6 @@ public:
         creators["chain heal on party"] = &chain_heal_on_party;
         creators["riptide on party"] = &riptide_on_party;
         creators["earth shock"] = &earth_shock;
-        creators["grace of air totem"] = &grace_of_air_totem;
     }
 private:
     static ActionNode* earth_shock(PlayerbotAI* ai)
@@ -91,13 +90,6 @@ private:
         return new ActionNode ("riptide on party",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("healing wave on party"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* grace_of_air_totem(PlayerbotAI* ai)
-    {
-        return new ActionNode ("grace of air totem",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("wrath of air totem"), NULL),
             /*C*/ NULL);
     }
 };
@@ -221,6 +213,12 @@ void ShamanCureStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "party member cleanse spirit curse",
         NextAction::array(0, new NextAction("cleanse spirit curse on party", 23.0f), NULL)));
+
+    if (sRandomPlayerbotMgr.IsRandomBot(ai->GetBot())) {
+        triggers.push_back(new TriggerNode(
+            "levelup",
+            NextAction::array(0, new NextAction("set totembars on levelup", 20.0f), NULL)));
+    }
 }
 
 void ShamanCureStrategy::InitNonCombatTriggers(std::list<TriggerNode*>& triggers)

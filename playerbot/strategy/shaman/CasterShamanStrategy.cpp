@@ -10,15 +10,47 @@ class CasterShamanStrategyActionNodeFactory : public NamedObjectFactory<ActionNo
 public:
     CasterShamanStrategyActionNodeFactory()
     {
-        creators["magma totem"] = &magma_totem;
+        creators["fire totem"] = &fire_totem;
+        creators["fire totem aoe"] = &fire_totem_aoe;
+        creators["earth totem"] = &earth_totem;
+        creators["air totem"] = &air_totem;
+        creators["water totem"] = &water_totem;
     }
 private:
-    static ActionNode* magma_totem(PlayerbotAI* ai)
+    static ActionNode* fire_totem(PlayerbotAI* ai)
     {
-        return new ActionNode ("magma totem",
+        return new ActionNode("totem of wrath",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("flametongue totem"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* fire_totem_aoe(PlayerbotAI* ai)
+    {
+        return new ActionNode("magma totem",
             /*P*/ NULL,
             /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("fire nova"), NULL));
+    }
+    static ActionNode* earth_totem(PlayerbotAI* ai)
+    {
+        return new ActionNode("strength of earth totem",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("stoneskin totem"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* air_totem(PlayerbotAI* ai)
+    {
+        return new ActionNode("wrath of air totem",
+            /*P*/ NULL, 
+            /*A*/ NextAction::array(0, new NextAction("windfury totem"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* water_totem(PlayerbotAI* ai)
+    {
+        return new ActionNode("mana spring totem",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("healing stream totem"), NULL),
+            /*C*/ NULL);
     }
 };
 

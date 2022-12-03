@@ -142,6 +142,12 @@ namespace ai
 		CastWrathOfAirTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "wrath of air totem") {}
 	};
 
+    class CastTotemOfWrathAction : public CastTotemAction
+    {
+    public:
+        CastTotemOfWrathAction(PlayerbotAI* ai) : CastTotemAction(ai, "totem of wrath") {}
+    };
+
     class CastCleansingTotemAction : public CastTotemAction
     {
     public:
@@ -364,5 +370,54 @@ namespace ai
     {
     public:
         CastTotemicRecall(PlayerbotAI* ai) : CastBuffSpellAction(ai, "totemic recall") {}
+    };
+
+    class SetTotemBars : public Action
+    {
+    public:
+        SetTotemBars(PlayerbotAI* ai) : Action(ai, "setup shaman totembar")
+        {
+            //This sets the totems in the proper actions bars (the totem bars)
+            //Fire totems
+            uint32 totem_of_wrath_id = AI_VALUE2(uint32, "spell id", "totem of wrath");
+            uint32 searing_totem_id = AI_VALUE2(uint32, "spell id", "searing totem");
+            uint32 magma_totem_id = AI_VALUE2(uint32, "spell id", "magma totem");
+
+            //Earth totems
+            uint32 strength_of_earth_totem_id = AI_VALUE2(uint32, "spell id", "strength of earth totem");
+            uint32 stoneskin_totem_id = AI_VALUE2(uint32, "spell id", "stoneskin totem");
+
+            //Air totems
+            uint32 windfury_totem_id = AI_VALUE2(uint32, "spell id", "windfury totem");
+            uint32 wrath_of_air_totem_id = AI_VALUE2(uint32, "spell id", "wrath of air totem");
+
+            //Water totems
+            uint32 healing_stream_totem_id = AI_VALUE2(uint32, "spell id", "healing stream totem");
+            uint32 mana_spring_totem_id = AI_VALUE2(uint32, "spell id", "mana spring totem");
+
+            Player* bot = ai->GetBot();
+            // Call of the elements - Melee focus
+            if (magma_totem_id)
+                bot->addActionButton(bot->GetActiveSpec(), ACTION_BUTTON_SHAMAN_TOTEMS_BAR, magma_totem_id, ACTION_BUTTON_SPELL);
+            if (strength_of_earth_totem_id)
+                bot->addActionButton(bot->GetActiveSpec(), ACTION_BUTTON_SHAMAN_TOTEMS_BAR + 1, strength_of_earth_totem_id, ACTION_BUTTON_SPELL);
+            if (windfury_totem_id)
+                bot->addActionButton(bot->GetActiveSpec(), ACTION_BUTTON_SHAMAN_TOTEMS_BAR + 2, windfury_totem_id, ACTION_BUTTON_SPELL);
+            if (healing_stream_totem_id)
+                bot->addActionButton(bot->GetActiveSpec(), ACTION_BUTTON_SHAMAN_TOTEMS_BAR + 3, healing_stream_totem_id, ACTION_BUTTON_SPELL);
+
+            // Call of the Ancestors - Caster focus
+            if (totem_of_wrath_id)
+                bot->addActionButton(bot->GetActiveSpec(), ACTION_BUTTON_SHAMAN_TOTEMS_BAR + 4, totem_of_wrath_id, ACTION_BUTTON_SPELL);
+            else if (searing_totem_id)
+                bot->addActionButton(bot->GetActiveSpec(), ACTION_BUTTON_SHAMAN_TOTEMS_BAR + 4, searing_totem_id, ACTION_BUTTON_SPELL);
+
+            if (stoneskin_totem_id)
+                bot->addActionButton(bot->GetActiveSpec(), ACTION_BUTTON_SHAMAN_TOTEMS_BAR + 5, stoneskin_totem_id, ACTION_BUTTON_SPELL);
+            if (wrath_of_air_totem_id)
+                bot->addActionButton(bot->GetActiveSpec(), ACTION_BUTTON_SHAMAN_TOTEMS_BAR + 6, wrath_of_air_totem_id, ACTION_BUTTON_SPELL);
+            if (mana_spring_totem_id)
+                bot->addActionButton(bot->GetActiveSpec(), ACTION_BUTTON_SHAMAN_TOTEMS_BAR + 7, mana_spring_totem_id, ACTION_BUTTON_SPELL);
+        }
     };
 }
