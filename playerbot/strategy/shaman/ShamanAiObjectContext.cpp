@@ -107,13 +107,6 @@ namespace ai
         public:
             TriggerFactoryInternal()
             {
-                //creators["grace of air totem"] = &TriggerFactoryInternal::grace_of_air_totem;
-                //creators["windfury totem"] = &TriggerFactoryInternal::windfury_totem;
-                //creators["mana spring totem"] = &TriggerFactoryInternal::mana_spring_totem;
-                //creators["flametongue totem"] = &TriggerFactoryInternal::flametongue_totem;
-                //creators["strength of earth totem"] = &TriggerFactoryInternal::strength_of_earth_totem;
-                //creators["magma totem"] = &TriggerFactoryInternal::magma_totem;
-                //creators["searing totem"] = &TriggerFactoryInternal::searing_totem;
                 creators["wind shear"] = &TriggerFactoryInternal::wind_shear;
                 creators["purge"] = &TriggerFactoryInternal::purge;
                 creators["shaman weapon"] = &TriggerFactoryInternal::shaman_weapon;
@@ -139,7 +132,6 @@ namespace ai
                 creators["party member cure poison"] = &TriggerFactoryInternal::party_member_cure_poison;
                 creators["cure disease"] = &TriggerFactoryInternal::cure_disease;
                 creators["party member cure disease"] = &TriggerFactoryInternal::party_member_cure_disease;
-                // Totem triggers
                 creators["fire totem"] = &TriggerFactoryInternal::fire_totem;
                 creators["fire totem aoe"] = &TriggerFactoryInternal::fire_totem_aoe;
                 creators["earth totem"] = &TriggerFactoryInternal::earth_totem;
@@ -167,13 +159,6 @@ namespace ai
             static Trigger* water_walking(PlayerbotAI* ai) { return new WaterWalkingTrigger(ai); }
             static Trigger* water_breathing_on_party(PlayerbotAI* ai) { return new WaterBreathingOnPartyTrigger(ai); }
             static Trigger* water_walking_on_party(PlayerbotAI* ai) { return new WaterWalkingOnPartyTrigger(ai); }
-            //static Trigger* windfury_totem(PlayerbotAI* ai) { return new WindfuryTotemTrigger(ai); }
-            //static Trigger* grace_of_air_totem(PlayerbotAI* ai) { return new GraceOfAirTotemTrigger(ai); }
-            //static Trigger* mana_spring_totem(PlayerbotAI* ai) { return new ManaSpringTotemTrigger(ai); }
-            //static Trigger* flametongue_totem(PlayerbotAI* ai) { return new FlametongueTotemTrigger(ai); }
-            //static Trigger* strength_of_earth_totem(PlayerbotAI* ai) { return new StrengthOfEarthTotemTrigger(ai); }
-            //static Trigger* magma_totem(PlayerbotAI* ai) { return new MagmaTotemTrigger(ai); }
-            //static Trigger* searing_totem(PlayerbotAI* ai) { return new SearingTotemTrigger(ai); }
             static Trigger* wind_shear(PlayerbotAI* ai) { return new WindShearInterruptSpellTrigger(ai); }
             static Trigger* purge(PlayerbotAI* ai) { return new PurgeTrigger(ai); }
             static Trigger* shaman_weapon(PlayerbotAI* ai) { return new ShamanWeaponTrigger(ai); }
@@ -186,15 +171,15 @@ namespace ai
             static Trigger* party_member_cure_poison(PlayerbotAI* ai) { return new PartyMemberCurePoisonTrigger(ai); }
             static Trigger* cure_disease(PlayerbotAI* ai) { return new CureDiseaseTrigger(ai); }
             static Trigger* party_member_cure_disease(PlayerbotAI* ai) { return new PartyMemberCureDiseaseTrigger(ai); }
-            static Trigger* call_of_the_elements(PlayerbotAI* ai) { return new TotemsAreNotSummonedTrigger(ai); }
-            static Trigger* call_of_the_ancestors(PlayerbotAI* ai) { return new TotemsAreNotSummonedTrigger(ai); }
-            static Trigger* call_of_the_spirits(PlayerbotAI* ai) { return new TotemsAreNotSummonedTrigger(ai); }
-            static Trigger* totemic_recall(PlayerbotAI* ai) { return new ReadyToRemoveTotemsTrigger(ai); }
             static Trigger* fire_totem(PlayerbotAI* ai) { return new FireTotemTrigger(ai); }
             static Trigger* fire_totem_aoe(PlayerbotAI* ai) { return new FireTotemAoeTrigger(ai); }
             static Trigger* earth_totem(PlayerbotAI* ai) { return new EarthTotemTrigger(ai); }
             static Trigger* water_totem(PlayerbotAI* ai) { return new WaterTotemTrigger(ai); }
             static Trigger* air_totem(PlayerbotAI* ai) { return new AirTotemTrigger(ai); }
+            static Trigger* call_of_the_elements(PlayerbotAI* ai) { return new TotemsAreNotSummonedTrigger(ai); }
+            static Trigger* call_of_the_ancestors(PlayerbotAI* ai) { return new TotemsAreNotSummonedTrigger(ai); }
+            static Trigger* call_of_the_spirits(PlayerbotAI* ai) { return new TotemsAreNotSummonedTrigger(ai); }
+            static Trigger* totemic_recall(PlayerbotAI* ai) { return new ReadyToRemoveTotemsTrigger(ai); }
         };
     };
 };

@@ -118,48 +118,6 @@ namespace ai
         }
     };
 
-    //class WindfuryTotemTrigger : public TotemTrigger {
-    //public:
-    //    WindfuryTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "windfury totem") {}
-    //};
-
-    //class GraceOfAirTotemTrigger : public TotemTrigger
-    //{
-    //public:
-    //    GraceOfAirTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "grace of air totem") {}
-    //};
-
-    //class ManaSpringTotemTrigger : public TotemTrigger {
-    //public:
-    //    ManaSpringTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "mana spring totem") {}
-    //    virtual bool IsActive()
-    //    {
-    //        return AI_VALUE(uint8, "attackers count") >= attackerCount &&
-    //                !AI_VALUE2(bool, "has totem", "mana tide totem") &&
-    //                !AI_VALUE2(bool, "has totem", name);
-    //    }
-    //};
-
-    //class FlametongueTotemTrigger : public TotemTrigger {
-    //public:
-    //    FlametongueTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "flametongue totem") {}
-    //};
-
-    //class StrengthOfEarthTotemTrigger : public TotemTrigger {
-    //public:
-    //    StrengthOfEarthTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "strength of earth totem") {}
-    //};
-
-    //class MagmaTotemTrigger : public TotemTrigger {
-    //public:
-    //    MagmaTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "magma totem", 3) {}
-    //};
-
-    //class SearingTotemTrigger : public TotemTrigger {
-    //public:
-    //    SearingTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "searing totem", 1) {}
-    //};
-
     class WindShearInterruptSpellTrigger : public InterruptSpellTrigger
     {
     public:

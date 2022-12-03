@@ -9,27 +9,22 @@ void TotemsShamanStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
 {
     GenericShamanStrategy::InitCombatTriggers(triggers);
 
-    //sLog.outError("TotemsShamanStrategy - setting triggers fire");
     triggers.push_back(new TriggerNode(
         "fire totem",
         NextAction::array(0, new NextAction("fire totem", 25.0f), NULL)));;
 
-    //sLog.outError("TotemsShamanStrategy - setting triggers aoe");
     triggers.push_back(new TriggerNode(
         "fire totem aoe",
         NextAction::array(0, new NextAction("fire totem aoe", 26.0f), NULL)));
 
-    //sLog.outError("TotemsShamanStrategy - setting triggers earth");
     triggers.push_back(new TriggerNode(
         "earth totem",
         NextAction::array(0, new NextAction("earth totem", 27.0f), NULL)));
 
-    //sLog.outError("TotemsShamanStrategy - setting triggers water");
     triggers.push_back(new TriggerNode(
         "water totem",
         NextAction::array(0, new NextAction("water totem", 28.0f), NULL)));
 
-    //sLog.outError("TotemsShamanStrategy - setting triggers air");
     triggers.push_back(new TriggerNode(
         "air totem",
         NextAction::array(0, new NextAction("air totem", 29.0f), NULL)));
