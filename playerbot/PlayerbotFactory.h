@@ -98,6 +98,7 @@ private:
     void EnchantItem(Item* item);
     void AddGems(Item* item);
     void AddItemStats(uint32 mod, uint8 &sp, uint8 &ap, uint8 &tank);
+    void AddItemSpellStats(uint32 smod, uint8& sp, uint8& ap, uint8& tank);
     bool CheckItemStats(uint8 sp, uint8 ap, uint8 tank);
     void CancelAuras();
     bool IsDesiredReplacement(uint32 itemId);
