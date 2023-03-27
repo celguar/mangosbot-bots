@@ -14,6 +14,7 @@ Engine::Engine(PlayerbotAI* ai, AiObjectContext *factory, BotState state) : Play
 {
     lastRelevance = 0.0f;
     testMode = false;
+    lastExecutedAction = nullptr;
 }
 
 bool ActionExecutionListeners::Before(Action* action, const Event& event)
@@ -116,7 +117,7 @@ void Engine::Init()
 	}
 }
 
-bool Engine::DoNextAction(Unit* unit, int depth, bool minimal)
+bool Engine::DoNextAction(Unit* unit, int depth, bool minimal, bool isStunned)
 {
     LogAction("--- AI Tick ---");
     if (sPlayerbotAIConfig.logValuesPerTick)
@@ -177,7 +178,7 @@ bool Engine::DoNextAction(Unit* unit, int depth, bool minimal)
                 bool isUsefull = action->isUseful();
                 if (pmo2) pmo2->finish();
 
-                if (isUsefull)
+                if (isUsefull && (!isStunned || action->isUsefulWhenStunned()))
                 {
                     for (list<Multiplier*>::iterator i = multipliers.begin(); i != multipliers.end(); i++)
                     {
@@ -289,7 +290,7 @@ bool Engine::DoNextAction(Unit* unit, int depth, bool minimal)
         lastRelevance = 0.0f;
         PushDefaultActions();
         if (queue.Peek() && depth < 2)
-            return DoNextAction(unit, depth + 1, minimal);
+            return DoNextAction(unit, depth + 1, minimal, isStunned);
     }
 
     // MEMORY FIX TEST
@@ -343,8 +344,8 @@ bool Engine::MultiplyAndPush(NextAction** actions, float forceRelevance, bool sk
             NextAction* nextAction = actions[j];
             if (nextAction)
             {
-                ActionNode* action = CreateActionNode(nextAction->getName());
-                InitializeAction(action);
+                ActionNode* actionNode = CreateActionNode(nextAction->getName());
+                InitializeAction(actionNode);
 
                 float k = nextAction->getRelevance();
                 if (forceRelevance > 0.0f)
@@ -354,13 +355,13 @@ bool Engine::MultiplyAndPush(NextAction** actions, float forceRelevance, bool sk
 
                 if (k > 0)
                 {
-                    LogAction("PUSH:%s - %f (%s)", action->getName().c_str(), k, pushType);
-                    queue.Push(new ActionBasket(action, k, skipPrerequisites, event));
+                    LogAction("PUSH:%s - %f (%s)", actionNode->getName().c_str(), k, pushType);
+                    queue.Push(new ActionBasket(actionNode, k, skipPrerequisites, event));
                     pushed = true;
                 }
                 else
                 {
-                    delete action;
+                    delete actionNode;
                 }
 
                 delete nextAction;
@@ -653,6 +654,7 @@ bool Engine::ListenAndExecute(Action* action, Event& event)
         if (actionExecuted)
         {
             ai->SetActionDuration(action);
+            lastExecutedAction = action;
         }
     }
 

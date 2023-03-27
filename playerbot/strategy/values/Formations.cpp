@@ -47,7 +47,7 @@ float Formation::GetOffset()
 
     Player* master = ai->GetGroupMaster();
 
-    float distance = WorldPosition(master).fDist(loc);
+    float distance = sqrt(WorldPosition(master).sqDistance2d(loc));
 
     return distance;
 }

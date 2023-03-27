@@ -18,6 +18,10 @@ namespace ai
             Unit* target = AI_VALUE(Unit*, "current target");
             if (target)
             {
+                if (ai->HasStrategy("follow", BotState::BOT_STATE_COMBAT) || ai->HasStrategy("guard", BotState::BOT_STATE_COMBAT))
+                    if(bot->getClass() != CLASS_HUNTER || sServerFacade.GetDistance2d(bot, target) > 5.0f)
+                        return false;                   
+
                 const bool canMove = !PossibleAttackTargetsValue::HasBreakableCC(target, bot) && !PossibleAttackTargetsValue::HasUnBreakableCC(target, bot);
 
                 // Don't move if the target is targeting you and you can't add distance between you and the target
@@ -326,6 +330,25 @@ namespace ai
 
             //Already using proper formation.
             if (sServerFacade.GetChaseTarget(bot) && sServerFacade.GetChaseTarget(bot)->GetObjectGuid() == followTarget->GetObjectGuid() && formation->GetAngle() == sServerFacade.GetChaseAngle(bot) && formation->GetOffset() == sServerFacade.GetChaseOffset(bot))
+                return false;
+
+            if (!ai->IsStateActive(BotState::BOT_STATE_COMBAT))
+                return true;
+
+            Unit* target = AI_VALUE(Unit*, "current target");
+
+            if (!target)
+                return true;
+
+            if (target->GetTarget() == bot) //Try pulling target to follow position
+                return true;
+
+            if (!ai->IsRanged(bot)) //Melee bots stay in melee.
+                return false;
+
+            WorldPosition formationPosition = AI_VALUE(WorldPosition, "formation position");
+
+            if (formationPosition.sqDistance2d(target) > ai->GetRange("spell")) //Do not move to follow if we can't attack from that position.
                 return false;
 
             return true;

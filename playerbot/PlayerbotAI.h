@@ -500,9 +500,13 @@ public:
     
     void SetActionDuration(const Action* action);
     void SetActionDuration(uint32 duration);
+
+    const Action* GetLastExecutedAction(BotState state) const;
+
+    bool IsImmuneToSpell(uint32 spellId) const;
     
 private:
-    bool UpdateAIReaction(uint32 elapsed, bool minimal = false);
+    bool UpdateAIReaction(uint32 elapsed, bool minimal, bool isStunned);
     void UpdateFaceTarget(uint32 elapsed, bool minimal);
 
 protected:

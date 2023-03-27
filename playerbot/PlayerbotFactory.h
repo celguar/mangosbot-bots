@@ -74,6 +74,7 @@ private:
     void InitTradeSkills();
     void UpdateTradeSkills();
     void SetRandomSkill(uint16 id);
+    void InitReputations();
     void InitSpells();
     void ClearSpells();
     void ClearSkills();

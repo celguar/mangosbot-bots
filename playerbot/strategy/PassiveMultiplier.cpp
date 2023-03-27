@@ -27,7 +27,8 @@ PassiveMultiplier::PassiveMultiplier(PlayerbotAI* ai) : Multiplier(ai, "passive"
     }
 }
 
-float PassiveMultiplier::GetValue(Action* action) {
+float PassiveMultiplier::GetValue(Action* action) 
+{
     if (!action)
 		return 1.0f;
 

@@ -35,7 +35,7 @@ ReactionEngine::ReactionEngine(PlayerbotAI* ai, AiObjectContext* factory, BotSta
     
 }
 
-bool ReactionEngine::FindReaction()
+bool ReactionEngine::FindReaction(bool isStunned)
 {
     // Don't find a new reaction if the previous reaction is still running
     if(!IsReacting())
@@ -73,7 +73,7 @@ bool ReactionEngine::FindReaction()
                         reaction->setRelevance(reactionRelevance);
 
                         // Check if the reaction is useful
-                        if (reaction->isUseful())
+                        if (reaction->isUseful() && (!isStunned || reaction->isUsefulWhenStunned()))
                         {
                             // Process the multipliers
                             for (list<Multiplier*>::iterator i = multipliers.begin(); i != multipliers.end(); i++)
@@ -161,7 +161,7 @@ void ReactionEngine::StopReaction()
     // ...
 }
 
-bool ReactionEngine::Update(uint32 elapsed, bool minimal, bool& reactionFound)
+bool ReactionEngine::Update(uint32 elapsed, bool minimal, bool isStunned, bool& reactionFound)
 {
     aiReactionUpdateDelay = aiReactionUpdateDelay > elapsed ? aiReactionUpdateDelay - elapsed : 0U;
 
@@ -192,7 +192,7 @@ bool ReactionEngine::Update(uint32 elapsed, bool minimal, bool& reactionFound)
             else
             {
                 // Look for an available reaction
-                if (FindReaction())
+                if (FindReaction(isStunned))
                 {
                     reactionFound = true;
                 }
@@ -298,8 +298,7 @@ bool ReactionEngine::CanUpdateAIReaction() const
     Player* bot = ai->GetBot();
     return (aiReactionUpdateDelay < 100U) && 
             bot->IsInWorld() &&
-           !bot->IsBeingTeleported() &&
-           !bot->IsTaxiFlying();
+           !bot->IsBeingTeleported();
 }
 
 const Reaction* ReactionEngine::GetReaction() const

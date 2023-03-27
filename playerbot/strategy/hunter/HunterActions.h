@@ -5,54 +5,57 @@
 namespace ai
 {
     BEGIN_RANGED_DEBUFF_ACTION(CastHuntersMarkAction, "hunter's mark")
-        END_SPELL_ACTION()
+    END_SPELL_ACTION()
 
-        class CastAutoShotAction : public CastSpellAction
+    class CastAutoShotAction : public CastSpellAction
     {
     public:
         CastAutoShotAction(PlayerbotAI* ai) : CastSpellAction(ai, "auto shot") {}
         virtual bool isUseful();
     };
 
+    BEGIN_RANGED_SPELL_ACTION(CastTranquilizingShotAction, "tranquilizing shot")
+    END_SPELL_ACTION()
+
     BEGIN_RANGED_SPELL_ACTION(CastArcaneShotAction, "arcane shot")
-        END_SPELL_ACTION()
+    END_SPELL_ACTION()
 
-        BEGIN_RANGED_SPELL_ACTION(CastExplosiveShotAction, "explosive shot")
-        END_SPELL_ACTION()
+    BEGIN_RANGED_SPELL_ACTION(CastExplosiveShotAction, "explosive shot")
+    END_SPELL_ACTION()
 
-        BEGIN_RANGED_SPELL_ACTION(CastAimedShotAction, "aimed shot")
-        END_SPELL_ACTION()
+    BEGIN_RANGED_SPELL_ACTION(CastAimedShotAction, "aimed shot")
+    END_SPELL_ACTION()
 
-        BEGIN_RANGED_SPELL_ACTION(CastChimeraShotAction, "chimera shot")
-        END_SPELL_ACTION()
+    BEGIN_RANGED_SPELL_ACTION(CastChimeraShotAction, "chimera shot")
+    END_SPELL_ACTION()
 
-        BEGIN_RANGED_DEBUFF_ACTION(CastConcussiveShotAction, "concussive shot")
-        END_SPELL_ACTION()
+    BEGIN_RANGED_DEBUFF_ACTION(CastConcussiveShotAction, "concussive shot")
+    END_SPELL_ACTION()
 
-        SPELL_ACTION(CastSteadyShotAction, "steady shot");
+    SPELL_ACTION(CastSteadyShotAction, "steady shot");
 
     BEGIN_RANGED_DEBUFF_ACTION(CastScatterShotAction, "scatter shot")
-        END_SPELL_ACTION()
+    END_SPELL_ACTION()
 
-        BEGIN_RANGED_SPELL_ACTION(CastDistractingShotAction, "distracting shot")
-        END_SPELL_ACTION()
+    BEGIN_RANGED_SPELL_ACTION(CastDistractingShotAction, "distracting shot")
+    END_SPELL_ACTION()
 
-        BEGIN_RANGED_SPELL_ACTION(CastMultiShotAction, "multi-shot")
-        END_SPELL_ACTION()
+    BEGIN_RANGED_SPELL_ACTION(CastMultiShotAction, "multi-shot")
+    END_SPELL_ACTION()
 
-        BEGIN_RANGED_SPELL_ACTION(CastVolleyAction, "volley")
-        END_SPELL_ACTION()
+    BEGIN_RANGED_SPELL_ACTION(CastVolleyAction, "volley")
+    END_SPELL_ACTION()
 
-        BEGIN_RANGED_DEBUFF_ACTION(CastSerpentStingAction, "serpent sting")
+    BEGIN_RANGED_DEBUFF_ACTION(CastSerpentStingAction, "serpent sting")
         virtual bool isUseful();
     END_SPELL_ACTION()
 
-        BEGIN_RANGED_DEBUFF_ACTION(CastViperStingAction, "viper sting")
+    BEGIN_RANGED_DEBUFF_ACTION(CastViperStingAction, "viper sting")
         virtual bool isUseful();
     END_SPELL_ACTION()
 
-        BEGIN_RANGED_SPELL_ACTION(CastScorpidStingAction, "scorpid sting")
-        END_SPELL_ACTION()
+    BEGIN_RANGED_SPELL_ACTION(CastScorpidStingAction, "scorpid sting")
+    END_SPELL_ACTION()
 
     class CastAspectOfTheMonkeyAction : public CastBuffSpellAction
     {

@@ -183,9 +183,11 @@ namespace ai
                 creators["howl of terror"] = &AiObjectContextInternal::howl_of_terror;
                 creators["unstable affliction"] = &AiObjectContextInternal::unstable_affliction;
                 creators["soul shatter"] = &AiObjectContextInternal::soul_shatter;
+                creators["searing pain"] = &AiObjectContextInternal::searing_pain;
             }
 
         private:
+            static Action* searing_pain(PlayerbotAI* ai) { return new CastSearingPainAction(ai); }
             static Action* soul_shatter(PlayerbotAI* ai) { return new CastSoulShatterAction(ai); }
             static Action* unstable_affliction(PlayerbotAI* ai) { return new CastUnstableAfflictionAction(ai); }
             static Action* howl_of_terror(PlayerbotAI* ai) { return new CastHowlOfTerrorAction(ai); }

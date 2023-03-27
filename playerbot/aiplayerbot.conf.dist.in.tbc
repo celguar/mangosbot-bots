@@ -53,7 +53,7 @@ AiPlayerbot.RandomBotAccountCount = 200
 
 # Limit random bot max level to online players max level + 5
 # AiPlayerbot.SyncLevelWithPlayers = 0
-# AiPlayerbot.syncLevelMaxAbove = 5
+# AiPlayerbot.SyncLevelMaxAbove = 5
 
 # Random bot guild count
 AiPlayerbot.RandomBotGuildCount = 20
@@ -73,11 +73,27 @@ AiPlayerbot.RandomBotMaps = 0,1,530,571
 # Change random bot has lower gear
 AiPlayerbot.RandomGearLoweringChance = 0.15
 
+# Max item level of random equipment
+# Classic
+# Max iLVL Tier 1 = 66 | Tier 2 = 76 | Tier 2.5 = 81 | Tier 3 = 99
+# Max iLVL Phase 1 = 71(MC, ONY, ZG) | Phase 2(BWL) = 77 | Phase 2.5(AQ) = 88 | Phase 3(NAXX) = 100 (NOT RECOMMENDED SINCE ILVL OVERLAPS BETWEEN TIERS)
+# TBC
+# Max iLVL Tier 4 = 120 | Tier 5 = 133 | Tier 6 = 164
+# Max iLVL Phase 1(Kara, Gruul, Mag) = 125 | Phase 1.5(ZA) = 138 | Phase 2(SC, TK) = 141 | Phase 3(Hyjal, BT) = 156 | Phase 4(Sunwell) = 164
+
+AiPlayerbot.RandomGearMaxLevel = 500
+
+# List of item IDs to exclude from random gear, separated by comma
+AiPlayerbot.RandomGearBlacklist = 0
+
 # Chance random bot has max level on first randomize (default 0.15)
 AiPlayerbot.RandomBotMaxLevelChance = 0.15
 
 # Chance bot chooses RPG (Teleport to random camp for their level) instead of grinding
 AiPlayerbot.RandomBotRpgChance = 0.20
+
+# Bots will speed up when following to stay close.
+# AiPlayerbot.BoostFollow = 1
 
 # Bots and npcs turn to eachother during an rpg interaction
 AiPlayerbot.TurnInRpg = 0

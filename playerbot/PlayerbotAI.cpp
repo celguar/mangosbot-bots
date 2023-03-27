@@ -321,6 +321,14 @@ void PlayerbotAI::UpdateAI(uint32 elapsed, bool minimal)
             bot->SetPower(POWER_MANA, bot->GetMaxPower(POWER_MANA));
         if (HasCheat(BotCheatMask::power) && bot->GetPowerType() != POWER_MANA)
             bot->SetPower(bot->GetPowerType(), bot->GetMaxPower(bot->GetPowerType()));
+        if (HasCheat(BotCheatMask::repair))
+#ifdef MANGOSBOT_ZERO
+            bot->DurabilityRepairAll(false, 0);
+#else
+            bot->DurabilityRepairAll(false, 0, false);
+#endif
+        if (HasCheat(BotCheatMask::cooldown))
+            bot->RemoveAllCooldowns();
     }
 
     // Update facing
@@ -329,7 +337,7 @@ void PlayerbotAI::UpdateAI(uint32 elapsed, bool minimal)
     bool doMinimalReaction = minimal || !AllowActivity(REACT_ACTIVITY);
 
     // Only update the internal ai when no reaction is running and the internal ai can be updated
-    if(!UpdateAIReaction(elapsed, doMinimalReaction) && CanUpdateAIInternal())
+    if(!UpdateAIReaction(elapsed, doMinimalReaction, bot->IsTaxiFlying()) && CanUpdateAIInternal())
     {      
         // Update the delay with the spell cast time
         Spell* currentSpell = bot->GetCurrentSpell(CURRENT_GENERIC_SPELL);
@@ -360,12 +368,12 @@ void PlayerbotAI::UpdateAI(uint32 elapsed, bool minimal)
     if (pmo) pmo->finish();
 }
 
-bool PlayerbotAI::UpdateAIReaction(uint32 elapsed, bool minimal)
+bool PlayerbotAI::UpdateAIReaction(uint32 elapsed, bool minimal, bool isStunned)
 {
     bool reactionFound;
     string mapString = WorldPosition(bot).isOverworld() ? to_string(bot->GetMapId()) : "I";
     PerformanceMonitorOperation* pmo = sPerformanceMonitor.start(PERF_MON_TOTAL, "PlayerbotAI::UpdateAIReaction " + mapString);
-    const bool reactionInProgress = reactionEngine->Update(elapsed, minimal, reactionFound);
+    const bool reactionInProgress = reactionEngine->Update(elapsed, minimal, isStunned, reactionFound);
     if (pmo) pmo->finish();
 
     if(reactionFound)
@@ -451,6 +459,30 @@ void PlayerbotAI::SetActionDuration(const Action* action)
 void PlayerbotAI::SetActionDuration(uint32 duration)
 {
     SetAIInternalUpdateDelay(duration);
+}
+
+const Action* PlayerbotAI::GetLastExecutedAction(BotState state) const
+{
+    const Engine* engine = engines[(uint8)state];
+    if(engine)
+    {
+        return engine->GetLastExecutedAction();
+    }
+
+    return nullptr;
+}
+
+bool PlayerbotAI::IsImmuneToSpell(uint32 spellId) const
+{
+    for (list<uint32>::iterator i = sPlayerbotAIConfig.immuneSpellIds.begin(); i != sPlayerbotAIConfig.immuneSpellIds.end(); ++i)
+    {
+        if (spellId == (*i))
+        {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 bool PlayerbotAI::IsStateActive(BotState state) const
@@ -809,6 +841,7 @@ bool PlayerbotAI::IsAllowedCommand(string text)
         unsecuredCommands.insert("sendmail");
         unsecuredCommands.insert("invite");
         unsecuredCommands.insert("leave");
+        unsecuredCommands.insert("join");
         unsecuredCommands.insert("guild invite");
         unsecuredCommands.insert("guild leave");
     }
@@ -1343,12 +1376,6 @@ void PlayerbotAI::DoNextAction(bool min)
         return;
     }
 
-    if (bot->IsTaxiFlying())
-    {
-        SetAIInternalUpdateDelay(sPlayerbotAIConfig.passiveDelay);
-        return;
-    }
-
     // if in combat but stuck with old data - clear targets
     if (currentEngine == engines[(uint8)BotState::BOT_STATE_NON_COMBAT] && sServerFacade.IsInCombat(bot))
     {
@@ -1362,7 +1389,7 @@ void PlayerbotAI::DoNextAction(bool min)
 
     bool minimal = !AllowActivity();
 
-    currentEngine->DoNextAction(NULL, 0, (minimal || min));
+    currentEngine->DoNextAction(NULL, 0, (minimal || min), bot->IsTaxiFlying());
 
     if (minimal)
     {
@@ -1571,6 +1598,11 @@ void PlayerbotAI::DoNextAction(bool min)
         StopMoving();
 
         ResetJumpDestination();
+    }
+
+    if (bot->IsTaxiFlying())
+    {        
+        return;
     }
 
     // random jumping (WIP, not working properly)
@@ -2415,22 +2447,29 @@ uint32 PlayerbotAI::GetSpellCastDuration(Spell* spell)
         {
             int32 duration = GetSpellDuration(pSpellInfo);
             if (duration > 0)
+            {
                 spellDuration += duration;
+            }
         }
 
         spellDuration = ceil(spellDuration);
 
-        // fix hunter Feign Death delay
-        if (pSpellInfo->Id == 5384)
-            spellDuration = 1000.0f;
+        // fix Feign Death
+        if (pSpellInfo->Id == 5384) 
+        {
+            spellDuration = 1000;
+        }
+        // fix cannibalize
+        else if (pSpellInfo->Id == 20577) 
+        {
+            spellDuration = 10000;
+        }
 
         uint32 globalCooldown = CalculateGlobalCooldown(pSpellInfo->Id);
         if (spellDuration < (int32)globalCooldown)
+        {
             spellDuration = globalCooldown;
-
-        // fix cannibalize
-        if (pSpellInfo->Id == 20577)
-            spellDuration = 10000;
+        }
     }
 
     return spellDuration + sPlayerbotAIConfig.reactDelay;

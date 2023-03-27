@@ -4,6 +4,8 @@
 #include "../NamedObjectContext.h"
 #include "../../PlayerbotAIConfig.h"
 #include "../../TravelNode.h"
+#include "WaypointMovementGenerator.h"
+#include "../values/HazardsValue.h"
 
 namespace ai
 {
@@ -24,7 +26,10 @@ namespace ai
         bool Follow(Unit* target, float distance = 0);
         bool Follow(Unit* target, float distance, float angle);
         float MoveDelay(float distance);
+
         void WaitForReach(float distance);
+        void WaitForReach(const Movement::PointsArray& path);
+
         bool IsMovingAllowed(Unit* target);
         bool IsMovingAllowed(uint32 mapId, float x, float y, float z);
         bool IsMovingAllowed();
@@ -40,6 +45,11 @@ namespace ai
         // Used when this action is executed as a reaction
         bool ShouldReactionInterruptCast() const override { return true; }
         bool ShouldReactionInterruptMovement() const override { return true; }
+
+    private:
+        bool IsValidPosition(const WorldPosition& position, const WorldPosition& visibleFromPosition);
+        bool IsHazardNearPosition(const WorldPosition& position, HazardPosition* outHazard = nullptr);
+        bool GeneratePathAvoidingHazards(const WorldPosition& endPosition, bool generatePath, Movement::PointsArray& outPath);
     };
 
     class FleeAction : public MovementAction

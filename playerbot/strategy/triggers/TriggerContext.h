@@ -242,6 +242,10 @@ namespace ai
             creators["start magmadar fight"] = &TriggerContext::magmadar_start_fight;
             creators["end magmadar fight"] = &TriggerContext::magmadar_end_fight;
             creators["magmadar lava bomb"] = &TriggerContext::magmadar_lava_bomb;
+            creators["magmadar too close"] = &TriggerContext::magmadar_too_close;
+            creators["magmadar enraged"] = &TriggerContext::magmadar_enraged;
+
+            creators["fire protection potion ready"] = &TriggerContext::fire_protection_potion_ready;
 
             creators["mc rune in sight"] = &TriggerContext::mc_rune_in_sight;
             creators["mc rune close"] = &TriggerContext::mc_rune_close;
@@ -435,6 +439,10 @@ namespace ai
         static Trigger* magmadar_start_fight(PlayerbotAI* ai) { return new MagmadarStartFightTrigger(ai); }
         static Trigger* magmadar_end_fight(PlayerbotAI* ai) { return new MagmadarEndFightTrigger(ai); }
         static Trigger* magmadar_lava_bomb(PlayerbotAI* ai) { return new MagmadarLavaBombTrigger(ai); }
+        static Trigger* magmadar_too_close(PlayerbotAI* ai) { return new MagmadarTooCloseTrigger(ai); }
+        static Trigger* magmadar_enraged(PlayerbotAI* ai) { return new MagmadarEnragedTrigger(ai); }
+
+        static Trigger* fire_protection_potion_ready(PlayerbotAI* ai) { return new FireProtectionPotionReadyTrigger(ai); }
 
         static Trigger* mc_rune_in_sight(PlayerbotAI* ai) { return new MCRuneInSightTrigger(ai); }
         static Trigger* mc_rune_close(PlayerbotAI* ai) { return new MCRuneCloseTrigger(ai); }

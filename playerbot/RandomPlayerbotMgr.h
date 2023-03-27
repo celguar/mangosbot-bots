@@ -109,6 +109,7 @@ class RandomPlayerbotMgr : public PlayerbotHolder
         void ChangeStrategyOnce(Player* player);
         uint32 GetValue(Player* bot, string type);
         uint32 GetValue(uint32 bot, string type);
+        int32 GetValueValidTime(uint32 bot, string event);
         string GetData(uint32 bot, string type);
         void SetValue(uint32 bot, string type, uint32 value, string data = "");
         void SetValue(Player* bot, string type, uint32 value, string data = "");

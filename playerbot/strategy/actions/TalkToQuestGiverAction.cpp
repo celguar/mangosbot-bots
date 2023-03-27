@@ -152,10 +152,10 @@ void TalkToQuestGiverAction::RewardMultipleItem(Quest const* quest, WorldObject*
     {
         //Pick the first item of the best rewards.
         bestIds = BestRewards(quest);
-        ItemPrototype const* item = sObjectMgr.GetItemPrototype(quest->RewChoiceItemId[*bestIds.begin()]);
+        ItemPrototype const* proto = sObjectMgr.GetItemPrototype(quest->RewChoiceItemId[*bestIds.begin()]);
+        if(proto)
+            out << "Rewarded " << chat->formatItem(proto);
         bot->RewardQuest(quest, *bestIds.begin(), questGiver, true);
-
-        out << "Rewarded " << chat->formatItem(item);
     }
     else if (sPlayerbotAIConfig.autoPickReward == "no")
     {   //Old functionality, list rewards.
@@ -171,9 +171,10 @@ void TalkToQuestGiverAction::RewardMultipleItem(Quest const* quest, WorldObject*
         else
         {
             //Pick the first item
-            ItemPrototype const* item = sObjectMgr.GetItemPrototype(quest->RewChoiceItemId[*bestIds.begin()]);
+            ItemPrototype const* proto = sObjectMgr.GetItemPrototype(quest->RewChoiceItemId[*bestIds.begin()]);
+            if (proto)
+                out << "Rewarded " << chat->formatItem(proto);
             bot->RewardQuest(quest, *bestIds.begin(), questGiver, true);
-            out << "Rewarded " << chat->formatItem(item);     
         }
     }
 }

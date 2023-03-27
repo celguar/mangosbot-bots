@@ -798,7 +798,7 @@ uint32 RandomPlayerbotMgr::AddRandomBots()
                     }
                     else
                     {
-                        if (needToLower && rndCanLower)
+                        if (needToLower && !rndCanLower) //Do not load unrandomized if it'll only increase level.
                             query += " and " + wasRand;
 
                         result = CharacterDatabase.PQuery(query.c_str(), accountId, maxLevel);
@@ -2579,28 +2579,24 @@ uint32 RandomPlayerbotMgr::GetEventValue(uint32 bot, string event)
         }
     }
     CachedEvent e = eventCache[bot][event];
-    /*if (e.IsEmpty())
-    {
-        QueryResult* results = PlayerbotDatabase.PQuery(
-                "select `value`, `time`, validIn, `data` from ai_playerbot_random_bots where owner = 0 and bot = '%u' and event = '%s'",
-                bot, event.c_str());
-
-        if (results)
-        {
-            Field* fields = results->Fetch();
-            e.value = fields[0].GetUInt32();
-            e.lastChangeTime = fields[1].GetUInt32();
-            e.validIn = fields[2].GetUInt32();
-            e.data = fields[3].GetString();
-            eventCache[bot][event] = e;
-            delete results;
-        }
-    }*/
 
     if ((time(0) - e.lastChangeTime) >= e.validIn && event != "specNo" && event != "specLink" && event != "init" && event != "current_time" && event != "always")
         e.value = 0;
 
     return e.value;
+}
+
+int32 RandomPlayerbotMgr::GetValueValidTime(uint32 bot, string event)
+{
+    if (eventCache.find(bot) == eventCache.end())
+        return 0;
+
+    if (eventCache[bot].find(event) == eventCache[bot].end())
+        return 0;
+
+    CachedEvent e = eventCache[bot][event];
+
+    return e.validIn-(time(0) - e.lastChangeTime);
 }
 
 string RandomPlayerbotMgr::GetEventData(uint32 bot, string event)

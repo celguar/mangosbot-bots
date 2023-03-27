@@ -37,6 +37,8 @@ namespace ai
             return ai->IsAlt() && bot->GetGroup() && bot->GetGroup()->IsLeader(bot->GetObjectGuid());
         }
 
+        bool isUsefulWhenStunned() override { return true; }
+
     protected:
         string message;
     };

@@ -58,6 +58,22 @@ namespace ai
         virtual bool Load(string value);
     };
 
+    class FormationPositionValue : public CalculatedValue<WorldPosition>
+    {
+    public:
+        FormationPositionValue(PlayerbotAI* ai, string name = "formation position") : CalculatedValue(ai, name) {}
+
+        virtual WorldPosition Calculate() {
+            Formation* formation = AI_VALUE(Formation*, "formation");
+
+            WorldLocation loc = formation->GetLocation();
+            if (Formation::IsNullLocation(loc) || loc.mapid == -1)
+                return WorldLocation();
+
+            return loc;
+        }
+    };
+
     class SetFormationAction : public ChatCommandAction
     {
     public:

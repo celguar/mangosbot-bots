@@ -14,6 +14,10 @@ using namespace ai;
 
 bool DebugAction::Execute(Event& event)
 {
+    
+    if (!event.getOwner() || !event.getOwner()->GetSession() || event.getOwner()->GetSession()->GetSecurity() < SEC_MODERATOR)
+        return false;
+
     Player* master = GetMaster();
     if (!master)
         master = bot;
@@ -106,7 +110,7 @@ bool DebugAction::Execute(Event& event)
         }
         return true;
     }
-    else if (text.find("test") != std::string::npos)
+    else if (text.find("test") == 0)
     {
         string param = "";
         if (text.length() > 4)
@@ -153,11 +157,11 @@ bool DebugAction::Execute(Event& event)
 
         return true;
     }
-    else if (text.find("do ") != std::string::npos)
+    else if (text.find("do ") == 0)
     {
         return ai->DoSpecificAction(text.substr(3), Event(), true);
     }
-    else if (text.find("poi ") != std::string::npos)
+    else if (text.find("poi ") == 0)
     {        
         WorldPosition botPos = WorldPosition(bot);
 
@@ -189,7 +193,7 @@ bool DebugAction::Execute(Event& event)
 
         return true;
     }
-    else if (text.find("motion") != std::string::npos)
+    else if (text.find("motion") == 0)
     {
         Unit* motionBot = bot;
         Unit* motionTarget = masterTarget;
@@ -265,13 +269,13 @@ bool DebugAction::Execute(Event& event)
         }
         return true;
     }
-    else if (text.find("printmap") != std::string::npos)
+    else if (text.find("printmap") == 0)
     {
         sTravelNodeMap.printMap();
         sTravelNodeMap.printNodeStore();
         return true;
     }
-    else if (text.find("corpse") != std::string::npos)
+    else if (text.find("corpse") == 0)
     {
 
         Corpse* corpse = bot->GetCorpse();
@@ -302,7 +306,31 @@ bool DebugAction::Execute(Event& event)
 
         return true;
     }
-    else if (text.find("npc") != std::string::npos)
+    else if (text.find("logouttime") == 0) {
+        int32 time = sRandomPlayerbotMgr.GetValueValidTime(bot->GetGUIDLow(), "add");
+
+        int32 min = 0, hr = 0;
+
+        if (time > 3600)
+        {
+            hr = floor(time / 3600);
+            time = time % 3600;
+        }
+        if (time > 60)
+        {
+            min = floor(time / 60);
+            time = time % 60;
+        }
+
+        ostringstream out;
+
+        out << "Logout in: " << hr << ":" << min << ":" << time;
+
+        bot->Whisper(out.str().c_str(), LANG_UNIVERSAL, event.getOwner()->GetObjectGuid());
+
+        return true;
+    }
+    else if (text.find("npc") == 0)
     {
         ostringstream out;
 
@@ -437,7 +465,7 @@ bool DebugAction::Execute(Event& event)
 
         return true;
     }  
-    else if (text.find("go ") != std::string::npos)
+    else if (text.find("go ") == 0)
     {
         ostringstream out;
 
@@ -564,7 +592,7 @@ bool DebugAction::Execute(Event& event)
 
         return true;
     }
-    else if (text.find("travel ") != std::string::npos)
+    else if (text.find("travel ") == 0)
     {
         WorldPosition botPos = WorldPosition(bot);
 
@@ -598,7 +626,7 @@ bool DebugAction::Execute(Event& event)
             return true;
         }
     }
-    else if (text.find("quest ") != std::string::npos)
+    else if (text.find("quest ") == 0)
     {
         WorldPosition botPos(bot);
         uint32 questId = stoi(text.substr(6));
@@ -713,7 +741,7 @@ bool DebugAction::Execute(Event& event)
 
         return true;
     }
-    else if (text.find("quest") != std::string::npos)
+    else if (text.find("quest") == 0)
     {
         ostringstream out;
         out << sTravelMgr.quests.size() << " quests ";
@@ -738,7 +766,7 @@ bool DebugAction::Execute(Event& event)
 
         return true;
     }
-    else if (text.find("bquest") != std::string::npos)
+    else if (text.find("bquest") == 0)
     {
         ostringstream out;
         out << "bad quests:";
@@ -770,13 +798,13 @@ bool DebugAction::Execute(Event& event)
         ai->TellMasterNoFacing(out);
 
     }
-    else if (text.find("values ") != std::string::npos)
+    else if (text.find("values ") == 0)
     {
         ai->TellMasterNoFacing(ai->GetAiObjectContext()->FormatValues(text.substr(7)));
 
         return true;
     }
-    else if (text.find("loot ") != std::string::npos)
+    else if (text.find("loot ") == 0)
     {
         std::string textSubstr;
         std::ostringstream out;
@@ -818,7 +846,7 @@ bool DebugAction::Execute(Event& event)
         }
         return true;
     }
-    else if (text.find("loot") != std::string::npos)
+    else if (text.find("loot") == 0)
     {
     bool doAction = ai->DoSpecificAction("add all loot", Event(), true);
 
@@ -860,7 +888,7 @@ bool DebugAction::Execute(Event& event)
 
     return true;
     }
-    else if (text.find("drops ") != std::string::npos)
+    else if (text.find("drops ") == 0)
     {
     std::string textSubstr;
     std::ostringstream out;
@@ -904,7 +932,7 @@ bool DebugAction::Execute(Event& event)
     }
     return true;
     }
-    else if (text.find("taxi") != std::string::npos)
+    else if (text.find("taxi") == 0)
     {
         for (uint32 i = 1; i < sTaxiNodesStore.GetNumRows(); ++i)
         {
@@ -921,7 +949,7 @@ bool DebugAction::Execute(Event& event)
         }
     return true;
     }
-    else if (text.find("add node") != std::string::npos)
+    else if (text.find("add node") == 0)
     {
         WorldPosition pos(bot);
 
@@ -940,7 +968,7 @@ bool DebugAction::Execute(Event& event)
 
         return true;
     }
-    else if (text.find("rem node") != std::string::npos)
+    else if (text.find("rem node") == 0)
     {
         WorldPosition pos(bot);
 
@@ -962,38 +990,38 @@ bool DebugAction::Execute(Event& event)
 
         return true;
     }
-    else if (text.find("reset node") != std::string::npos) {
+    else if (text.find("reset node") == 0) {
         for (auto& node : sTravelNodeMap.getNodes())
             node->setLinked(false);
         return true;
     }
-    else if (text.find("reset path") != std::string::npos) {
+    else if (text.find("reset path") == 0) {
         for (auto& node : sTravelNodeMap.getNodes())
             for (auto& path : *node->getLinks())
                 node->removeLinkTo(path.first, true);
         return true;
     }
-    else if (text.find("gen node") != std::string::npos) {
+    else if (text.find("gen node") == 0) {
 
         //Pathfinder
         sTravelNodeMap.generateNodes();
         return true;
     }
-    else if (text.find("gen path") != std::string::npos) {
+    else if (text.find("gen path") == 0) {
     sTravelNodeMap.generatePaths();
     return true;
     }
-    else if (text.find("crop path") != std::string::npos) {
+    else if (text.find("crop path") == 0) {
         sTravelNodeMap.removeUselessPaths();
         return true;
     }
-    else if (text.find("save node") != std::string::npos)
+    else if (text.find("save node") == 0)
     {
         sTravelNodeMap.printNodeStore();
         sTravelNodeMap.saveNodeStore();
         return true;
     }
-    else if (text.find("load node") != std::string::npos)
+    else if (text.find("load node") == 0)
     {
         std::thread t([] {if (sTravelNodeMap.removeNodes())
             sTravelNodeMap.loadNodeStore(); });
@@ -1002,7 +1030,7 @@ bool DebugAction::Execute(Event& event)
 
         return true;
     }
-    else if (text.find("show node") != std::string::npos)
+    else if (text.find("show node") == 0)
     {
         WorldPosition pos(bot);
 
@@ -1034,7 +1062,7 @@ bool DebugAction::Execute(Event& event)
         }
         return true;
     }
-    else if (text.find("dspell ") != std::string::npos)
+    else if (text.find("dspell ") == 0)
     {
         uint32 spellEffect = stoi(text.substr(7));
 
@@ -1060,7 +1088,7 @@ bool DebugAction::Execute(Event& event)
         }
         return true;
     }
-    else if (text.find("vspell ") != std::string::npos)
+    else if (text.find("vspell ") == 0)
     {
         uint32 spellEffect = stoi(text.substr(7));
 
@@ -1090,7 +1118,7 @@ bool DebugAction::Execute(Event& event)
         }
         return true;
     }
-    else if (text.find("aspell ") != std::string::npos)
+    else if (text.find("aspell ") == 0)
     {
         uint32 spellEffect = stoi(text.substr(7));
 
@@ -1118,7 +1146,7 @@ bool DebugAction::Execute(Event& event)
         }
         return true;
     }
-    else if (text.find("cspell ") != std::string::npos)
+    else if (text.find("cspell ") == 0)
     {
         uint32 spellEffect = stoi(text.substr(7));
 
@@ -1148,7 +1176,7 @@ bool DebugAction::Execute(Event& event)
 
         return true;
     }
-    else if (text.find("fspell ") != std::string::npos)
+    else if (text.find("fspell ") == 0)
     {
         uint32 spellEffect = stoi(text.substr(7));
 
@@ -1182,13 +1210,13 @@ bool DebugAction::Execute(Event& event)
 
         return true;
     }
-    else if (text.find("spell ") != std::string::npos)
+    else if (text.find("spell ") == 0)
     {
         uint32 spellEffect = stoi(text.substr(6));
         master->GetSession()->SendPlaySpellVisual(bot->GetObjectGuid(), spellEffect);
         return true;
     }
-    else if (text.find("tspellmap") != std::string::npos)
+    else if (text.find("tspellmap") == 0)
     {
         for (int32 dx = 0; dx < 10; dx++)
         {
@@ -1218,7 +1246,7 @@ bool DebugAction::Execute(Event& event)
         }
         return true;
     }
-    else if (text.find("uspellmap") != std::string::npos)
+    else if (text.find("uspellmap") == 0)
     {
         for (int32 dx = 0; dx < 10; dx++)
         {
@@ -1237,7 +1265,7 @@ bool DebugAction::Execute(Event& event)
         }
         return true;
     }
-    else if (text.find("dspellmap") != std::string::npos)
+    else if (text.find("dspellmap") == 0)
     {
         for (int32 dx = 0; dx < 10; dx++)
         {
@@ -1256,7 +1284,7 @@ bool DebugAction::Execute(Event& event)
         }
         return true;
     }
-    else if (text.find("vspellmap") != std::string::npos)
+    else if (text.find("vspellmap") == 0)
     {
         vector<WorldPacket> datMap;
         for (int32 dx = 0; dx < 10; dx++)
@@ -1301,7 +1329,7 @@ bool DebugAction::Execute(Event& event)
 
         return true;
     }
-    else if (text.find("ispellmap") != std::string::npos)
+    else if (text.find("ispellmap") == 0)
     {
         vector<WorldPacket> datMap;
         for (int32 dx = 0; dx < 10; dx++)
@@ -1344,7 +1372,7 @@ bool DebugAction::Execute(Event& event)
 
         return true;
     }
-    else if (text.find("cspellmap") != std::string::npos)
+    else if (text.find("cspellmap") == 0)
     {
         Creature* wpCreature = nullptr;
         Creature* lCreature = nullptr;
@@ -1372,7 +1400,7 @@ bool DebugAction::Execute(Event& event)
         }
         return true;
     }
-    else if (text.find("aspellmap") != std::string::npos)
+    else if (text.find("aspellmap") == 0)
     {
         Creature* wpCreature = nullptr;
 
@@ -1398,7 +1426,7 @@ bool DebugAction::Execute(Event& event)
         }
         return true;
     }
-    else if (text.find("gspellmap") != std::string::npos)
+    else if (text.find("gspellmap") == 0)
     {
         vector<ObjectGuid> all_targets;// = { bot->GetObjectGuid(), master->GetObjectGuid() };
         //vector<ObjectGuid> all_dummies = { bot->GetObjectGuid(), master->GetObjectGuid() };
@@ -1484,7 +1512,7 @@ bool DebugAction::Execute(Event& event)
             }
         return true;
     }
-    else if (text.find("mspellmap") != std::string::npos)
+    else if (text.find("mspellmap") == 0)
     {
     vector<ObjectGuid> all_targets;
 
@@ -1561,7 +1589,7 @@ bool DebugAction::Execute(Event& event)
         }
     return true;
     }
-    else if (text.find("soundmap") != std::string::npos)
+    else if (text.find("soundmap") == 0)
     {
         uint32 soundEffects = stoi(text.substr(9));
         for (int32 dx = 0; dx < 10; dx++)
@@ -1581,7 +1609,7 @@ bool DebugAction::Execute(Event& event)
             }
         }
     }
-    else if (text.find("sounds") != std::string::npos)
+    else if (text.find("sounds") == 0)
     {
         uint32 soundEffects = stoi(text.substr(6));
 
@@ -1593,19 +1621,19 @@ bool DebugAction::Execute(Event& event)
         }
         return true;
     }
-    else if (text.find("dsound") != std::string::npos)
+    else if (text.find("dsound") == 0)
     {
         uint32 soundEffect = stoi(text.substr(7));
         bot->PlayDirectSound(soundEffect);
         return true;
     }
-    else if (text.find("dsound") != std::string::npos)
+    else if (text.find("dsound") == 0)
     {
         uint32 soundEffect = stoi(text.substr(7));
         bot->PlayDirectSound(soundEffect);
         return true;
     }
-    else if (text.find("sound") != std::string::npos)
+    else if (text.find("sound") == 0)
     {
         uint32 soundEffect = stoi(text.substr(6));
         bot->PlayDistanceSound(soundEffect);

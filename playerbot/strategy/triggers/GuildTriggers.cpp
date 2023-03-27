@@ -41,9 +41,6 @@ bool BuyTabardTrigger::IsActive()
 
 bool LeaveLargeGuildTrigger::IsActive()
 {
-	if (!sPlayerbotAIConfig.randomBotGuildNearby)
-		return false;
-
 	if (!bot->GetGuildId())
 		return false;
 
@@ -53,12 +50,18 @@ bool LeaveLargeGuildTrigger::IsActive()
 	if (ai->IsAlt())
 		return false;
 
+	Guild* guild = sGuildMgr.GetGuildById(bot->GetGuildId());
+
+	if (guild->GetMemberSize() >= 1000) //Try to prevent guild overflow.
+		return true;
+
+	if (!sPlayerbotAIConfig.randomBotGuildNearby)
+		return false;
+
 	if (ai->IsInRealGuild())
 		return false;
 
 	GuilderType type = ai->GetGuilderType();
-
-	Guild* guild = sGuildMgr.GetGuildById(bot->GetGuildId());
 
 	Player* leader = sObjectMgr.GetPlayer(guild->GetLeaderGuid());
 

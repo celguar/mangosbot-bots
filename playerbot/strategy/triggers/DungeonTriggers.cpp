@@ -2,6 +2,10 @@
 #include "../../playerbot.h"
 #include "DungeonTriggers.h"
 #include "../values/PositionValue.h"
+#include "ServerFacade.h"
+#include "../AiObjectContext.h"
+#include "../values/HazardsValue.h"
+#include "../actions/MovementActions.h"
 
 using namespace ai;
 
@@ -77,27 +81,133 @@ bool EndBossFightTrigger::IsActive()
     return false;
 }
 
-bool CloseToGameObject::IsActive()
+bool CloseToGameObjectHazardTrigger::IsActive()
+{
+    // If the bot is ready
+    bool closeToHazard = false;
+    if (bot->IsInWorld() && !bot->IsBeingTeleported())
+    {
+        AiObjectContext* context = ai->GetAiObjectContext();
+
+        // This has a maximum range equal to the sight distance on config file (default 60 yards)
+        const list<ObjectGuid>& gameObjects = AI_VALUE2(list<ObjectGuid>, "nearest game objects no los", gameObjectID);
+        for (const ObjectGuid& gameObjectGuid : gameObjects)
+        {
+            GameObject* gameObject = ai->GetGameObject(gameObjectGuid);
+            if (gameObject)
+            {
+                const float distance = bot->GetDistance(gameObject) + gameObject->GetObjectBoundingRadius();
+                if (distance <= radius)
+                {
+                    closeToHazard = true;
+                }
+
+                // Cache the hazards
+                Hazard hazard(gameObjectGuid, expirationTime, radius);
+                SET_AI_VALUE(Hazard, "add hazard", std::move(hazard));
+            }
+        }
+    }
+
+    // Don't trigger if the bot is moving
+    if (closeToHazard)
+    {
+        const Action* lastExecutedAction = ai->GetLastExecutedAction(BotState::BOT_STATE_COMBAT);
+        if (lastExecutedAction)
+        {
+            const MovementAction* movementAction = dynamic_cast<const MovementAction*>(lastExecutedAction);
+            if (movementAction)
+            {
+                closeToHazard = false;
+            }
+        }
+    }
+
+    return closeToHazard;
+}
+
+bool CloseToCreatureTrigger::IsActive()
 {
     // If the bot is ready
     if (bot->IsInWorld() && !bot->IsBeingTeleported())
     {
         AiObjectContext* context = ai->GetAiObjectContext();
 
-        // This has a maximum range equal to the sight distance on config file (default 60 yards)
-        list<ObjectGuid> gameObjects = AI_VALUE2(list<ObjectGuid>, "nearest game objects no los", gameObjectID);
-        for (ObjectGuid& gameObjectGuid : gameObjects)
+        // Iterate through the active attackers
+        list<ObjectGuid> attackers = AI_VALUE(list<ObjectGuid>, "attackers");
+        for (ObjectGuid& attackerGuid : attackers)
         {
-            GameObject* gameObject = ai->GetGameObject(gameObjectGuid);
-            if (gameObject)
+            // Check against the given creature id
+            if (attackerGuid.GetEntry() == creatureID)
             {
-                if (bot->IsWithinDist(gameObject, range))
+                Creature* creature = ai->GetCreature(attackerGuid);
+                if (creature)
                 {
-                    return true;
+                    // Check if the bot is not being targeted by the creature
+                    if (!creature->GetVictim() || (creature->GetVictim()->GetObjectGuid() != bot->GetObjectGuid()))
+                    {
+                        // See if the creature is within the specified distance
+                        if (bot->IsWithinDist(creature, range))
+                        {
+                            return true;
+                        }
+                    }
                 }
             }
         }
     }
 
     return false;
+}
+
+bool ItemReadyTrigger::IsActive()
+{
+    // Check if the bot has the item or if it has cheats enabled
+    if (bot->HasItemCount(itemID, 1) || ai->HasCheat(BotCheatMask::item))
+    {
+        const ItemPrototype* proto = sObjectMgr.GetItemPrototype(itemID);
+        if (proto)
+        {
+            // Check if the item is in cooldown
+            bool inCooldown = false;
+            for (uint8 i = 0; i < MAX_ITEM_PROTO_SPELLS; ++i)
+            {
+                if (proto->Spells[i].SpellTrigger != ITEM_SPELLTRIGGER_ON_USE)
+                {
+                    continue;
+                }
+
+                const uint32 spellID = proto->Spells[i].SpellId;
+                if (spellID > 0)
+                {
+                    if (!sServerFacade.IsSpellReady(bot, spellID) ||
+                        !sServerFacade.IsSpellReady(bot, spellID, itemID))
+                    {
+                        inCooldown = true;
+                        break;
+                    }
+                }
+            }
+
+            return !inCooldown;
+        }
+    }
+
+    return false;
+}
+
+bool ItemBuffReadyTrigger::IsActive()
+{
+    if (!bot->HasAura(buffID))
+    {
+        return ItemReadyTrigger::IsActive();
+    }
+
+    return false;
+}
+
+bool BuffOnTargetTrigger::IsActive()
+{
+    const Unit* target = GetTarget();
+    return target && target->HasAura(buffID);
 }

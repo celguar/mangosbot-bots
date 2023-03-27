@@ -19,8 +19,12 @@ enum class BotCheatMask : uint32
     mana = 8,
     power = 16,
     item = 32,
-    maxMask = 64
+    cooldown = 64,
+    repair = 128,
+    maxMask = 256
 };
+
+
 
 class PlayerbotAIConfig
 {
@@ -59,6 +63,7 @@ public:
     std::list<uint32> randomBotAccounts;
     std::list<uint32> randomBotSpellIds;
     std::list<uint32> randomBotQuestIds;
+    std::list<uint32> immuneSpellIds;
     std::list<std::pair<uint32, uint32>> freeAltBots;
     std::list<string> toggleAlwaysOnlineAccounts;
     std::list<string> toggleAlwaysOnlineChars;
@@ -109,6 +114,7 @@ public:
     std::list<uint32> randomBotArenaTeams;
 	bool RandombotsWalkingRPG;
 	bool RandombotsWalkingRPGInDoors;
+    bool boostFollow;
     bool turnInRpg;
     bool globalSoundEffects;
     std::list<uint32> randomBotGuilds;

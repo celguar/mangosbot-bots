@@ -60,6 +60,8 @@ namespace ai
 
             return true;
         }
+
+        bool isUsefulWhenStunned() override { return true; }
     };
 
 }

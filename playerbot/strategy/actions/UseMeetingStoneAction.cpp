@@ -84,6 +84,9 @@ bool SummonAction::Execute(Event& event)
     if(bot->GetMapId() == master->GetMapId() && !WorldPosition(bot).canPathTo(master,bot) && bot->GetDistance(master) < sPlayerbotAIConfig.sightDistance) //We can't walk to master so fine to short-range teleport.
         return Teleport(master, bot);
 
+    if (bot->IsTaxiFlying())
+        return false;
+
     if (SummonUsingGos(master, bot) || SummonUsingNpcs(master, bot))
     {
         ai->TellMasterNoFacing(BOT_TEXT("hello"));
@@ -178,23 +181,29 @@ bool SummonAction::Teleport(Player *summoner, Player *player)
             float y = summoner->GetPositionY() + sin(angle) * ai->GetRange("follow");
             float z = summoner->GetPositionZ();
             summoner->UpdateGroundPositionZ(x, y, z);
-            if (!summoner->IsWithinLOS(x, y, z + bot->GetCollisionHeight(), true))
+            if (!summoner->IsWithinLOS(x, y, z + player->GetCollisionHeight(), true))
             {
                 x = summoner->GetPositionX();
                 y = summoner->GetPositionY();
                 z = summoner->GetPositionZ();
             }
-            if (summoner->IsWithinLOS(x, y, z + bot->GetCollisionHeight(), true))
+            if (summoner->IsWithinLOS(x, y, z + player->GetCollisionHeight(), true))
             {
-                if (sServerFacade.UnitIsDead(bot) && sServerFacade.IsAlive(ai->GetMaster()))
+                if (sServerFacade.UnitIsDead(player) && sServerFacade.IsAlive(summoner))
                 {
-                    bot->ResurrectPlayer(1.0f, false);
-                    bot->SpawnCorpseBones();
+                    player->ResurrectPlayer(1.0f, false);
+                    player->SpawnCorpseBones();
                     ai->TellMasterNoFacing("I live, again!");
                 }                
 
+                if (player->IsTaxiFlying())
+                {
+                    player->TaxiFlightInterrupt();
+                    player->GetMotionMaster()->MovementExpired();
+                }
                 player->GetMotionMaster()->Clear();
                 player->TeleportTo(mapId, x, y, z, 0);
+                player->SendHeartBeat();
                 if(ai->HasStrategy("stay", BotState::BOT_STATE_NON_COMBAT))
                     SET_AI_VALUE2(PositionEntry, "pos", "stay", PositionEntry(x, y, z, mapId));
                 if (ai->HasStrategy("guard", BotState::BOT_STATE_NON_COMBAT))

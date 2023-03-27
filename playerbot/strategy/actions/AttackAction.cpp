@@ -60,12 +60,7 @@ bool AttackMyTargetAction::isUseful()
 bool AttackAction::Attack(Unit* target)
 {
     MotionMaster &mm = *bot->GetMotionMaster();
-#ifdef CMANGOS
-	if (mm.GetCurrentMovementGeneratorType() == TAXI_MOTION_TYPE || bot->IsFlying())
-#endif
-#ifdef MANGOS
-	if (mm.GetCurrentMovementGeneratorType() == FLIGHT_MOTION_TYPE || bot->IsFlying())
-#endif
+	if (mm.GetCurrentMovementGeneratorType() == TAXI_MOTION_TYPE || (bot->IsFlying() && WorldPosition(bot).currentHeight() > 10.0f))
     {
         if (verbose) ai->TellError("I cannot attack in flight");
         return false;
@@ -73,10 +68,16 @@ bool AttackAction::Attack(Unit* target)
 
     if(IsTargetValid(target))
     {
-        if (bot->IsMounted() && (sServerFacade.GetDistance2d(bot, target) < 40.0f))
+        if (bot->IsMounted() && (sServerFacade.GetDistance2d(bot, target) < 40.0f || bot->IsFlying()))
         {
             WorldPacket emptyPacket;
             bot->GetSession()->HandleCancelMountAuraOpcode(emptyPacket);
+            
+            if (bot->IsFlying())
+            {
+                bot->GetMotionMaster()->MoveFall();
+                return true;
+            }
         }
 
         ObjectGuid guid = target->GetObjectGuid();

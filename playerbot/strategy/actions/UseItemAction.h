@@ -338,4 +338,17 @@ namespace ai
 
         virtual uint32 GetItemId() override { return 20520; }
     };
+
+    class UseFireProtectionPotionAction : public UseItemIdAction
+    {
+    public:
+        UseFireProtectionPotionAction(PlayerbotAI* ai) : UseItemIdAction(ai, "fire protection potion") {}
+
+        virtual bool isUseful() override
+        {
+            return !bot->HasAura(17543) && (bot->GetLevel() >= 48);
+        }
+
+        virtual uint32 GetItemId() override { return 13457; }
+    };
 }

@@ -8,6 +8,7 @@ namespace ai
     public:
         SummonAction(PlayerbotAI* ai, string name = "summon") : MovementAction(ai, name) {}
         bool isPossible() override { return true; }
+        bool isUsefulWhenStunned() override { return true; }
         virtual bool Execute(Event& event);
 
     protected:

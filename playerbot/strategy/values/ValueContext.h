@@ -92,6 +92,7 @@
 #include "GuidPositionValues.h"
 #include "EngineValues.h"
 #include "FreeMoveValues.h"
+#include "HazardsValue.h"
 
 namespace ai
 {
@@ -216,6 +217,9 @@ namespace ai
             creators["balance"] = &ValueContext::balance;
             creators["possible attack targets"] = &ValueContext::possible_attack_targets;
             creators["attackers"] = &ValueContext::attackers;
+            creators["add hazard"] = &ValueContext::add_hazard;
+            creators["stored hazards"] = &ValueContext::stored_hazards;
+            creators["hazards"] = &ValueContext::hazards;
             creators["invalid target"] = &ValueContext::invalid_target;
             creators["mana save level"] = &ValueContext::mana_save_level;
             creators["combat"] = &ValueContext::combat;
@@ -228,6 +232,7 @@ namespace ai
             creators["enemy healer target"] = &ValueContext::enemy_healer_target;
             creators["snare target"] = &ValueContext::snare_target;
             creators["formation"] = &ValueContext::formation;
+            creators["formation position"] = &ValueContext::formation_position;
             creators["stance"] = &ValueContext::stance;
             creators["item usage"] = &ValueContext::item_usage;
             creators["force item usage"] = &ValueContext::force_item_usage;
@@ -372,12 +377,16 @@ namespace ai
         static UntypedValue* item_usage(PlayerbotAI* ai) { return new ItemUsageValue(ai); }
         static UntypedValue* force_item_usage(PlayerbotAI* ai) { return new ForceItemUsageValue(ai); }
         static UntypedValue* formation(PlayerbotAI* ai) { return new FormationValue(ai); }
+        static UntypedValue* formation_position(PlayerbotAI* ai) { return new FormationPositionValue(ai); }
         static UntypedValue* stance(PlayerbotAI* ai) { return new StanceValue(ai); }
         static UntypedValue* mana_save_level(PlayerbotAI* ai) { return new ManaSaveLevelValue(ai); }
         static UntypedValue* invalid_target(PlayerbotAI* ai) { return new InvalidTargetValue(ai); }
         static UntypedValue* balance(PlayerbotAI* ai) { return new BalancePercentValue(ai); }
         static UntypedValue* possible_attack_targets(PlayerbotAI* ai) { return new PossibleAttackTargetsValue(ai); }
         static UntypedValue* attackers(PlayerbotAI* ai) { return new AttackersValue(ai); }
+        static UntypedValue* add_hazard(PlayerbotAI* ai) { return new AddHazardValue(ai); }
+        static UntypedValue* stored_hazards(PlayerbotAI* ai) { return new StoredHazardsValue(ai); }
+        static UntypedValue* hazards(PlayerbotAI* ai) { return new HazardsValue(ai); }
 
         static UntypedValue* position(PlayerbotAI* ai) { return new PositionValue(ai); }
         static UntypedValue* pos(PlayerbotAI* ai) { return new SinglePositionValue(ai); }

@@ -4,6 +4,8 @@
 
 using namespace ai;
 
+
+
 bool CheatAction::Execute(Event& event)
 {
     string param = event.getParam();
@@ -20,6 +22,9 @@ bool CheatAction::Execute(Event& event)
             cheatMask |= (uint32)GetCheatMask(name + 1);
             break;
         case '-':
+            cheatMask &= ~(uint32)GetCheatMask(name + 1);
+            break;
+        case '~':
             cheatMask ^= (uint32)GetCheatMask(name + 1);
             break;
         case '?':
@@ -35,41 +40,20 @@ bool CheatAction::Execute(Event& event)
 
 BotCheatMask CheatAction::GetCheatMask(string cheat)
 {
-    if (cheat=="taxi")
-        return BotCheatMask::taxi;
-    if (cheat == "gold")
-        return BotCheatMask::gold;
-    if (cheat == "health")
-        return BotCheatMask::health;
-    if (cheat == "mana")
-        return BotCheatMask::mana;
-    if (cheat == "power")
-        return BotCheatMask::power;
-    if (cheat == "item")
-        return BotCheatMask::item;
+    vector<string> cheatName = { "taxi", "gold", "health", "mana", "power", "item", "cooldown", "repair", "maxMask" };
+    for (int i = 0; i < log2((uint32)BotCheatMask::maxMask); i++)
+    {
+        if (cheatName[i] == cheat)
+            return BotCheatMask(1 << i);
+    }
 
     return BotCheatMask::none;
 }
 
 string CheatAction::GetCheatName(BotCheatMask cheatMask)
 {
-    switch (cheatMask)
-    {
-    case BotCheatMask::taxi:
-            return "taxi";
-    case BotCheatMask::gold:
-        return "gold";
-    case BotCheatMask::health:
-        return "health";
-    case BotCheatMask::mana:
-        return "mana";
-    case BotCheatMask::power:
-        return "power";
-    case BotCheatMask::item:
-        return "item";
-    default: 
-        return "none";
-    }
+    vector<string> cheatName = { "none", "taxi", "gold", "health", "mana", "power", "item", "cooldown", "repair", "maxMask" };
+    return cheatName[log2((uint32)cheatMask)];
 }
 
 void CheatAction::ListCheats()

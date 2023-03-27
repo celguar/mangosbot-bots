@@ -11,11 +11,13 @@ namespace ai
 
 #ifdef GenerateBotHelp
         virtual string GetHelpName() { return "dungeon"; } //Must equal iternal name
-        virtual string GetHelpDescription() {
+        virtual string GetHelpDescription()
+        {
             return "This strategy will enable and disable various dungeon and raid specific strategies as the bot enters and leaves.";
         }
         virtual vector<string> GetRelatedStrategies() { return {"onyxia's lair", "molten core" }; }
 #endif
+
     private:
         void InitCombatTriggers(std::list<TriggerNode*>& triggers) override;
         void InitNonCombatTriggers(std::list<TriggerNode*>& triggers) override;

@@ -247,6 +247,7 @@ namespace ai
 	{
 	public:
 		CastRaiseDeadAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "raise dead") {}
+		virtual bool isPossible() override;
 	};
 
 	class CastKillingMachineAction : public CastBuffSpellAction

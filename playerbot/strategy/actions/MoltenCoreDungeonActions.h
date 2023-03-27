@@ -29,10 +29,16 @@ namespace ai
         MagmadarDisableFightStrategyAction(PlayerbotAI* ai) : ChangeAllStrategyAction(ai, "disable magmadar fight strategy", "-magmadar") {}
     };
 
-    class MagmadarMoveAwayFromLavaBombAction : public MoveAwayFromGameObject
+    class MagmadarMoveAwayFromLavaBombAction : public MoveAwayFromHazard
     {
     public:
-        MagmadarMoveAwayFromLavaBombAction(PlayerbotAI* ai) : MoveAwayFromGameObject(ai, "move away from magmadar lava bomb", 177704, 5.0f) {}
+        MagmadarMoveAwayFromLavaBombAction(PlayerbotAI* ai) : MoveAwayFromHazard(ai, "move away from magmadar lava bomb") {}
+    };
+
+    class MagmadarMoveAwayAction : public MoveAwayFromCreature
+    {
+    public:
+        MagmadarMoveAwayAction(PlayerbotAI* ai) : MoveAwayFromCreature(ai, "move away from magmadar", 11982, 31.0f) {}
     };
 
     class MoveToMCRuneAction : public MoveToAction

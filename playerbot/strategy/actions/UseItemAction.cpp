@@ -897,6 +897,9 @@ bool UseHearthStoneAction::Execute(Event& event)
         {
             WorldPacket emptyPacket;
             bot->GetSession()->HandleCancelMountAuraOpcode(emptyPacket);
+
+            if (bot->IsFlying())
+                bot->GetMotionMaster()->MoveFall();
         }
         else
             ai->RemoveShapeshift();

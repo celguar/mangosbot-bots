@@ -41,7 +41,10 @@ bool FollowChatShortcutAction::Execute(Event& event)
 
     ai->Reset();
     ai->ChangeStrategy("+follow,-passive,-stay", BotState::BOT_STATE_NON_COMBAT);
-    ai->ChangeStrategy("-passive,-stay,-guard", BotState::BOT_STATE_COMBAT);
+    ai->ChangeStrategy("-stay,-guard", BotState::BOT_STATE_COMBAT);
+
+    if(ai->HasStrategy("passive", BotState::BOT_STATE_COMBAT)) //Remove flee
+        ai->ChangeStrategy("-passive,-follow", BotState::BOT_STATE_COMBAT);
 
     ai::PositionMap& posMap = context->GetValue<ai::PositionMap&>("position")->Get();
     ai::PositionEntry pos = posMap["return"];

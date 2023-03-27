@@ -71,6 +71,13 @@ namespace ai
         if (ai->HasActivePlayerMaster())
             return false;
 
+        for (GroupReference* gref = bot->GetGroup()->GetFirstMember(); gref; gref = gref->next())
+        {
+            Player* member = gref->getSource();
+            if (!ai->IsSafe(member))
+                return false;
+        }
+
         if (!sPlayerbotAIConfig.randomBotGroupNearby)
             return true;
 

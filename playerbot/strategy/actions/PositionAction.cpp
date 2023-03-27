@@ -115,7 +115,19 @@ bool GuardAction::isUseful()
     if (ai->IsStateActive(BotState::BOT_STATE_COMBAT))
     {
         Unit* target = AI_VALUE(Unit*, "current target");
-        if (target && target->GetTarget() != bot) //Do not move back to guard position if target isn't following you.
+
+        if (!target)
+            return true;
+
+        if (target->GetTarget() == bot) //Try pulling target to guard position
+            return true;
+
+        if (!ai->IsRanged(bot)) //Melee bots stay in melee.
+            return false;
+
+        WorldPosition formationPosition = AI_VALUE(WorldPosition, "formation position");
+
+        if (formationPosition.sqDistance2d(target) > ai->GetRange("spell")) //Do not move to guard if we can't attack from that position.
             return false;
     }
             

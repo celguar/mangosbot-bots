@@ -8,7 +8,7 @@ namespace ai
     public:
         WhoAction(PlayerbotAI* ai) : ChatCommandAction(ai, "who") {}
         virtual bool Execute(Event& event) override;
-
+        bool isUsefulWhenStunned() override { return true; }
     private:
         string QueryTrade(string text);
         string QuerySkill(string text);

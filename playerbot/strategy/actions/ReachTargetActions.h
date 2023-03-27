@@ -6,13 +6,14 @@
 #include "../../ServerFacade.h"
 #include "../generic/PullStrategy.h"
 #include "../NamedObjectContext.h"
+#include "GenericSpellActions.h"
 
 namespace ai
 {
     class ReachTargetAction : public MovementAction, public Qualified
     {
     public:
-        ReachTargetAction(PlayerbotAI* ai, string name, float distance = 0.0f) : MovementAction(ai, name), Qualified(), distance(distance), spellName("") {}
+        ReachTargetAction(PlayerbotAI* ai, string name, float range = 0.0f) : MovementAction(ai, name), Qualified(), range(range), spellName("") {}
 
         void Qualify(string qualifier)
         {
@@ -26,7 +27,7 @@ namespace ai
                 float maxSpellRange;
                 if (ai->GetSpellRange(spellName, &maxSpellRange))
                 {
-                    distance = maxSpellRange;
+                    range = maxSpellRange;
                 }
             }
         }
@@ -39,28 +40,25 @@ namespace ai
                 UpdateMovementState();
 
                 // Ignore movement if too far
-                const float distanceToTarget = sServerFacade.GetDistance2d(bot, target);
-                //if (distanceToTarget <= sPlayerbotAIConfig.sightDistance)
-                //{
-                    float chaseDist = distance;
-                    const bool inLos = bot->IsWithinLOSInMap(target, true);
-                    const bool isFriend = sServerFacade.IsFriendlyTo(bot, target);
+                const float distanceToTarget = bot->GetDistance(target, false, DIST_CALC_COMBAT_REACH);
+                float chaseDist = range;
+                const bool inLos = bot->IsWithinLOSInMap(target, true);
+                const bool isFriend = sServerFacade.IsFriendlyTo(bot, target);
 
-                    if (distance > 0.0f)
-                    {
-                        chaseDist = inLos ? distance : (isFriend ? std::min(distanceToTarget * 0.9f, distance) : distance);
-                        chaseDist = (chaseDist - sPlayerbotAIConfig.contactDistance);
-                    }
+                if (range > 0.0f)
+                {
+                    chaseDist = inLos ? range : (isFriend ? std::min(distanceToTarget * 0.9f, range) : range);
+                    chaseDist = (chaseDist - sPlayerbotAIConfig.contactDistance);
+                }
 
-                    if (inLos && isFriend && (distance <= ai->GetRange("follow")))
-                    {
-                        return MoveNear(target, chaseDist);
-                    }
-                    else
-                    {
-                        return ChaseTo(target, chaseDist, bot->GetAngle(target));
-                    }
-                //}
+                if (inLos && isFriend && (range <= ai->GetRange("follow")))
+                {
+                    return MoveNear(target, chaseDist);
+                }
+                else
+                {
+                    return ChaseTo(target, chaseDist, bot->GetAngle(target));
+                }
             }
 
             return false;
@@ -90,10 +88,11 @@ namespace ai
             }
 
             // Check if the bot is already on the range required
-            return bot->GetDistance(target) > distance;
+            return bot->GetDistance(target, true, DIST_CALC_COMBAT_REACH) > range;
         }
 
         virtual string GetTargetName() { return "current target"; }
+        string GetSpellName() const { return spellName; }
 
         virtual Unit* GetTarget() override
         {
@@ -111,7 +110,7 @@ namespace ai
         }
 
     protected:
-        float distance;
+        float range;
         string spellName;
     };
 
@@ -153,7 +152,7 @@ namespace ai
             PullStrategy* strategy = PullStrategy::Get(ai);
             if (strategy)
             {
-                distance = strategy->GetRange();
+                range = strategy->GetRange();
             }
         }
 

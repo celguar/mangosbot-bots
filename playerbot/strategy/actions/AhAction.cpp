@@ -327,16 +327,18 @@ bool AhBidAction::BidItem(AuctionEntry* auction, uint32 price, Unit* auctioneer)
     packet << price;
 
     uint32 oldMoney = bot->GetMoney();
+    ItemQualifier itemQualifier(auction);
+    uint32 count = auction->itemCount;
+
+    ItemPrototype const* proto = sObjectMgr.GetItemPrototype(auction->itemTemplate);
 
     bot->GetSession()->HandleAuctionPlaceBid(packet);
 
     if (bot->GetMoney() < oldMoney)
     {
-        ItemPrototype const* proto = sObjectMgr.GetItemPrototype(auction->itemTemplate);
         sPlayerbotAIConfig.logEvent(ai, "AhBidAction", proto->Name1, to_string(proto->ItemId));
         ostringstream out;
-        ItemQualifier itemQualifier(auction);
-        out << "Bidding " << ChatHelper::formatMoney(price) << " on " << ChatHelper::formatItem(itemQualifier, auction->itemCount) << " on the AH";
+        out << "Bidding " << ChatHelper::formatMoney(price) << " on " << ChatHelper::formatItem(itemQualifier, count) << " on the AH";
         ai->TellMasterNoFacing(out.str(), PlayerbotSecurityLevel::PLAYERBOT_SECURITY_ALLOW_ALL, false);
         return true;
     }

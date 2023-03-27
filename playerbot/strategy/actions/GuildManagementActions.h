@@ -17,6 +17,7 @@ namespace ai
         virtual Player* GetPlayer(Event event);
         virtual bool PlayerIsValid(Player* member) { return !member->GetGuildId(); };
         virtual uint8 GetRankId(Player* member) { return sGuildMgr.GetGuildById(member->GetGuildId())->GetMemberSlot(member->GetObjectGuid())->RankId; }
+        virtual bool GuildIsFull(uint32 GuildId) { Guild* guild = sGuildMgr.GetGuildById(GuildId); return  guild->GetMemberSize() >= 1000; }
 
         uint16 opcode;
     };
@@ -25,7 +26,7 @@ namespace ai
     {
     public:
         GuildInviteAction(PlayerbotAI* ai, string name = "guild invite", uint16 opcode = CMSG_GUILD_INVITE) : GuidManageAction(ai, name, opcode) {}
-        virtual bool isUseful() override { return bot->GetGuildId() && sGuildMgr.GetGuildById(bot->GetGuildId())->HasRankRight(bot->GetRank(), GR_RIGHT_INVITE); }
+        virtual bool isUseful() override { return bot->GetGuildId() && sGuildMgr.GetGuildById(bot->GetGuildId())->HasRankRight(bot->GetRank(), GR_RIGHT_INVITE) && !GuildIsFull(bot->GetGuildId()); }
     
     protected:
         virtual void SendPacket(WorldPacket data, Event event) override { bot->GetSession()->HandleGuildInviteOpcode(data); };
@@ -41,7 +42,7 @@ namespace ai
     protected:
         virtual WorldPacket GetPacket(Player* player) override { WorldPacket data(Opcodes(opcode), 8); data << bot->GetName(); return data; }
         virtual void SendPacket(WorldPacket data, Event event) override { if(GetPlayer(event)) GetPlayer(event)->GetSession()->HandleGuildInviteOpcode(data); };
-        virtual bool PlayerIsValid(Player* member) override { return !bot->GetGuildId() && member->GetGuildId() && sGuildMgr.GetGuildById(member->GetGuildId())->HasRankRight(member->GetRank(), GR_RIGHT_INVITE); };
+        virtual bool PlayerIsValid(Player* member) override { return !bot->GetGuildId() && member->GetGuildId() && sGuildMgr.GetGuildById(member->GetGuildId())->HasRankRight(member->GetRank(), GR_RIGHT_INVITE) && !GuildIsFull(member->GetGuildId()); };
     };
 
     class GuildPromoteAction : public GuidManageAction 

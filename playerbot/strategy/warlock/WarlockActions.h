@@ -228,4 +228,6 @@ namespace ai
     public:
 		CastHowlOfTerrorAction(PlayerbotAI* ai) : CastMeleeAoeSpellAction(ai, "howl of terror", 10.0f) {}
     };
+
+	SPELL_ACTION(CastSearingPainAction, "searing pain");
 }

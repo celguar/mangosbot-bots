@@ -100,8 +100,6 @@ namespace ai
                             else
                                 ai->ChangeStrategy("+subtlety,-stealthed", BotState::BOT_STATE_COMBAT);
                     }
-
-                    sPlayerbotDbStore.Save(ai);
                 }
             }
             return true;

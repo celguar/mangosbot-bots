@@ -633,6 +633,9 @@ bool CheckMountStateAction::UnMount() const
     {
         WorldPacket emptyPacket;
         bot->GetSession()->HandleCancelMountAuraOpcode(emptyPacket);
+
+        if (bot->IsFlying())
+            bot->GetMotionMaster()->MoveFall();
     }
     else
         ai->RemoveShapeshift();

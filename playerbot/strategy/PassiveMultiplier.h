@@ -16,5 +16,4 @@ namespace ai
         static list<string> allowedActions;
         static list<string> allowedParts;
     };
-
 }

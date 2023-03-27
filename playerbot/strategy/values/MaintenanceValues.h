@@ -11,9 +11,6 @@ namespace ai
         CanMoveAroundValue(PlayerbotAI* ai) : BoolCalculatedValue(ai, "can move around", 2) {}
         virtual bool Calculate()
         {
-            if (bot->IsInCombat())
-                return false;
-
             if (bot->GetTradeData())
                 return false;
 
@@ -74,7 +71,37 @@ namespace ai
     {
     public:
         CanAHSellValue(PlayerbotAI* ai) : BoolCalculatedValue(ai, "can ah sell", 2) {}
-        virtual bool Calculate() { return ai->HasStrategy("rpg vendor", BotState::BOT_STATE_NON_COMBAT) && AI_VALUE2(uint32, "item count", "usage " + to_string(ITEM_USAGE_AH)) > 1 && AI_VALUE2(uint32, "free money for", (uint32)NeedMoneyFor::ah) > 0; };
+        virtual bool Calculate() { return ai->HasStrategy("rpg vendor", BotState::BOT_STATE_NON_COMBAT) && AI_VALUE2(uint32, "item count", "usage " + to_string(ITEM_USAGE_AH)) > 1 && AI_VALUE2(uint32, "free money for", (uint32)NeedMoneyFor::ah) > GetAuctionDeposit(); };
+
+        uint32 GetAuctionDeposit()
+        {
+            uint32 time;
+#ifdef MANGOSBOT_ZERO
+            time = 8 * HOUR / MINUTE;
+#else
+            time = 12 * HOUR / MINUTE;
+#endif
+
+            float minDeposit = 0;
+            for (auto item : AI_VALUE2(list<Item*>, "inventory items", "usage " + to_string(ITEM_USAGE_AH)))
+            {
+                float deposit = float(item->GetProto()->SellPrice * item->GetCount() * (time / MIN_AUCTION_TIME));
+
+                deposit = deposit * 15 * 3.0f / 100.0f;
+
+                float min_deposit = float(sWorld.getConfig(CONFIG_UINT32_AUCTION_DEPOSIT_MIN));
+
+                if (deposit < min_deposit)
+                    deposit = min_deposit;
+
+                deposit *= sWorld.getConfig(CONFIG_FLOAT_RATE_AUCTION_DEPOSIT);
+
+                if (minDeposit == 0 || deposit < minDeposit)
+                    minDeposit = deposit;
+            }
+
+            return minDeposit;
+        }
     };
 
     class CanAHBuyValue : public BoolCalculatedValue

@@ -28,10 +28,28 @@ namespace ai
         MagmadarEndFightTrigger(PlayerbotAI* ai) : EndBossFightTrigger(ai, "end magmadar fight", "magmadar", 11982) {}
     };
 
-    class MagmadarLavaBombTrigger : public CloseToGameObject
+    class MagmadarLavaBombTrigger : public CloseToGameObjectHazardTrigger
     {
     public:
-        MagmadarLavaBombTrigger(PlayerbotAI* ai) : CloseToGameObject(ai, "magmadar lava bomb", 177704, 2.5f) {}
+        MagmadarLavaBombTrigger(PlayerbotAI* ai) : CloseToGameObjectHazardTrigger(ai, "magmadar lava bomb", 177704, 5.0f, 60) {}
+    };
+
+    class MagmadarTooCloseTrigger : public CloseToCreatureTrigger
+    {
+    public:
+        MagmadarTooCloseTrigger(PlayerbotAI* ai) : CloseToCreatureTrigger(ai, "magmadar too close", 11982, 30.0f) {}
+    };
+
+    class MagmadarEnragedTrigger : public BuffOnTargetTrigger
+    {
+    public:
+        MagmadarEnragedTrigger(PlayerbotAI* ai) : BuffOnTargetTrigger(ai, "magmadar enraged", 19451) {}
+    };
+
+    class FireProtectionPotionReadyTrigger : public ItemBuffReadyTrigger
+    {
+    public:
+        FireProtectionPotionReadyTrigger(PlayerbotAI* ai) : ItemBuffReadyTrigger(ai, "fire protection potion ready", 13457, 17543) {}
     };
 
     class MCRuneInSightTrigger : public ValueTrigger

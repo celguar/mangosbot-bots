@@ -172,6 +172,7 @@ namespace ai
                 creators["chimera shot"] = &AiObjectContextInternal::chimera_shot;
                 creators["explosive shot"] = &AiObjectContextInternal::explosive_shot;
                 creators["arcane shot"] = &AiObjectContextInternal::arcane_shot;
+                creators["tranquilizing shot"] = &AiObjectContextInternal::tranquilizing_shot;
                 creators["concussive shot"] = &AiObjectContextInternal::concussive_shot;
                 creators["distracting shot"] = &AiObjectContextInternal::distracting_shot;
                 creators["multi shot"] = &AiObjectContextInternal::multi_shot;
@@ -246,6 +247,7 @@ namespace ai
             static Action* aimed_shot(PlayerbotAI* ai) { return new CastAimedShotAction(ai); }
             static Action* chimera_shot(PlayerbotAI* ai) { return new CastChimeraShotAction(ai); }
             static Action* explosive_shot(PlayerbotAI* ai) { return new CastExplosiveShotAction(ai); }
+            static Action* tranquilizing_shot(PlayerbotAI* ai) { return new CastTranquilizingShotAction(ai); }
             static Action* arcane_shot(PlayerbotAI* ai) { return new CastArcaneShotAction(ai); }
             static Action* concussive_shot(PlayerbotAI* ai) { return new CastConcussiveShotAction(ai); }
             static Action* distracting_shot(PlayerbotAI* ai) { return new CastDistractingShotAction(ai); }

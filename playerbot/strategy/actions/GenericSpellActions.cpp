@@ -57,7 +57,7 @@ bool CastSpellAction::Execute(Event& event)
     }
     else
     {
-        if (spellName == "freezing trap") //Temporary fix for core crash
+        if (spellName == "freezing trap" || spellName == "frost trap") //Temporary fix for core crash
         {
             uint32 spellId = AI_VALUE2(uint32,"spell id", spellName);
 

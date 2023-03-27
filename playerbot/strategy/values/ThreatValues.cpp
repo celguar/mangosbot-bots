@@ -88,7 +88,7 @@ float ThreatValue::GetTankThreat(PlayerbotAI* ai, Unit* target)
     for (GroupReference* gref = group->GetFirstMember(); gref; gref = gref->next())
     {
         Player* player = gref->getSource();
-        if (!player || !sServerFacade.IsAlive(player) || player == ai->GetBot())
+        if (!player || !sServerFacade.IsAlive(player) || !ai->IsSafe(player) || player == ai->GetBot())
             continue;
 
         if (ai->IsTank(player))

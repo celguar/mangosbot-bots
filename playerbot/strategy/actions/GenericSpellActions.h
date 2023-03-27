@@ -16,6 +16,8 @@ namespace ai
 
         // Used when this action is executed as a reaction
         bool ShouldReactionInterruptCast() const override { return true; }
+
+        bool HasReachAction() { return !GetReachActionName().empty(); }
         
     protected:
         const uint32& GetSpellID() const { return spellId; }
