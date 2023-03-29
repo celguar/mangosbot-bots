@@ -402,7 +402,7 @@ INSERT INTO `ai_playerbot_texts` (`id`, `name`, `text`, `say_type`, `reply_type`
 	(17, 'suggest_instance', 'Who wants to farm %instance?', 0, 0, '', 'Qui veut exploiter %instance ?', '', '', '', '', '', 'Кто хочет фармить %instance?'),
 	(18, 'suggest_instance', 'Go in %instance?', 0, 0, '', 'Aller à %instance ?', '', '', '', '', '', 'Погнали в %instance?'),
 	(19, 'suggest_instance', 'Looking for %instance.', 0, 0, '', 'À la recherche de %instance', '', '', '', '', '', 'Ищем %instance.'),
-	(20, 'suggest_instance', 'Need help with %instance quests?', 0, 0, '', 'Besoin d\'aide pour les quêtes %instance ?', '', '', '', '', '', 'Нужна помощь с заданием %?'),
+	(20, 'suggest_instance', 'Need help with %instance quests?', 0, 0, '', 'Besoin d\'aide pour les quêtes %instance ?', '', '', '', '', '', 'Нужна помощь с заданием %instance?'),
 	(21, 'suggest_instance', 'Wanna quest in %instance.', 0, 0, '', 'Je veux une quête dans %instance', '', '', '', '', '', 'Хочу задание в %instance.'),
 	(22, 'suggest_instance', 'Anyone with quests in %instance?', 0, 0, '', 'Quelqu\'un a des quêtes dans %instance ?', '', '', '', '', '', 'У кого-нибудь есть квесты в %instance?'),
 	(23, 'suggest_instance', 'Could help with quests in %instance.', 0, 0, '', 'Peux aider pour les quêtes dans %instance', '', '', '', '', '', 'Могу помочь с заданиями в %instance.'),
