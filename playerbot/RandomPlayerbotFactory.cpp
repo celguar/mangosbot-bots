@@ -550,7 +550,7 @@ void RandomPlayerbotFactory::CreateRandomBots()
         Field* fields = result->Fetch();
         uint8 gender = fields[0].GetUInt8();
         string bname = fields[1].GetString();
-        uint32 guidlo = fields[0].GetUInt32();
+        uint32 guidlo = fields[2].GetUInt32();
         if(!guidlo)
             freeNames[gender].push_back(bname);
         allNames[gender].push_back(bname);
