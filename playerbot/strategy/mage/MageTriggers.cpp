@@ -33,7 +33,13 @@ bool NoImprovedScorchDebuffTrigger::IsActive()
         && !ai->HasAura("improved scorch", target);
 }
 
+
+#ifdef MANGOSBOT_TWO
+
 bool HotStreakTrigger::IsActive()
 {
-    return ai->HasAura("hot streak", bot);
+    //Usage by id. By name hot streak aura doesnt work.
+    return ai->HasAura(48108, bot);
 }
+
+#endif

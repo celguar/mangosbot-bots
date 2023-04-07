@@ -107,7 +107,6 @@ namespace ai
                 creators["counterspell"] = &TriggerFactoryInternal::counterspell;
                 creators["polymorph"] = &TriggerFactoryInternal::polymorph;
                 creators["spellsteal"] = &TriggerFactoryInternal::spellsteal;
-                creators["hot streak"] = &TriggerFactoryInternal::hot_streak;
                 creators["no improved scorch"] = &TriggerFactoryInternal::no_improved_scorch;
                 creators["living bomb"] = &TriggerFactoryInternal::living_bomb;
                 creators["missile barrage"] = &TriggerFactoryInternal::missile_barrage;
@@ -121,6 +120,9 @@ namespace ai
                 creators["mana shield"] = &TriggerFactoryInternal::mana_shield;
                 creators["summon water elemental"] = &TriggerFactoryInternal::summon_water_elemental;
                 creators["ice lance"] = &TriggerFactoryInternal::ice_lance;
+#ifdef MANGOSBOT_TWO
+                creators["hot streak"] = &TriggerFactoryInternal::hot_streak;
+#endif
             }
 
         private:
@@ -132,7 +134,6 @@ namespace ai
             static Trigger* fire_ward(PlayerbotAI* ai) { return new FireWardTrigger(ai); }
             static Trigger* presence_of_mind(PlayerbotAI* ai) { return new PresenceOfMindTrigger(ai); }
             static Trigger* arcane_power(PlayerbotAI* ai) { return new ArcanePowerTrigger(ai); }
-            static Trigger* hot_streak(PlayerbotAI* ai) { return new HotStreakTrigger(ai); }
             static Trigger* no_improved_scorch(PlayerbotAI* ai) { return new NoImprovedScorchDebuffTrigger(ai); }
             static Trigger* fireball(PlayerbotAI* ai) { return new FireballTrigger(ai); }
             static Trigger* pyroblast(PlayerbotAI* ai) { return new PyroblastTrigger(ai); }
@@ -150,6 +151,9 @@ namespace ai
             static Trigger* missile_barrage(PlayerbotAI* ai) { return new MissileBarrageTrigger(ai); }
             static Trigger* arcane_blast(PlayerbotAI* ai) { return new ArcaneBlastTrigger(ai); }
             static Trigger* counterspell_enemy_healer(PlayerbotAI* ai) { return new CounterspellEnemyHealerTrigger(ai); }
+#ifdef MANGOSBOT_TWO
+            static Trigger* hot_streak(PlayerbotAI* ai) { return new HotStreakTrigger(ai); }
+#endif
         };
     };
 };

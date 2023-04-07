@@ -134,5 +134,7 @@ namespace ai
     DEBUFF_TRIGGER_A(IceLanceTrigger, "ice lance");
     DEBUFF_TRIGGER_A(NoImprovedScorchDebuffTrigger, "no improved scorch");
 
+#ifdef MANGOSBOT_TWO
     BUFF_TRIGGER_A(HotStreakTrigger, "hot streak");
+#endif
 }
