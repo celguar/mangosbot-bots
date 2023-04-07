@@ -140,7 +140,7 @@ namespace ai
             return target
                 && !bot->IsSpellReady(133)      //fireball
                 && !bot->IsSpellReady(2948)     //scorch
-                && !bot->IsSpellReady(11366);   //pyro
+                && !bot->IsSpellReady(11366);   //pyroblast
         }
     };
 
