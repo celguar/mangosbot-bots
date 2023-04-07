@@ -55,6 +55,10 @@ void FireMageStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "has aggro",
         NextAction::array(0, new NextAction("fire blast", ACTION_HIGH + 10), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "fire spells on cooldown",
+        NextAction::array(0, new NextAction("frostbolt", 10.0f), NULL)));
 }
 
 void FireMageAoeStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
@@ -66,5 +70,9 @@ void FireMageAoeStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "living bomb",
         NextAction::array(0, new NextAction("living bomb", 25.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "fire spells on cooldown",
+        NextAction::array(0, new NextAction("blizzard", 20.0f), NULL)));
 }
 
