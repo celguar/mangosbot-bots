@@ -57,7 +57,7 @@ void FireMageStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("fire blast", ACTION_HIGH + 10), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "fire spells on cooldown",
+        "fire spells locked",
         NextAction::array(0, new NextAction("frostbolt", 10.0f), NULL)));
 }
 

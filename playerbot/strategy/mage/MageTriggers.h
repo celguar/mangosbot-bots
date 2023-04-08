@@ -131,16 +131,14 @@ namespace ai
         virtual bool IsActive();
     };
 
-    class FireSpellsOnCooldown : public Trigger
+    class FireSpellsLocked : public Trigger
     {
     public:
-        FireSpellsOnCooldown(PlayerbotAI* ai) : Trigger(ai, "fire spells on cooldown", 2) {}
+        FireSpellsLocked(PlayerbotAI* ai) : Trigger(ai, "fire spells locked", 2) {}
         virtual bool IsActive()
         {
-            return target
-                && !bot->IsSpellReady(133)      //fireball
-                && !bot->IsSpellReady(2948)     //scorch
-                && !bot->IsSpellReady(11366);   //pyroblast
+            return !bot->IsSpellReady(133)      //fireball
+                && !bot->IsSpellReady(2948);    //scorch
         }
     };
 

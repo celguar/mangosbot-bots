@@ -120,7 +120,7 @@ namespace ai
                 creators["mana shield"] = &TriggerFactoryInternal::mana_shield;
                 creators["summon water elemental"] = &TriggerFactoryInternal::summon_water_elemental;
                 creators["ice lance"] = &TriggerFactoryInternal::ice_lance;
-                creators["fire spells on cooldown"] = &TriggerFactoryInternal::fire_spells_on_cooldown;
+                creators["fire spells locked"] = &TriggerFactoryInternal::fire_spells_locked;
 #ifdef MANGOSBOT_TWO
                 creators["hot streak"] = &TriggerFactoryInternal::hot_streak;
 #endif
@@ -152,7 +152,7 @@ namespace ai
             static Trigger* missile_barrage(PlayerbotAI* ai) { return new MissileBarrageTrigger(ai); }
             static Trigger* arcane_blast(PlayerbotAI* ai) { return new ArcaneBlastTrigger(ai); }
             static Trigger* counterspell_enemy_healer(PlayerbotAI* ai) { return new CounterspellEnemyHealerTrigger(ai); }
-            static Trigger* fire_spells_on_cooldown(PlayerbotAI* ai) { return new FireSpellsOnCooldown(ai); }
+            static Trigger* fire_spells_locked(PlayerbotAI* ai) { return new FireSpellsLocked(ai); }
 #ifdef MANGOSBOT_TWO
             static Trigger* hot_streak(PlayerbotAI* ai) { return new HotStreakTrigger(ai); }
 #endif
