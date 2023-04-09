@@ -488,8 +488,11 @@ AiPlayerbot.PremadeSpecLink.8.4.80 = 23500503010023015032310250532103-203023001
 AiPlayerbot.PremadeSpecName.8.5 = Fire Pve
 AiPlayerbot.PremadeSpecLink.8.5.80 = 23000503310003-0055030012303330053120300351
 
-AiPlayerbot.PremadeSpecName.8.6 = Frost Arcane Pve
+AiPlayerbot.PremadeSpecName.8.6 = Arcane Fire Pve
 AiPlayerbot.PremadeSpecLink.8.6.80 = 23500503110023015032310250532003-203023001
+
+AiPlayerbot.PremadeSpecName.8.6 = Frost Pve
+AiPlayerbot.PremadeSpecLink.8.6.80 = 23000503110003--0533030311133100030152231351
 
 
 # Warlock

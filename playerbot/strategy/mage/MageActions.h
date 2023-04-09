@@ -261,4 +261,12 @@ namespace ai
     };
     
     BUFF_ACTION(CastSummonWaterElementalAction, "summon water elemental");
+
+#ifndef MANGOSBOT_ZERO
+    class CastColdSnapAction : public CastBuffSpellAction
+    {
+    public:
+        CastColdSnapAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "cold snap") {}
+    };
+#endif
 }

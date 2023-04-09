@@ -14,6 +14,12 @@ void FrostMageStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
 {
     GenericMageStrategy::InitCombatTriggers(triggers);
 
+#ifndef MANGOSBOT_ZERO
+    triggers.push_back(new TriggerNode(
+        "cold snap",
+        NextAction::array(0, new NextAction("cold snap", 55.0f), NULL)));
+#endif
+
     triggers.push_back(new TriggerNode(
         "icy veins",
         NextAction::array(0, new NextAction("icy veins", 50.0f), NULL)));

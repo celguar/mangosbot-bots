@@ -137,4 +137,17 @@ namespace ai
 #ifdef MANGOSBOT_TWO
     BUFF_TRIGGER_A(HotStreakTrigger, "hot streak");
 #endif
+
+#ifndef MANGOSBOT_ZERO
+    class ColdSnapTrigger : public Trigger
+    {
+    public:
+        ColdSnapTrigger(PlayerbotAI* ai) : Trigger(ai, "cold snap", 2) {}
+        virtual bool IsActive()
+        {
+            return !bot->IsSpellReady(12472)    //icy veins on cooldown
+                && bot->IsSpellReady(11958);    //cold snap not on cooldown
+        }
+    };
+#endif
 }
