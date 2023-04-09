@@ -186,20 +186,23 @@ namespace ai
     class EnemyInRangeTrigger : public Trigger 
     {
     public:
-        EnemyInRangeTrigger(PlayerbotAI* ai, string name, float distance) : Trigger(ai, name)
+        EnemyInRangeTrigger(PlayerbotAI* ai, string name, float distance, bool enemyMustBePlayer = false) : Trigger(ai, name)
         {
             this->distance = distance;
+            this->enemyMustBePlayer = enemyMustBePlayer;
         }
         
         virtual bool IsActive()
         {
             Unit* target = AI_VALUE(Unit*, "current target");
             return target &&
+                (!enemyMustBePlayer || target->IsPlayer()) &&
                 sServerFacade.IsDistanceLessOrEqualThan(AI_VALUE2(float, "distance", "current target"), distance);
         }
 
     protected:
         float distance;
+        bool enemyMustBePlayer;
     };
 
     class OutOfRangeTrigger : public Trigger 

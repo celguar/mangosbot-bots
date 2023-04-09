@@ -101,6 +101,7 @@ namespace ai
             creators["enemy ten yards"] = &TriggerContext::enemy_ten_yards;
             creators["enemy five yards"] = &TriggerContext::enemy_five_yards;
             creators["wait for attack safe distance"] = &TriggerContext::wait_for_attack_safe_distance;
+            creators["enemy player ten yards"] = &TriggerContext::enemy_player_ten_yards;
 
             creators["combo points available"] = &TriggerContext::ComboPointsAvailable;
 
@@ -366,6 +367,7 @@ namespace ai
         static Trigger* enemy_fifteen_yards(PlayerbotAI* ai) { return new EnemyInRangeTrigger(ai, "enemy fifteen yards", 15.0f); }
         static Trigger* enemy_ten_yards(PlayerbotAI* ai) { return new EnemyInRangeTrigger(ai, "enemy ten yards", 10.0f); }
         static Trigger* enemy_five_yards(PlayerbotAI* ai) { return new EnemyInRangeTrigger(ai, "enemy five yards", 5.0f); }
+        static Trigger* enemy_player_ten_yards(PlayerbotAI* ai) { return new EnemyInRangeTrigger(ai, "enemy player ten yards", 10.0f, true); }
         static Trigger* party_member_to_heal_out_of_spell_range(PlayerbotAI* ai) { return new PartyMemberToHealOutOfSpellRangeTrigger(ai); }
         static Trigger* wait_for_attack_safe_distance(PlayerbotAI* ai) { return new WaitForAttackSafeDistanceTrigger(ai); }
         static Trigger* ComboPointsAvailable(PlayerbotAI* ai) { return new ComboPointsAvailableTrigger(ai); }

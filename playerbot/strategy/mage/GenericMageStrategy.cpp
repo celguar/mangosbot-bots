@@ -17,12 +17,14 @@ public:
         creators["cone of cold"] = &cone_of_cold;
         creators["combustion"] = &combustion;
         creators["evocation"] = &evocation;
-        creators["dragon's breath"] = &dragons_breath;
-        creators["blast wave"] = &blast_wave;
         creators["remove curse"] = &remove_curse;
         creators["remove curse on party"] = &remove_curse_on_party;
 #ifdef MANGOSBOT_TWO
         creators["frostfire bolt"] = &frostfire_bolt;
+#endif
+#ifndef MANGOSBOT_ZERO
+        creators["dragon's breath"] = &dragons_breath;
+        creators["blast wave"] = &blast_wave;
 #endif
     }
 private:
@@ -75,20 +77,6 @@ private:
             /*A*/ NextAction::array(0, new NextAction("mana potion"), NULL),
             /*C*/ NULL);
     }
-    static ActionNode* dragons_breath(PlayerbotAI* ai)
-    {
-        return new ActionNode ("dragon's breath",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("blast wave"), NULL),
-            /*C*/ NextAction::array(0, new NextAction("flamestrike", 71.0f), NULL));
-    }
-    static ActionNode* blast_wave(PlayerbotAI* ai)
-    {
-        return new ActionNode ("blast wave",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("frost nova"), NULL),
-            /*C*/ NextAction::array(0, new NextAction("flamestrike", 71.0f), NULL));
-    }
     static ActionNode* remove_curse(PlayerbotAI* ai)
     {
         return new ActionNode ("remove curse",
@@ -110,6 +98,22 @@ private:
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("fireball"), NULL),
             /*C*/ NULL);
+    }
+#endif
+#ifndef MANGOSBOT_ZERO
+    static ActionNode* dragons_breath(PlayerbotAI* ai)
+    {
+        return new ActionNode("dragon's breath",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("blast wave"), NULL),
+            /*C*/ NextAction::array(0, new NextAction("flamestrike", 71.0f), NULL));
+    }
+    static ActionNode* blast_wave(PlayerbotAI* ai)
+    {
+        return new ActionNode("blast wave",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("frost nova"), NULL),
+            /*C*/ NextAction::array(0, new NextAction("flamestrike", 71.0f), NULL));
     }
 #endif
 };

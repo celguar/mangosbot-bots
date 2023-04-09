@@ -18,9 +18,15 @@ void FireMageStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
 {
     GenericMageStrategy::InitCombatTriggers(triggers);
 
+#ifndef MANGOSBOT_ZERO
     triggers.push_back(new TriggerNode(
-        "enemy ten yards",
+        "enemy player ten yards",
         NextAction::array(0, new NextAction("blast wave", 62.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "enemy too close for spell",
+        NextAction::array(0, new NextAction("dragon's breath", 61.0f), NULL)));
+#endif
 
 #ifndef MANGOSBOT_TWO
     triggers.push_back(new TriggerNode(
@@ -43,10 +49,6 @@ void FireMageStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "combustion",
         NextAction::array(0, new NextAction("combustion", 50.0f), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "enemy too close for spell",
-        NextAction::array(0, new NextAction("dragon's breath", 61.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "mana shield",

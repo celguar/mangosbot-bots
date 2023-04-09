@@ -209,8 +209,6 @@ namespace ai
                 creators["polymorph"] = &AiObjectContextInternal::polymorph;
                 creators["spellsteal"] = &AiObjectContextInternal::spellsteal;
                 creators["living bomb"] = &AiObjectContextInternal::living_bomb;
-                creators["dragon's breath"] = &AiObjectContextInternal::dragons_breath;
-                creators["blast wave"] = &AiObjectContextInternal::blast_wave;
                 creators["invisibility"] = &AiObjectContextInternal::invisibility;
                 creators["evocation"] = &AiObjectContextInternal::evocation;
                 creators["arcane blast"] = &AiObjectContextInternal::arcane_blast;
@@ -228,6 +226,8 @@ namespace ai
                 creators["ice lance"] = &AiObjectContextInternal::ice_lance;
 #ifndef MANGOSBOT_ZERO
                 creators["cold snap"] = &AiObjectContextInternal::cold_snap;
+                creators["dragon's breath"] = &AiObjectContextInternal::dragons_breath;
+                creators["blast wave"] = &AiObjectContextInternal::blast_wave;
 #endif
 #ifdef MANGOSBOT_TWO
                 creators["frostfire bolt"] = &AiObjectContextInternal::frostfire_bolt;
@@ -276,13 +276,13 @@ namespace ai
             static Action* polymorph(PlayerbotAI* ai) { return new CastPolymorphAction(ai); }
             static Action* spellsteal(PlayerbotAI* ai) { return new CastSpellstealAction(ai); }
             static Action* living_bomb(PlayerbotAI* ai) { return new CastLivingBombAction(ai); }
-            static Action* dragons_breath(PlayerbotAI* ai) { return new CastDragonsBreathAction(ai); }
-            static Action* blast_wave(PlayerbotAI* ai) { return new CastBlastWaveAction(ai); }
             static Action* invisibility(PlayerbotAI* ai) { return new CastInvisibilityAction(ai); }
             static Action* evocation(PlayerbotAI* ai) { return new CastEvocationAction(ai); }
             static Action* counterspell_on_enemy_healer(PlayerbotAI* ai) { return new CastCounterspellOnEnemyHealerAction(ai); }
 #ifndef MANGOSBOT_ZERO
             static Action* cold_snap(PlayerbotAI* ai) { return new CastColdSnapAction(ai); }
+            static Action* dragons_breath(PlayerbotAI* ai) { return new CastDragonsBreathAction(ai); }
+            static Action* blast_wave(PlayerbotAI* ai) { return new CastBlastWaveAction(ai); }
 #endif
 #ifdef MANGOSBOT_TWO
             static Action* frostfire_bolt(PlayerbotAI* ai) { return new CastFrostfireBoltAction(ai); }
