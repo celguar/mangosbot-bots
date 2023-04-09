@@ -20,6 +20,12 @@ void FrostMageStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("cold snap", 55.0f), NULL)));
 #endif
 
+#ifdef MANGOSBOT_TWO
+    triggers.push_back(new TriggerNode(
+        "fireball!",
+        NextAction::array(0, new NextAction("frostfire bolt", 55.0f), NULL)));
+#endif
+
     triggers.push_back(new TriggerNode(
         "icy veins",
         NextAction::array(0, new NextAction("icy veins", 50.0f), NULL)));

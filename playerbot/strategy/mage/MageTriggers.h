@@ -147,6 +147,7 @@ namespace ai
 
 #ifdef MANGOSBOT_TWO
     BUFF_TRIGGER_A(HotStreakTrigger, "hot streak");
+    BUFF_TRIGGER_A(FireballOrFrostfireBoltFreeTrigger, "fireball!");
 #endif
 
 #ifndef MANGOSBOT_ZERO

@@ -21,6 +21,9 @@ public:
         creators["blast wave"] = &blast_wave;
         creators["remove curse"] = &remove_curse;
         creators["remove curse on party"] = &remove_curse_on_party;
+#ifdef MANGOSBOT_TWO
+        creators["frostfire bolt"] = &frostfire_bolt;
+#endif
     }
 private:
     static ActionNode* frostbolt(PlayerbotAI* ai)
@@ -100,6 +103,15 @@ private:
             /*A*/ NextAction::array(0, new NextAction("remove lesser curse on party"), NULL),
             /*C*/ NULL);
     }
+#ifdef MANGOSBOT_TWO
+    static ActionNode* frostfire_bolt(PlayerbotAI* ai)
+    {
+        return new ActionNode("frostfire bolt",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("fireball"), NULL),
+            /*C*/ NULL);
+    }
+#endif
 };
 
 GenericMageStrategy::GenericMageStrategy(PlayerbotAI* ai) : CombatStrategy(ai)

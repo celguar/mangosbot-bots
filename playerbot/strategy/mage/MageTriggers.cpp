@@ -42,4 +42,9 @@ bool HotStreakTrigger::IsActive()
     return ai->HasAura(48108, bot);
 }
 
+bool FireballOrFrostfireBoltFreeTrigger::IsActive()
+{
+    return ai->HasAura("fireball!", bot);
+}
+
 #endif

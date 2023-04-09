@@ -123,6 +123,7 @@ namespace ai
                 creators["fire spells locked"] = &TriggerFactoryInternal::fire_spells_locked;
 #ifdef MANGOSBOT_TWO
                 creators["hot streak"] = &TriggerFactoryInternal::hot_streak;
+                creators["fireball!"] = &TriggerFactoryInternal::fireball_or_frostfire_bolt_free;
 #endif
 #ifndef MANGOSBOT_ZERO
                 creators["cold snap"] = &TriggerFactoryInternal::cold_snap;
@@ -158,6 +159,7 @@ namespace ai
             static Trigger* fire_spells_locked(PlayerbotAI* ai) { return new FireSpellsLocked(ai); }
 #ifdef MANGOSBOT_TWO
             static Trigger* hot_streak(PlayerbotAI* ai) { return new HotStreakTrigger(ai); }
+            static Trigger* fireball_or_frostfire_bolt_free(PlayerbotAI* ai) { return new FireballOrFrostfireBoltFreeTrigger(ai); }
 #endif
 #ifndef MANGOSBOT_ZERO
             static Trigger* cold_snap(PlayerbotAI* ai) { return new ColdSnapTrigger(ai); }
@@ -227,6 +229,9 @@ namespace ai
 #ifndef MANGOSBOT_ZERO
                 creators["cold snap"] = &AiObjectContextInternal::cold_snap;
 #endif
+#ifdef MANGOSBOT_TWO
+                creators["frostfire bolt"] = &AiObjectContextInternal::frostfire_bolt;
+#endif
             }
 
         private:
@@ -278,6 +283,9 @@ namespace ai
             static Action* counterspell_on_enemy_healer(PlayerbotAI* ai) { return new CastCounterspellOnEnemyHealerAction(ai); }
 #ifndef MANGOSBOT_ZERO
             static Action* cold_snap(PlayerbotAI* ai) { return new CastColdSnapAction(ai); }
+#endif
+#ifdef MANGOSBOT_TWO
+            static Action* frostfire_bolt(PlayerbotAI* ai) { return new CastFrostfireBoltAction(ai); }
 #endif
         };
     };

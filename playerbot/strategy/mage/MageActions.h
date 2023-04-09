@@ -269,4 +269,12 @@ namespace ai
         CastColdSnapAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "cold snap") {}
     };
 #endif
+
+#ifdef MANGOSBOT_TWO
+    class CastFrostfireBoltAction : public CastSpellAction
+    {
+    public:
+        CastFrostfireBoltAction(PlayerbotAI* ai) : CastSpellAction(ai, "frostfire bolt") {}
+    };
+#endif
 }
