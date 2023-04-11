@@ -121,12 +121,11 @@ namespace ai
                 creators["summon water elemental"] = &TriggerFactoryInternal::summon_water_elemental;
                 creators["ice lance"] = &TriggerFactoryInternal::ice_lance;
                 creators["fire spells locked"] = &TriggerFactoryInternal::fire_spells_locked;
+                creators["cold snap"] = &TriggerFactoryInternal::cold_snap;
+                creators["ice barrier"] = &TriggerFactoryInternal::ice_barrier;
 #ifdef MANGOSBOT_TWO
                 creators["hot streak"] = &TriggerFactoryInternal::hot_streak;
                 creators["fireball!"] = &TriggerFactoryInternal::fireball_or_frostfire_bolt_free;
-#endif
-#ifndef MANGOSBOT_ZERO
-                creators["cold snap"] = &TriggerFactoryInternal::cold_snap;
 #endif
             }
 
@@ -157,12 +156,11 @@ namespace ai
             static Trigger* arcane_blast(PlayerbotAI* ai) { return new ArcaneBlastTrigger(ai); }
             static Trigger* counterspell_enemy_healer(PlayerbotAI* ai) { return new CounterspellEnemyHealerTrigger(ai); }
             static Trigger* fire_spells_locked(PlayerbotAI* ai) { return new FireSpellsLocked(ai); }
+            static Trigger* cold_snap(PlayerbotAI* ai) { return new ColdSnapTrigger(ai); }
+            static Trigger* ice_barrier(PlayerbotAI* ai) { return new IceBarrierTrigger(ai); }
 #ifdef MANGOSBOT_TWO
             static Trigger* hot_streak(PlayerbotAI* ai) { return new HotStreakTrigger(ai); }
             static Trigger* fireball_or_frostfire_bolt_free(PlayerbotAI* ai) { return new FireballOrFrostfireBoltFreeTrigger(ai); }
-#endif
-#ifndef MANGOSBOT_ZERO
-            static Trigger* cold_snap(PlayerbotAI* ai) { return new ColdSnapTrigger(ai); }
 #endif
         };
     };
@@ -224,8 +222,8 @@ namespace ai
                 creators["cone of cold"] = &AiObjectContextInternal::cone_of_cold;
                 creators["summon water elemental"] = &AiObjectContextInternal::summon_water_elemental;
                 creators["ice lance"] = &AiObjectContextInternal::ice_lance;
-#ifndef MANGOSBOT_ZERO
                 creators["cold snap"] = &AiObjectContextInternal::cold_snap;
+#ifndef MANGOSBOT_ZERO
                 creators["dragon's breath"] = &AiObjectContextInternal::dragons_breath;
                 creators["blast wave"] = &AiObjectContextInternal::blast_wave;
 #endif
@@ -279,8 +277,8 @@ namespace ai
             static Action* invisibility(PlayerbotAI* ai) { return new CastInvisibilityAction(ai); }
             static Action* evocation(PlayerbotAI* ai) { return new CastEvocationAction(ai); }
             static Action* counterspell_on_enemy_healer(PlayerbotAI* ai) { return new CastCounterspellOnEnemyHealerAction(ai); }
-#ifndef MANGOSBOT_ZERO
             static Action* cold_snap(PlayerbotAI* ai) { return new CastColdSnapAction(ai); }
+#ifndef MANGOSBOT_ZERO
             static Action* dragons_breath(PlayerbotAI* ai) { return new CastDragonsBreathAction(ai); }
             static Action* blast_wave(PlayerbotAI* ai) { return new CastBlastWaveAction(ai); }
 #endif

@@ -131,6 +131,12 @@ namespace ai
         virtual bool IsActive();
     };
 
+    class IceBarrierTrigger : public BuffTrigger
+    {
+    public:
+        IceBarrierTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "ice barrier", 5) {}
+    };
+
     class FireSpellsLocked : public Trigger
     {
     public:
@@ -159,6 +165,17 @@ namespace ai
         {
             return !bot->IsSpellReady(12472)    //icy veins on cooldown
                 && bot->IsSpellReady(11958);    //cold snap not on cooldown
+        }
+    };
+#else
+    class ColdSnapTrigger : public Trigger
+    {
+    public:
+        ColdSnapTrigger(PlayerbotAI* ai) : Trigger(ai, "cold snap", 2) {}
+        virtual bool IsActive()
+        {
+            return !bot->IsSpellReady(11958)    //Ice Block on cooldown
+                && bot->IsSpellReady(12472);    //Cold Snap not on cooldown
         }
     };
 #endif
