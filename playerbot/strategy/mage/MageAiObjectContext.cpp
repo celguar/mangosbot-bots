@@ -126,6 +126,7 @@ namespace ai
 #ifdef MANGOSBOT_TWO
                 creators["hot streak"] = &TriggerFactoryInternal::hot_streak;
                 creators["fireball!"] = &TriggerFactoryInternal::fireball_or_frostfire_bolt_free;
+                creators["finger of frost"] = &TriggerFactoryInternal::finger_of_frost;
 #endif
             }
 
@@ -161,6 +162,7 @@ namespace ai
 #ifdef MANGOSBOT_TWO
             static Trigger* hot_streak(PlayerbotAI* ai) { return new HotStreakTrigger(ai); }
             static Trigger* fireball_or_frostfire_bolt_free(PlayerbotAI* ai) { return new FireballOrFrostfireBoltFreeTrigger(ai); }
+            static Trigger* finger_of_frost(PlayerbotAI* ai) { return new FingersOfFrostTrigger(ai); }
 #endif
         };
     };
@@ -229,6 +231,7 @@ namespace ai
 #endif
 #ifdef MANGOSBOT_TWO
                 creators["frostfire bolt"] = &AiObjectContextInternal::frostfire_bolt;
+                creators["deep freeze"] = &AiObjectContextInternal::deep_freeze;
 #endif
             }
 
@@ -284,6 +287,7 @@ namespace ai
 #endif
 #ifdef MANGOSBOT_TWO
             static Action* frostfire_bolt(PlayerbotAI* ai) { return new CastFrostfireBoltAction(ai); }
+            static Action* deep_freeze(PlayerbotAI* ai) { return new DeepFreezeAction(ai); }
 #endif
         };
     };

@@ -18,6 +18,10 @@ void FrostMageStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "fireball!",
         NextAction::array(0, new NextAction("frostfire bolt", 55.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "finger of frost",
+        NextAction::array(0, new NextAction("deep freeze", 9.0f), NULL)));
 #endif
 
     triggers.push_back(new TriggerNode(
@@ -50,4 +54,8 @@ void FrostMageAoeStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
 	triggers.push_back(new TriggerNode(
 		"medium aoe",
 		NextAction::array(0, new NextAction("blizzard", 40.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "medium aoe",
+        NextAction::array(0, new NextAction("flamestrike", 35.0f), NULL)));
 }

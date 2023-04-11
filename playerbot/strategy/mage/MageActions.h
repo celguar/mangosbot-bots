@@ -276,5 +276,11 @@ namespace ai
     public:
         CastFrostfireBoltAction(PlayerbotAI* ai) : CastSpellAction(ai, "frostfire bolt") {}
     };
+
+    class DeepFreezeAction : public CastSpellAction
+    {
+    public:
+        DeepFreezeAction(PlayerbotAI* ai) : CastSpellAction(ai, "deep freeze") {}
+    };
 #endif
 }
