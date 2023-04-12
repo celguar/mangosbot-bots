@@ -37,11 +37,6 @@ namespace ai
         virtual bool IsActive();
     };
 
-    class LivingBombTrigger : public DebuffTrigger {
-    public:
-        LivingBombTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "living bomb") {}
-	};
-
     class FireballTrigger : public DebuffTrigger {
     public:
         FireballTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "fireball") {}
@@ -158,6 +153,11 @@ namespace ai
 #endif
 
 #ifndef MANGOSBOT_ZERO
+    class LivingBombTrigger : public DebuffTrigger {
+    public:
+        LivingBombTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "living bomb") {}
+    };
+
     class ColdSnapTrigger : public Trigger
     {
     public:

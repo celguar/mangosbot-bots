@@ -108,7 +108,6 @@ namespace ai
                 creators["polymorph"] = &TriggerFactoryInternal::polymorph;
                 creators["spellsteal"] = &TriggerFactoryInternal::spellsteal;
                 creators["no improved scorch"] = &TriggerFactoryInternal::no_improved_scorch;
-                creators["living bomb"] = &TriggerFactoryInternal::living_bomb;
                 creators["missile barrage"] = &TriggerFactoryInternal::missile_barrage;
                 creators["arcane blast"] = &TriggerFactoryInternal::arcane_blast;
                 creators["counterspell on enemy healer"] = &TriggerFactoryInternal::counterspell_enemy_healer;
@@ -127,6 +126,9 @@ namespace ai
                 creators["hot streak"] = &TriggerFactoryInternal::hot_streak;
                 creators["fireball!"] = &TriggerFactoryInternal::fireball_or_frostfire_bolt_free;
                 creators["finger of frost"] = &TriggerFactoryInternal::finger_of_frost;
+#endif
+#ifndef MANGOSBOT_ZERO
+                creators["living bomb"] = &TriggerFactoryInternal::living_bomb;
 #endif
             }
 
@@ -152,7 +154,6 @@ namespace ai
             static Trigger* counterspell(PlayerbotAI* ai) { return new CounterspellInterruptSpellTrigger(ai); }
             static Trigger* polymorph(PlayerbotAI* ai) { return new PolymorphTrigger(ai); }
             static Trigger* spellsteal(PlayerbotAI* ai) { return new SpellstealTrigger(ai); }
-            static Trigger* living_bomb(PlayerbotAI* ai) { return new LivingBombTrigger(ai); }
             static Trigger* missile_barrage(PlayerbotAI* ai) { return new MissileBarrageTrigger(ai); }
             static Trigger* arcane_blast(PlayerbotAI* ai) { return new ArcaneBlastTrigger(ai); }
             static Trigger* counterspell_enemy_healer(PlayerbotAI* ai) { return new CounterspellEnemyHealerTrigger(ai); }
@@ -163,6 +164,9 @@ namespace ai
             static Trigger* hot_streak(PlayerbotAI* ai) { return new HotStreakTrigger(ai); }
             static Trigger* fireball_or_frostfire_bolt_free(PlayerbotAI* ai) { return new FireballOrFrostfireBoltFreeTrigger(ai); }
             static Trigger* finger_of_frost(PlayerbotAI* ai) { return new FingersOfFrostTrigger(ai); }
+#endif
+#ifndef MANGOSBOT_ZERO
+            static Trigger* living_bomb(PlayerbotAI* ai) { return new LivingBombTrigger(ai); }
 #endif
         };
     };
@@ -208,7 +212,6 @@ namespace ai
                 creators["ice block"] = &AiObjectContextInternal::ice_block;
                 creators["polymorph"] = &AiObjectContextInternal::polymorph;
                 creators["spellsteal"] = &AiObjectContextInternal::spellsteal;
-                creators["living bomb"] = &AiObjectContextInternal::living_bomb;
                 creators["invisibility"] = &AiObjectContextInternal::invisibility;
                 creators["evocation"] = &AiObjectContextInternal::evocation;
                 creators["arcane blast"] = &AiObjectContextInternal::arcane_blast;
@@ -228,6 +231,7 @@ namespace ai
 #ifndef MANGOSBOT_ZERO
                 creators["dragon's breath"] = &AiObjectContextInternal::dragons_breath;
                 creators["blast wave"] = &AiObjectContextInternal::blast_wave;
+                creators["living bomb"] = &AiObjectContextInternal::living_bomb;
 #endif
 #ifdef MANGOSBOT_TWO
                 creators["frostfire bolt"] = &AiObjectContextInternal::frostfire_bolt;
@@ -276,7 +280,6 @@ namespace ai
             static Action* ice_block(PlayerbotAI* ai) { return new CastIceBlockAction(ai); }
             static Action* polymorph(PlayerbotAI* ai) { return new CastPolymorphAction(ai); }
             static Action* spellsteal(PlayerbotAI* ai) { return new CastSpellstealAction(ai); }
-            static Action* living_bomb(PlayerbotAI* ai) { return new CastLivingBombAction(ai); }
             static Action* invisibility(PlayerbotAI* ai) { return new CastInvisibilityAction(ai); }
             static Action* evocation(PlayerbotAI* ai) { return new CastEvocationAction(ai); }
             static Action* counterspell_on_enemy_healer(PlayerbotAI* ai) { return new CastCounterspellOnEnemyHealerAction(ai); }
@@ -284,6 +287,7 @@ namespace ai
 #ifndef MANGOSBOT_ZERO
             static Action* dragons_breath(PlayerbotAI* ai) { return new CastDragonsBreathAction(ai); }
             static Action* blast_wave(PlayerbotAI* ai) { return new CastBlastWaveAction(ai); }
+            static Action* living_bomb(PlayerbotAI* ai) { return new CastLivingBombAction(ai); }
 #endif
 #ifdef MANGOSBOT_TWO
             static Action* frostfire_bolt(PlayerbotAI* ai) { return new CastFrostfireBoltAction(ai); }

@@ -26,10 +26,14 @@ void FireMageStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "enemy too close for spell",
         NextAction::array(0, new NextAction("dragon's breath", 61.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "living bomb",
+        NextAction::array(0, new NextAction("living bomb", 30.0f), NULL)));
 #endif
 
 #ifndef MANGOSBOT_TWO
-    triggers.push_back(new TriggerNode(
+    triggers.push_back(new TriggerNode
         "pyroblast",
         NextAction::array(0, new NextAction("pyroblast", 10.0f), NULL)));
 
@@ -65,13 +69,15 @@ void FireMageStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
 
 void FireMageAoeStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
 {
+#ifndef MANGOSBOT_ZERO
+    triggers.push_back(new TriggerNode(
+        "living bomb",
+        NextAction::array(0, new NextAction("living bomb", 30.0f), NULL)));
+#endif
+
     triggers.push_back(new TriggerNode(
         "medium aoe",
         NextAction::array(0, new NextAction("flamestrike", 20.0f), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "living bomb",
-        NextAction::array(0, new NextAction("living bomb", 25.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "fire spells on cooldown",

@@ -199,12 +199,6 @@ namespace ai
 		CastSpellstealAction(PlayerbotAI* ai) : CastSpellAction(ai, "spellsteal") {}
 	};
 
-	class CastLivingBombAction : public CastRangedDebuffSpellAction
-	{
-	public:
-	    CastLivingBombAction(PlayerbotAI* ai) : CastRangedDebuffSpellAction(ai, "living bomb") {}
-	};
-
 	class CastInvisibilityAction : public CastBuffSpellAction
 	{
 	public:
@@ -267,6 +261,12 @@ namespace ai
     {
     public:
         CastBlastWaveAction(PlayerbotAI* ai) : CastMeleeAoeSpellAction(ai, "blast wave", 10.0f) {}
+    };
+
+    class CastLivingBombAction : public CastRangedDebuffSpellAction
+    {
+    public:
+        CastLivingBombAction(PlayerbotAI* ai) : CastRangedDebuffSpellAction(ai, "living bomb") {}
     };
 #endif
 
