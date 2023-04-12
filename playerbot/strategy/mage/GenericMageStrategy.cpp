@@ -202,6 +202,12 @@ void MageBoostStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "presence of mind",
         NextAction::array(0, new NextAction("presence of mind", 42.0f), NULL)));
+
+#ifdef MANGOSBOT_TWO
+    triggers.push_back(new TriggerNode(
+        "mirror image",
+        NextAction::array(0, new NextAction("mirror image", 43.0f), NULL)));
+#endif
 }
 
 void MageCcStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)

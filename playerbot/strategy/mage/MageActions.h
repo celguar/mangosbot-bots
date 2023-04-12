@@ -282,5 +282,11 @@ namespace ai
     public:
         DeepFreezeAction(PlayerbotAI* ai) : CastSpellAction(ai, "deep freeze") {}
     };
+
+    class MirrorImageAction : public CastBuffSpellAction
+    {
+    public:
+        MirrorImageAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "mirror image") {}
+    };
 #endif
 }

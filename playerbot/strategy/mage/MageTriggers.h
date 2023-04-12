@@ -147,6 +147,7 @@ namespace ai
     DEBUFF_TRIGGER_A(NoImprovedScorchDebuffTrigger, "no improved scorch");
 
 #ifdef MANGOSBOT_TWO
+    BUFF_TRIGGER(MirrorImageTrigger, "mirror image");
     BUFF_TRIGGER_A(HotStreakTrigger, "hot streak");
     BUFF_TRIGGER_A(FireballOrFrostfireBoltFreeTrigger, "fireball!");
     HAS_AURA_TRIGGER(FingersOfFrostTrigger, "fingers of frost");
