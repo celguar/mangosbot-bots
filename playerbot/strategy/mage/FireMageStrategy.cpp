@@ -33,7 +33,7 @@ void FireMageStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
 #endif
 
 #ifndef MANGOSBOT_TWO
-    triggers.push_back(new TriggerNode
+    triggers.push_back(new TriggerNode(
         "pyroblast",
         NextAction::array(0, new NextAction("pyroblast", 10.0f), NULL)));
 
