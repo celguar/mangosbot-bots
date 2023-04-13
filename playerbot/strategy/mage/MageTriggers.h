@@ -1,5 +1,6 @@
 #pragma once
 #include "../triggers/GenericTriggers.h"
+#include "../triggers/GlyphTriggers.h"
 
 namespace ai
 {
@@ -151,6 +152,31 @@ namespace ai
     BUFF_TRIGGER_A(HotStreakTrigger, "hot streak");
     BUFF_TRIGGER_A(FireballOrFrostfireBoltFreeTrigger, "fireball!");
     HAS_AURA_TRIGGER(FingersOfFrostTrigger, "fingers of frost");
+
+    class LearnGlyphOfMoltenArmorTrigger : public LearnGlyphTrigger
+    {
+    public:
+        LearnGlyphOfMoltenArmorTrigger(PlayerbotAI* ai) : LearnGlyphTrigger(ai,
+            "learn glyph of molten armor", 
+            42751,                          //Glyph of Molten Armor
+            30482,                          //Required Molten Armor Rank 1
+            62,                             //Required 62 lvl
+            ""                              //No strategy required
+            ) {}
+    };
+
+    class RemoveGlyphOfMoltenArmorTrigger : public RemoveGlyphTrigger
+    {
+    public:
+        RemoveGlyphOfMoltenArmorTrigger(PlayerbotAI* ai) : RemoveGlyphTrigger(ai,
+            "remove glyph of molten armor",
+            42751,                          //Glyph of Molten Armor
+            30482,                          //Required Molten Armor Rank 1
+            62,                             //Required 62 lvl
+            ""                              //No strategy required
+        ) {}
+    };
+
 #endif
 
 #ifndef MANGOSBOT_ZERO

@@ -288,5 +288,37 @@ namespace ai
     public:
         MirrorImageAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "mirror image") {}
     };
+
+    class LearnGlyphOfMoltenArmorAction : public Action
+    {
+    public:
+        LearnGlyphOfMoltenArmorAction(PlayerbotAI* ai) : Action(ai, "learn glyph of molten armor") {}
+        virtual bool Execute(Event& event)
+        {
+            bot->learnSpell(42751, false);
+
+            ostringstream out;
+            out << "I learned Glyph of Molten Armor";
+            ai->TellError(out.str());
+
+            return true;
+        }
+    };
+
+    class RemoveGlyphOfMoltenArmorAction : public Action
+    {
+    public:
+        RemoveGlyphOfMoltenArmorAction(PlayerbotAI* ai) : Action(ai, "remove glyph of molten armor") {}
+        virtual bool Execute(Event& event)
+        {
+            bot->removeSpell(42751);
+
+            ostringstream out;
+            out << "I removed Glyph of Molten Armor";
+            ai->TellError(out.str());
+
+            return true;
+        }
+    };
 #endif
 }

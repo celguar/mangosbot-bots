@@ -62,13 +62,23 @@ void GenericMageNonCombatStrategy::InitNonCombatTriggers(std::list<TriggerNode*>
    triggers.push_back(new TriggerNode(
       "often",
       NextAction::array(0, new NextAction("apply oil", 1.0f), NULL)));
+
+#ifdef MANGOSBOT_TWO
+   triggers.push_back(new TriggerNode(
+       "learn glyph of molten armor",
+       NextAction::array(0, new NextAction("learn glyph of molten armor", 20.0f), NULL)));
+
+   triggers.push_back(new TriggerNode(
+       "remove glyph of molten armor",
+       NextAction::array(0, new NextAction("remove glyph of molten armor", 20.0f), NULL)));
+#endif
 }
 
 void MageBuffManaStrategy::InitNonCombatTriggers(std::list<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "mage armor",
-        NextAction::array(0, new NextAction("mage armor", 19.0f), NULL)));
+        NextAction::array(0, new NextAction("mage armor", 18.0f), NULL)));
 }
 
 void MageBuffManaStrategy::InitCombatTriggers(std::list<TriggerNode*>& triggers)
