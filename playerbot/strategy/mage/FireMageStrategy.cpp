@@ -25,7 +25,7 @@ void FireMageStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy too close for spell",
-        NextAction::array(0, new NextAction("dragon's breath", 73.0f), NULL)));
+        NextAction::array(0, new NextAction("dragon's breath", 61.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "living bomb",

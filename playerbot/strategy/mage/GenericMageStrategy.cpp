@@ -132,10 +132,6 @@ void GenericMageStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("frost nova", 61.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "enemy too close for spell",
-        NextAction::array(0, new NextAction("flee", 72.0f), NULL)));
-
-    triggers.push_back(new TriggerNode(
         "counterspell on enemy healer",
         NextAction::array(0, new NextAction("counterspell on enemy healer", 40.0f), NULL)));
 

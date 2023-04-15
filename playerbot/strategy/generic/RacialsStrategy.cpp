@@ -40,7 +40,7 @@ void RacialsStrategy::InitNonCombatTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "berserking",
-        NextAction::array(0, new NextAction("berserking", 71.0f), NULL)));
+        NextAction::array(0, new NextAction("berserking", 58.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "blood fury",
