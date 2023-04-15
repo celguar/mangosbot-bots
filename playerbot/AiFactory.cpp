@@ -464,7 +464,7 @@ void AiFactory::AddDefaultNonCombatStrategies(Player* player, PlayerbotAI* const
             break;
         case CLASS_MAGE:
 #ifdef MANGOSBOT_TWO
-            nonCombatEngine->addStrategies("dps assist", "cure", "bdps", "bmana", NULL);
+            nonCombatEngine->addStrategies("dps assist", "cure", "bdps", NULL);
 #else
             if (tab == 1)
                 nonCombatEngine->addStrategy("bdps");
