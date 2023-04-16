@@ -289,6 +289,70 @@ namespace ai
         MirrorImageAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "mirror image") {}
     };
 
+    class LearnGlyphOfFireballAction : public Action
+    {
+    public:
+        LearnGlyphOfFireballAction(PlayerbotAI* ai) : Action(ai, "learn glyph of fireball") {}
+        virtual bool Execute(Event& event)
+        {
+            bot->learnSpell(56975, false);
+
+            ostringstream out;
+            out << "I learned Glyph of Fireball";
+            ai->TellError(out.str());
+
+            return true;
+        }
+    };
+
+    class RemoveGlyphOfFireballAction : public Action
+    {
+    public:
+        RemoveGlyphOfFireballAction(PlayerbotAI* ai) : Action(ai, "remove glyph of fireball") {}
+        virtual bool Execute(Event& event)
+        {
+            bot->removeSpell(56975);
+
+            ostringstream out;
+            out << "I removed Glyph of Fireball";
+            ai->TellError(out.str());
+
+            return true;
+        }
+    };
+
+    class LearnGlyphOfLivingBombAction : public Action
+    {
+    public:
+        LearnGlyphOfLivingBombAction(PlayerbotAI* ai) : Action(ai, "learn glyph of living bomb") {}
+        virtual bool Execute(Event& event)
+        {
+            bot->learnSpell(64275, false);
+
+            ostringstream out;
+            out << "I learned Glyph of Living Bomb";
+            ai->TellError(out.str());
+
+            return true;
+        }
+    };
+
+    class RemoveGlyphOfLivingBombAction : public Action
+    {
+    public:
+        RemoveGlyphOfLivingBombAction(PlayerbotAI* ai) : Action(ai, "remove glyph of living bomb") {}
+        virtual bool Execute(Event& event)
+        {
+            bot->removeSpell(64275);
+
+            ostringstream out;
+            out << "I removed Glyph of Living Bomb";
+            ai->TellError(out.str());
+
+            return true;
+        }
+    };
+
     class LearnGlyphOfMoltenArmorAction : public Action
     {
     public:

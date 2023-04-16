@@ -127,6 +127,10 @@ namespace ai
                 creators["fireball!"] = &TriggerFactoryInternal::fireball_or_frostfire_bolt_free;
                 creators["finger of frost"] = &TriggerFactoryInternal::finger_of_frost;
                 creators["mirror image"] = &TriggerFactoryInternal::mirror_image;
+                creators["learn glyph of fireball"] = &TriggerFactoryInternal::learn_glyph_of_fireball;
+                creators["remove glyph of fireball"] = &TriggerFactoryInternal::remove_glyph_of_fireball;
+                creators["learn glyph of living bomb"] = &TriggerFactoryInternal::learn_glyph_of_living_bomb;
+                creators["remove glyph of living bomb"] = &TriggerFactoryInternal::remove_glyph_of_living_bomb;
                 creators["learn glyph of molten armor"] = &TriggerFactoryInternal::learn_glyph_of_molten_armor;
                 creators["remove glyph of molten armor"] = &TriggerFactoryInternal::remove_glyph_of_molten_armor;
 #endif
@@ -168,6 +172,10 @@ namespace ai
             static Trigger* fireball_or_frostfire_bolt_free(PlayerbotAI* ai) { return new FireballOrFrostfireBoltFreeTrigger(ai); }
             static Trigger* finger_of_frost(PlayerbotAI* ai) { return new FingersOfFrostTrigger(ai); }
             static Trigger* mirror_image(PlayerbotAI* ai) { return new MirrorImageTrigger(ai); }
+            static Trigger* learn_glyph_of_fireball(PlayerbotAI* ai) { return new LearnGlyphOfFireballTrigger(ai); }
+            static Trigger* remove_glyph_of_fireball(PlayerbotAI* ai) { return new RemoveGlyphOfFireballTrigger(ai); }
+            static Trigger* learn_glyph_of_living_bomb(PlayerbotAI* ai) { return new LearnGlyphOfLivingBombTrigger(ai); }
+            static Trigger* remove_glyph_of_living_bomb(PlayerbotAI* ai) { return new RemoveGlyphOfLivingBombTrigger(ai); }
             static Trigger* learn_glyph_of_molten_armor(PlayerbotAI* ai) { return new LearnGlyphOfMoltenArmorTrigger(ai); }
             static Trigger* remove_glyph_of_molten_armor(PlayerbotAI* ai) { return new RemoveGlyphOfMoltenArmorTrigger(ai); }
 #endif
@@ -243,6 +251,10 @@ namespace ai
                 creators["frostfire bolt"] = &AiObjectContextInternal::frostfire_bolt;
                 creators["deep freeze"] = &AiObjectContextInternal::deep_freeze;
                 creators["mirror image"] = &AiObjectContextInternal::mirror_image;
+                creators["learn glyph of fireball"] = &AiObjectContextInternal::learn_glyph_of_fireball;
+                creators["remove glyph of fireball"] = &AiObjectContextInternal::remove_glyph_of_fireball;
+                creators["learn glyph of living bomb"] = &AiObjectContextInternal::learn_glyph_of_living_bomb;
+                creators["remove glyph of living bomb"] = &AiObjectContextInternal::remove_glyph_of_living_bomb;
                 creators["learn glyph of molten armor"] = &AiObjectContextInternal::learn_glyph_of_molten_armor;
                 creators["remove glyph of molten armor"] = &AiObjectContextInternal::remove_glyph_of_molten_armor;
 #endif
@@ -302,6 +314,10 @@ namespace ai
             static Action* frostfire_bolt(PlayerbotAI* ai) { return new CastFrostfireBoltAction(ai); }
             static Action* deep_freeze(PlayerbotAI* ai) { return new DeepFreezeAction(ai); }
             static Action* mirror_image(PlayerbotAI* ai) { return new MirrorImageAction(ai); }
+            static Action* learn_glyph_of_fireball(PlayerbotAI* ai) { return new LearnGlyphOfFireballAction(ai); }
+            static Action* remove_glyph_of_fireball(PlayerbotAI* ai) { return new RemoveGlyphOfFireballAction(ai); }
+            static Action* learn_glyph_of_living_bomb(PlayerbotAI* ai) { return new LearnGlyphOfLivingBombAction(ai); }
+            static Action* remove_glyph_of_living_bomb(PlayerbotAI* ai) { return new RemoveGlyphOfLivingBombAction(ai); }
             static Action* learn_glyph_of_molten_armor(PlayerbotAI* ai) { return new LearnGlyphOfMoltenArmorAction(ai); }
             static Action* remove_glyph_of_molten_armor(PlayerbotAI* ai) { return new RemoveGlyphOfMoltenArmorAction(ai); }
 #endif

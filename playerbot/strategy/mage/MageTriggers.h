@@ -153,6 +153,54 @@ namespace ai
     BUFF_TRIGGER_A(FireballOrFrostfireBoltFreeTrigger, "fireball!");
     HAS_AURA_TRIGGER(FingersOfFrostTrigger, "fingers of frost");
 
+    class LearnGlyphOfFireballTrigger : public LearnGlyphTrigger
+    {
+    public:
+        LearnGlyphOfFireballTrigger(PlayerbotAI* ai) : LearnGlyphTrigger(ai,
+            "learn glyph of fireball",
+            56975,                          //Glyph of Fireball
+            -1,                             //No required spell
+            15,                             //Required 15 lvl
+            "fire"                          //Required fire strategy
+        ) {}
+    };
+
+    class RemoveGlyphOfFireballTrigger : public RemoveGlyphTrigger
+    {
+    public:
+        RemoveGlyphOfFireballTrigger(PlayerbotAI* ai) : RemoveGlyphTrigger(ai,
+            "remove glyph of fireball",
+            56975,                          //Glyph of Fireball
+            -1,                             //No required spell
+            15,                             //Required 15 lvl
+            "fire"                          //Required fire strategy
+        ) {}
+    };
+
+    class LearnGlyphOfLivingBombTrigger : public LearnGlyphTrigger
+    {
+    public:
+        LearnGlyphOfLivingBombTrigger(PlayerbotAI* ai) : LearnGlyphTrigger(ai,
+            "learn glyph of living bomb",
+            64275,                          //Glyph of Living Bomb
+            44457,                          //Required Living Bomb talent
+            45,                             //Required 45 lvl
+            "fire"                          //Required fire strategy
+        ) {}
+    };
+
+    class RemoveGlyphOfLivingBombTrigger : public RemoveGlyphTrigger
+    {
+    public:
+        RemoveGlyphOfLivingBombTrigger(PlayerbotAI* ai) : RemoveGlyphTrigger(ai,
+            "remove glyph of living bomb",
+            64275,                          //Glyph of Living Bomb
+            44457,                          //Required Living Bomb talent
+            45,                             //Required 45 lvl
+            "fire"                          //Required fire strategy
+        ) {}
+    };
+
     class LearnGlyphOfMoltenArmorTrigger : public LearnGlyphTrigger
     {
     public:

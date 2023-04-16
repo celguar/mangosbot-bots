@@ -65,6 +65,22 @@ void GenericMageNonCombatStrategy::InitNonCombatTriggers(std::list<TriggerNode*>
 
 #ifdef MANGOSBOT_TWO
    triggers.push_back(new TriggerNode(
+       "learn glyph of fireball",
+       NextAction::array(0, new NextAction("learn glyph of fireball", 20.0f), NULL)));
+
+   triggers.push_back(new TriggerNode(
+       "remove glyph of fireball",
+       NextAction::array(0, new NextAction("remove glyph of fireball", 20.0f), NULL)));
+
+   triggers.push_back(new TriggerNode(
+       "learn glyph of living bomb",
+       NextAction::array(0, new NextAction("learn glyph of living bomb", 20.0f), NULL)));
+
+   triggers.push_back(new TriggerNode(
+       "remove glyph of living bomb",
+       NextAction::array(0, new NextAction("remove glyph of living bomb", 20.0f), NULL)));
+
+   triggers.push_back(new TriggerNode(
        "learn glyph of molten armor",
        NextAction::array(0, new NextAction("learn glyph of molten armor", 20.0f), NULL)));
 
