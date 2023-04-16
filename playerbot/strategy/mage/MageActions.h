@@ -321,6 +321,38 @@ namespace ai
         }
     };
 
+    class LearnGlyphOfFrostboltAction : public Action
+    {
+    public:
+        LearnGlyphOfFrostboltAction(PlayerbotAI* ai) : Action(ai, "learn glyph of frostbolt") {}
+        virtual bool Execute(Event& event)
+        {
+            bot->learnSpell(56370, false);
+
+            ostringstream out;
+            out << "I learned Glyph of Frostbolt";
+            ai->TellError(out.str());
+
+            return true;
+        }
+    };
+
+    class RemoveGlyphOfFrostboltAction : public Action
+    {
+    public:
+        RemoveGlyphOfFrostboltAction(PlayerbotAI* ai) : Action(ai, "remove glyph of frostbolt") {}
+        virtual bool Execute(Event& event)
+        {
+            bot->removeSpell(56370);
+
+            ostringstream out;
+            out << "I removed Glyph of Frostbolt";
+            ai->TellError(out.str());
+
+            return true;
+        }
+    };
+
     class LearnGlyphOfLivingBombAction : public Action
     {
     public:
@@ -347,6 +379,38 @@ namespace ai
 
             ostringstream out;
             out << "I removed Glyph of Living Bomb";
+            ai->TellError(out.str());
+
+            return true;
+        }
+    };
+
+    class LearnGlyphOfMirrorImageAction : public Action
+    {
+    public:
+        LearnGlyphOfMirrorImageAction(PlayerbotAI* ai) : Action(ai, "learn glyph of mirror image") {}
+        virtual bool Execute(Event& event)
+        {
+            bot->learnSpell(63093, false);
+
+            ostringstream out;
+            out << "I learned Glyph of Mirror Image";
+            ai->TellError(out.str());
+
+            return true;
+        }
+    };
+
+    class RemoveGlyphOfMirrorImageAction : public Action
+    {
+    public:
+        RemoveGlyphOfMirrorImageAction(PlayerbotAI* ai) : Action(ai, "remove glyph of mirror image") {}
+        virtual bool Execute(Event& event)
+        {
+            bot->removeSpell(63093);
+
+            ostringstream out;
+            out << "I removed Glyph of Mirror Image";
             ai->TellError(out.str());
 
             return true;

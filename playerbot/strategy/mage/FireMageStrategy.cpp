@@ -5,6 +5,28 @@
 
 using namespace ai;
 
+class FireMageStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
+{
+public:
+    FireMageStrategyActionNodeFactory()
+    {
+        creators["fire blast"] = &fire_blast;
+    }
+private:
+    static ActionNode* fire_blast(PlayerbotAI* ai)
+    {
+        return new ActionNode("fire blast",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("scorch"), NULL),
+            /*C*/ NULL);
+    }
+};
+
+FireMageStrategy::FireMageStrategy(PlayerbotAI* ai) : GenericMageStrategy(ai)
+{
+    actionNodeFactories.Add(new FireMageStrategyActionNodeFactory());
+}
+
 NextAction** FireMageStrategy::GetDefaultCombatActions()
 {
 #ifndef MANGOSBOT_TWO

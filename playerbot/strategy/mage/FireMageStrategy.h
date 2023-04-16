@@ -8,7 +8,7 @@ namespace ai
     class FireMageStrategy : public GenericMageStrategy
     {
     public:
-        FireMageStrategy(PlayerbotAI* ai) : GenericMageStrategy(ai) {}
+        FireMageStrategy(PlayerbotAI* ai);
         string getName() override { return "fire"; }
 
     private:

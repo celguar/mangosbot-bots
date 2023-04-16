@@ -177,6 +177,30 @@ namespace ai
         ) {}
     };
 
+    class RemoveGlyphOfFrostboltTrigger : public RemoveGlyphTrigger
+    {
+    public:
+        RemoveGlyphOfFrostboltTrigger(PlayerbotAI* ai) : RemoveGlyphTrigger(ai,
+            "remove glyph of frostbolt",
+            56370,                          //Glyph of Frostbolt
+            -1,                             //No required spell
+            15,                             //Required 15 lvl
+            "frost"                         //Required frost strategy
+        ) {}
+    };
+
+    class LearnGlyphOfFrostboltTrigger : public LearnGlyphTrigger
+    {
+    public:
+        LearnGlyphOfFrostboltTrigger(PlayerbotAI* ai) : LearnGlyphTrigger(ai,
+            "learn glyph of frostbolt",
+            56370,                          //Glyph of Frostbolt
+            -1,                             //No required spell
+            15,                             //Required 15 lvl
+            "frost"                         //Required frost strategy
+        ) {}
+    };
+
     class LearnGlyphOfLivingBombTrigger : public LearnGlyphTrigger
     {
     public:
@@ -198,6 +222,30 @@ namespace ai
             44457,                          //Required Living Bomb talent
             45,                             //Required 45 lvl
             "fire"                          //Required fire strategy
+        ) {}
+    };
+
+    class LearnGlyphOfMirrorImageTrigger : public LearnGlyphTrigger
+    {
+    public:
+        LearnGlyphOfMirrorImageTrigger(PlayerbotAI* ai) : LearnGlyphTrigger(ai,
+            "learn glyph of mirror image",
+            63093,                          //Glyph of Mirror Image
+            55342,                          //Required Mirror Image
+            80,                             //Required 80 lvl
+            "frost"                         //Required frost strategy
+        ) {}
+    };
+
+    class RemoveGlyphOfMirrorImageTrigger : public RemoveGlyphTrigger
+    {
+    public:
+        RemoveGlyphOfMirrorImageTrigger(PlayerbotAI* ai) : RemoveGlyphTrigger(ai,
+            "remove glyph of mirror image",
+            63093,                          //Glyph of Mirror Image
+            55342,                          //Required Mirror Image
+            80,                             //Required 80 lvl
+            "frost"                         //Required frost strategy
         ) {}
     };
 

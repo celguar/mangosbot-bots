@@ -11,7 +11,6 @@ public:
     GenericMageStrategyActionNodeFactory()
     {
         creators["frostbolt"] = &frostbolt;
-        creators["fire blast"] = &fire_blast;
         creators["scorch"] = &scorch;
         creators["frost nova"] = &frost_nova;
         creators["cone of cold"] = &cone_of_cold;
@@ -33,13 +32,6 @@ private:
         return new ActionNode ("frostbolt",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("shoot"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* fire_blast(PlayerbotAI* ai)
-    {
-        return new ActionNode ("fire blast",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("scorch"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* scorch(PlayerbotAI* ai)
