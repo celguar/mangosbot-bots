@@ -206,7 +206,7 @@ void MageBoostStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
 #ifdef MANGOSBOT_TWO
     triggers.push_back(new TriggerNode(
         "mirror image",
-        NextAction::array(0, new NextAction("mirror image", 43.0f), NULL)));
+        NextAction::array(0, new NextAction("mirror image", 59.0f), NULL)));
 #endif
 }
 

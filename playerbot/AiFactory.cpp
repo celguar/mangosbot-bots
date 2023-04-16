@@ -231,7 +231,7 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             else
                 engine->addStrategies("frost", "frost aoe", "threat", NULL);
 
-            engine->addStrategies("dps", "dps assist", "flee", "cure", "ranged", "cc", NULL);
+            engine->addStrategies("dps", "dps assist", "flee", "cure", "ranged", "cc", "boost", NULL);
             break;
         case CLASS_WARRIOR:
             if (tab == 2)
