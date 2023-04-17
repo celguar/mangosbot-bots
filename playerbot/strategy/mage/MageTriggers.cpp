@@ -25,15 +25,6 @@ bool IceLanceTrigger::IsActive()
     return target && ai->HasAnyAuraOf(target, "frost nova", "frostbite", NULL);
 }
 
-bool NoImprovedScorchDebuffTrigger::IsActive()
-{
-    Unit* target = GetTarget();
-    return target
-        && (bot->HasSpell(11095) || bot->HasSpell(12872) || bot->HasSpell(12873))
-        && !ai->HasAura("improved scorch", target);
-}
-
-
 #ifdef MANGOSBOT_TWO
 
 bool HotStreakTrigger::IsActive()
@@ -45,6 +36,14 @@ bool HotStreakTrigger::IsActive()
 bool FireballOrFrostfireBoltFreeTrigger::IsActive()
 {
     return ai->HasAura("fireball!", bot);
+}
+
+bool NoImprovedScorchDebuffTrigger::IsActive()
+{
+    Unit* target = GetTarget();
+    return target
+        && (bot->HasSpell(11095) || bot->HasSpell(12872) || bot->HasSpell(12873))
+        && !ai->HasAura("improved scorch", target);
 }
 
 #endif
