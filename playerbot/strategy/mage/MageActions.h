@@ -20,7 +20,9 @@ namespace ai
     {
     public:
         CastScorchAction(PlayerbotAI* ai) : CastSpellAction(ai, "scorch") {}
+#ifndef MANGOSBOT_TWO
         virtual bool isUseful() { return GetTarget() && !ai->HasAura("fire vulnerability", GetTarget(), true); }
+#endif
     };
 
     class CastFireBlastAction : public CastSpellAction
