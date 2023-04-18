@@ -2312,7 +2312,7 @@ bool IsRealAura(Player* bot, Aura const* aura, Unit* unit)
     return false;
 }
 
-bool PlayerbotAI::HasAura(string name, Unit* unit, bool maxStack, bool checkIsOwner, int maxAuraAmount, bool hasMyAura)
+bool PlayerbotAI::HasAura(string name, Unit* unit, bool maxStack, bool checkIsOwner, int maxAuraAmount, bool hasMyAura, int minDuration)
 {
     if (!unit)
         return false;
@@ -2387,7 +2387,15 @@ bool PlayerbotAI::HasAura(string name, Unit* unit, bool maxStack, bool checkIsOw
                 else
                     auraAmount++;
 
-                if (maxAuraAmount < 0)
+                bool minDurationPassed = true;
+
+                if (minDuration > 0)
+                {
+                    int32 auraDuration = aura->GetHolder()->GetAuraDuration();
+                    minDurationPassed = minDuration >= auraDuration;
+                }
+
+                if (maxAuraAmount < 0 && minDurationPassed)
                     return auraAmount > 0;
             }
 		}

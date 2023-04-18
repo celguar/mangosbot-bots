@@ -137,6 +137,8 @@ namespace ai
                 creators["learn glyph of molten armor"] = &TriggerFactoryInternal::learn_glyph_of_molten_armor;
                 creators["remove glyph of molten armor"] = &TriggerFactoryInternal::remove_glyph_of_molten_armor;
                 creators["no improved scorch"] = &TriggerFactoryInternal::no_improved_scorch;
+#else
+                creators["no fire vulnerability"] = &TriggerFactoryInternal::no_fire_vulnerability;
 #endif
 #ifndef MANGOSBOT_ZERO
                 creators["living bomb"] = &TriggerFactoryInternal::living_bomb;
@@ -186,6 +188,8 @@ namespace ai
             static Trigger* learn_glyph_of_molten_armor(PlayerbotAI* ai) { return new LearnGlyphOfMoltenArmorTrigger(ai); }
             static Trigger* remove_glyph_of_molten_armor(PlayerbotAI* ai) { return new RemoveGlyphOfMoltenArmorTrigger(ai); }
             static Trigger* no_improved_scorch(PlayerbotAI* ai) { return new NoImprovedScorchDebuffTrigger(ai); }
+#else
+            static Trigger* no_fire_vulnerability(PlayerbotAI* ai) { return new NoFireVulnerabilityTrigger(ai); }
 #endif
 #ifndef MANGOSBOT_ZERO
             static Trigger* living_bomb(PlayerbotAI* ai) { return new LivingBombTrigger(ai); }

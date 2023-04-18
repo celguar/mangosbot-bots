@@ -367,7 +367,7 @@ public:
     bool GetSpellRange(string name, float* maxRange, float* minRange = nullptr);
     uint32 GetSpellCastDuration(Spell* spell);
 
-    virtual bool HasAura(string spellName, Unit* player, bool maxStack = false, bool checkIsOwner = false, int maxAmount = -1, bool hasMyAura = false);
+    virtual bool HasAura(string spellName, Unit* player, bool maxStack = false, bool checkIsOwner = false, int maxAmount = -1, bool hasMyAura = false, int minDuration = 0);
     virtual bool HasAnyAuraOf(Unit* player, ...);
     virtual bool HasMyAura(string spellName, Unit* player) { return HasAura(spellName, player, false, false, -1, true); }
     uint8 GetHealthPercent(const Unit& target) const;

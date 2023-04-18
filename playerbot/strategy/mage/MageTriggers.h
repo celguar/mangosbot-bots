@@ -273,7 +273,26 @@ namespace ai
             ""                              //No strategy required
         ) {}
     };
+#else
+    class NoFireVulnerabilityTrigger : public Trigger
+    {
+    public:
+        NoFireVulnerabilityTrigger(PlayerbotAI* ai) : Trigger(ai, "no fire vulnerability") {}
+        virtual bool IsActive()
+        {
+            //Required Improved Scorch talent
+            if (!bot->HasSpell(11095) && !bot->HasSpell(12872) && !bot->HasSpell(12873))
+                return false;
 
+            //Required non-player target which dont have max stacks of fire vulnerability expiring in less than 7 seconds
+            Unit* target = GetTarget();
+            if (target && (target->IsPlayer() || ai->HasAura("fire vulnerability", target, true, false, -1, false, 7000)))
+                return false;
+
+            return true;
+        }
+        virtual string GetTargetName() { return "current target"; }
+    };
 #endif
 
 #ifndef MANGOSBOT_ZERO

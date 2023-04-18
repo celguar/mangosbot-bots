@@ -29,11 +29,7 @@ FireMageStrategy::FireMageStrategy(PlayerbotAI* ai) : GenericMageStrategy(ai)
 
 NextAction** FireMageStrategy::GetDefaultCombatActions()
 {
-#ifndef MANGOSBOT_TWO
-    return NextAction::array(0, new NextAction("scorch", 7.0f), new NextAction("fireball", 6.0f), new NextAction("fire blast", 5.0f), NULL);
-#else
     return NextAction::array(0, new NextAction("fireball", 15.0f), NULL);
-#endif
 }
 
 void FireMageStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
@@ -60,8 +56,9 @@ void FireMageStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("pyroblast", 10.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "fireball",
-        NextAction::array(0, new NextAction("fireball", 10.0f), NULL)));
+        "no fire vulnerability",
+        NextAction::array(0, new NextAction("scorch", 55.0f), NULL)));
+
 #else
     triggers.push_back(new TriggerNode(
         "hot streak",
@@ -102,7 +99,7 @@ void FireMageAoeStrategy::InitCombatTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("flamestrike", 20.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "fire spells on cooldown",
+        "fire spells locked",
         NextAction::array(0, new NextAction("blizzard", 20.0f), NULL)));
 }
 
