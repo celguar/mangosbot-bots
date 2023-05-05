@@ -487,13 +487,13 @@ namespace ai
     class HandOfSacrificeTrigger : public PartyMemberLowHealthTrigger
     {
     public:
-        HandOfSacrificeTrigger(PlayerbotAI* ai) : PartyMemberLowHealthTrigger(ai, "hand of sacrifice", sPlayerbotAIConfig.lowHealth, 0, true) {}
+        HandOfSacrificeTrigger(PlayerbotAI* ai) : PartyMemberLowHealthTrigger(ai, "hand of sacrifice", sPlayerbotAIConfig.criticalHealth, 0, true) {}
     };
 
     class BlessingOfSacrificeTrigger : public PartyMemberLowHealthTrigger
     {
     public:
-        BlessingOfSacrificeTrigger(PlayerbotAI* ai) : PartyMemberLowHealthTrigger(ai, "blessing of sacrifice", sPlayerbotAIConfig.lowHealth, 0, true) {}
+        BlessingOfSacrificeTrigger(PlayerbotAI* ai) : PartyMemberLowHealthTrigger(ai, "blessing of sacrifice", sPlayerbotAIConfig.criticalHealth, 0, true) {}
     };
 
     DEBUFF_TRIGGER(AvengerShieldTrigger, "avenger's shield");

@@ -12,10 +12,6 @@ void HolyPaladinStrategy::InitCombatTriggers(std::list<TriggerNode*>& triggers)
     PaladinStrategy::InitCombatTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
-        "blessing of sacrifice",
-        NextAction::array(0, new NextAction("blessing of sacrifice", ACTION_MEDIUM_HEAL + 8), NULL)));
-
-    triggers.push_back(new TriggerNode(
         "party member low health",
         NextAction::array(0, new NextAction("divine favor", ACTION_MEDIUM_HEAL + 6), 
                              new NextAction("holy shock on party", ACTION_MEDIUM_HEAL + 5), 
@@ -435,10 +431,6 @@ void HolyPaladinBlessingRaidStrategy::InitNonCombatTriggers(std::list<TriggerNod
 void HolyPaladinStrategy::InitCombatTriggers(std::list<TriggerNode*>& triggers)
 {
     PaladinStrategy::InitCombatTriggers(triggers);
-
-    triggers.push_back(new TriggerNode(
-        "blessing of sacrifice",
-        NextAction::array(0, new NextAction("blessing of sacrifice", ACTION_MEDIUM_HEAL + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member low health",
