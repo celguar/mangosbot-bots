@@ -3792,6 +3792,7 @@ bool PlayerbotAI::canDispel(const SpellEntry* entry, uint32 dispelType)
         strcmpi((const char*)entry->SpellName[0], "frost armor") &&
         strcmpi((const char*)entry->SpellName[0], "wavering will") &&
         strcmpi((const char*)entry->SpellName[0], "chilled") &&
+        strcmpi((const char*)entry->SpellName[0], "mana tap") &&
         strcmpi((const char*)entry->SpellName[0], "ice armor"));
 }
 
