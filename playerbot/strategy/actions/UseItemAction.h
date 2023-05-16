@@ -298,9 +298,6 @@ namespace ai
                 return false;
 #endif
 
-            if (ai->IsTank(bot))
-                return false;
-
             Unit* target = GetTarget();
             if (!target)
                 return false;
