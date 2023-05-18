@@ -664,8 +664,8 @@ bool ChatHelper::parseable(string text)
             substrContainsInMap<uint32>(text, consumableSubClasses) ||
             substrContainsInMap<uint32>(text, tradeSubClasses) ||
             substrContainsInMap<uint32>(text, itemQualities) ||
-            substrContainsInMap<uint32>(text, slots) ||
-            substrContainsInMap<ChatMsg>(text, chats) ||
+            (substrContainsInMap<uint32>(text, slots) && text.find("rtsc ") == string::npos) ||
+            (substrContainsInMap<ChatMsg>(text, chats) && text.find(" on party") == string::npos) ||
             substrContainsInMap<uint32>(text, skills) ||
             parseMoney(text) > 0;
 }
