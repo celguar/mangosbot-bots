@@ -328,10 +328,7 @@ namespace ai
     class GreaterBuffOnPartyTrigger : public BuffOnPartyTrigger
     {
     public:
-        GreaterBuffOnPartyTrigger(PlayerbotAI* ai, string spell, string lowerSpell, int checkInterval = 2, bool ignoreTanks = false) : BuffOnPartyTrigger(ai, spell, checkInterval, ignoreTanks) 
-        {
-            this->lowerSpell = lowerSpell;
-        }
+        GreaterBuffOnPartyTrigger(PlayerbotAI* ai, string spell, string lowerSpell, int checkInterval = 2, bool ignoreTanks = false) : BuffOnPartyTrigger(ai, spell, checkInterval, ignoreTanks), lowerSpell(lowerSpell) {}
         virtual Value<Unit*>* GetTargetValue() override;
         virtual bool IsActive() override;
 
