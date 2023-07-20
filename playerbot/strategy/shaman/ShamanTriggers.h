@@ -496,7 +496,7 @@ namespace ai
                 }
             }
 
-            return BuffOnTankTrigger::IsActive() && !someoneHaveOwnerAura;
+            return BuffOnTankTrigger::IsActive();
         }
     };
 }
