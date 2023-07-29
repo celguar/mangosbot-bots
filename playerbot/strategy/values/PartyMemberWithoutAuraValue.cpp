@@ -24,14 +24,16 @@ public:
 
         for (vector<string>::iterator i = auras.begin(); i != auras.end(); ++i)
         {
+#ifdef MANGOSBOT_ZERO
             // Ignore caster spells for non caster units
-            if (*i == "arcane intellect" || *i == "divine spirit")
+            if (*i == "arcane intellect" || *i == "arcane brilliance" || *i == "divine spirit" || *i == "prayer of spirit")
             {
-                if (!unit->GetPower(POWER_MANA))
+                if (unit->GetPowerType() != POWER_MANA)
                 {
                     continue;
                 }
             }
+#endif
 
             if (ai->HasAura(*i, unit))
                 return false;

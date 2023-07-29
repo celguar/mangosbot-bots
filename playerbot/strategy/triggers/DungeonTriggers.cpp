@@ -6,6 +6,9 @@
 #include "../AiObjectContext.h"
 #include "../values/HazardsValue.h"
 #include "../actions/MovementActions.h"
+#include "GridNotifiers.h"
+#include "GridNotifiersImpl.h"
+#include "CellImpl.h"
 
 using namespace ai;
 
@@ -133,24 +136,23 @@ bool CloseToCreatureTrigger::IsActive()
     {
         AiObjectContext* context = ai->GetAiObjectContext();
 
-        // Iterate through the active attackers
-        list<ObjectGuid> attackers = AI_VALUE(list<ObjectGuid>, "attackers");
-        for (ObjectGuid& attackerGuid : attackers)
+        // Iterate through the near creatures
+        list<Unit*> creatures;
+        MaNGOS::AllCreaturesOfEntryInRangeCheck u_check(bot, creatureID, range);
+        MaNGOS::UnitListSearcher<MaNGOS::AllCreaturesOfEntryInRangeCheck> searcher(creatures, u_check);
+        Cell::VisitAllObjects(bot, searcher, range);
+        for (Unit* unit : creatures)
         {
-            // Check against the given creature id
-            if (attackerGuid.GetEntry() == creatureID)
+            Creature* creature = (Creature*)unit;
+            if (creature)
             {
-                Creature* creature = ai->GetCreature(attackerGuid);
-                if (creature)
+                // Check if the bot is not being targeted by the creature
+                if (!creature->GetVictim() || (creature->GetVictim()->GetObjectGuid() != bot->GetObjectGuid()))
                 {
-                    // Check if the bot is not being targeted by the creature
-                    if (!creature->GetVictim() || (creature->GetVictim()->GetObjectGuid() != bot->GetObjectGuid()))
+                    // See if the creature is within the specified distance
+                    if (bot->IsWithinDist(creature, range))
                     {
-                        // See if the creature is within the specified distance
-                        if (bot->IsWithinDist(creature, range))
-                        {
-                            return true;
-                        }
+                        return true;
                     }
                 }
             }
