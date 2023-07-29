@@ -46,6 +46,7 @@
 #include "generic/DungeonStrategy.h"
 #include "generic/OnyxiasLairDungeonStrategies.h"
 #include "generic/MoltenCoreDungeonStrategies.h"
+#include "generic/KarazhanDungeonStrategies.h"
 
 namespace ai
 {
@@ -135,10 +136,12 @@ namespace ai
             creators["dungeon"] = &StrategyContext::dungeon;
             creators["onyxia's lair"] = &StrategyContext::onyxias_lair;
             creators["molten core"] = &StrategyContext::molten_core;
+            creators["karazhan"] = &StrategyContext::karazhan;
 
             // Dungeon Boss Strategies
             creators["onyxia"] = &StrategyContext::onyxia;
             creators["magmadar"] = &StrategyContext::magmadar;
+            creators["netherspite"] = &StrategyContext::netherspite;
         }
 
     private:
@@ -223,10 +226,12 @@ namespace ai
         static Strategy* dungeon(PlayerbotAI* ai) { return new DungeonStrategy(ai); }
         static Strategy* onyxias_lair(PlayerbotAI* ai) { return new OnyxiasLairDungeonStrategy(ai); }
         static Strategy* molten_core(PlayerbotAI* ai) { return new MoltenCoreDungeonStrategy(ai); }
+        static Strategy* karazhan(PlayerbotAI* ai) { return new KarazhanDungeonStrategy(ai); }
 
         // Dungeon Boss Strategy
         static Strategy* onyxia(PlayerbotAI* ai) { return new OnyxiaFightStrategy(ai); }
         static Strategy* magmadar(PlayerbotAI* ai) { return new MagmadarFightStrategy(ai); }
+        static Strategy* netherspite(PlayerbotAI* ai) { return new NetherspiteFightStrategy(ai); }
     };
 
     class MovementStrategyContext : public NamedObjectContext<Strategy>

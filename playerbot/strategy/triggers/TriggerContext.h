@@ -16,6 +16,7 @@
 #include "PullTriggers.h"
 #include "OnyxiasLairDungeonTriggers.h"
 #include "MoltenCoreDungeonTriggers.h"
+#include "KarazhanDungeonTriggers.h"
 
 namespace ai
 {
@@ -249,6 +250,8 @@ namespace ai
             creators["leave onyxia's lair"] = &TriggerContext::onyxias_lair_leave;
             creators["enter molten core"] = &TriggerContext::molten_core_enter;
             creators["leave molten core"] = &TriggerContext::molten_core_leave;
+            creators["enter karazhan"] = &TriggerContext::karazhan_enter;
+            creators["leave karazhan"] = &TriggerContext::karazhan_leave;
 
             // Dungeon Boss Triggers
             creators["start onyxia fight"] = &TriggerContext::onyxia_start_fight;
@@ -264,6 +267,10 @@ namespace ai
 
             creators["mc rune in sight"] = &TriggerContext::mc_rune_in_sight;
             creators["mc rune close"] = &TriggerContext::mc_rune_close;
+
+            creators["start netherspite fight"] = &TriggerContext::netherspite_start_fight;
+            creators["end netherspite fight"] = &TriggerContext::netherspite_end_fight;
+            creators["void zone too close"] = &TriggerContext::voidzone_too_close;
         }
 
     private:
@@ -460,11 +467,20 @@ namespace ai
         static Trigger* rpg_duel(PlayerbotAI* ai) { return new RpgDuelTrigger(ai); }
         static Trigger* rpg_item(PlayerbotAI* ai) { return new RpgItemTrigger(ai); }
 
+        // Raid Triggers
+        static Trigger* karazhan_enter(PlayerbotAI* ai) { return new KarazhanEnterDungeonTrigger(ai); }
+        static Trigger* karazhan_leave(PlayerbotAI* ai) { return new KarazhanLeaveDungeonTrigger(ai); }
+
         // Dungeon Triggers
         static Trigger* onyxias_lair_enter(PlayerbotAI* ai) { return new OnyxiasLairEnterDungeonTrigger(ai); }
         static Trigger* onyxias_lair_leave(PlayerbotAI* ai) { return new OnyxiasLairLeaveDungeonTrigger(ai); }
         static Trigger* molten_core_enter(PlayerbotAI* ai) { return new MoltenCoreEnterDungeonTrigger(ai); }
         static Trigger* molten_core_leave(PlayerbotAI* ai) { return new MoltenCoreLeaveDungeonTrigger(ai); }
+
+        // Raid Boss Triggers
+        static Trigger* netherspite_start_fight(PlayerbotAI* ai) { return new NetherspiteStartFightTrigger(ai); }
+        static Trigger* netherspite_end_fight(PlayerbotAI* ai) { return new NetherspiteEndFightTrigger(ai); }
+        static Trigger* voidzone_too_close(PlayerbotAI* ai) { return new VoidZoneTooCloseTrigger(ai); }
 
         // Dungeon Boss Triggers
         static Trigger* onyxia_start_fight(PlayerbotAI* ai) { return new OnyxiaStartFightTrigger(ai); }
