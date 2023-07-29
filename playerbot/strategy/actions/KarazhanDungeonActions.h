@@ -32,6 +32,6 @@ namespace ai
     class VoidZoneMoveAwayAction : public MoveAwayFromCreature
     {
     public:
-        VoidZoneMoveAwayAction(PlayerbotAI* ai) : MoveAwayFromCreature(ai, "move away from void zone", 16697, 11.0f) {}
+        VoidZoneMoveAwayAction(PlayerbotAI* ai) : MoveAwayFromCreature(ai, "move away from void zone", 16697, 6.0f) {}
     };
 }

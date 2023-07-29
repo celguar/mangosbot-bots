@@ -31,6 +31,6 @@ namespace ai
     class VoidZoneTooCloseTrigger : public CloseToCreatureTrigger
     {
     public:
-        VoidZoneTooCloseTrigger(PlayerbotAI* ai) : CloseToCreatureTrigger(ai, "void zone too close", 16697, 10.0f) {}
+        VoidZoneTooCloseTrigger(PlayerbotAI* ai) : CloseToCreatureTrigger(ai, "void zone too close", 16697, 5.0f) {}
     };
 }

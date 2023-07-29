@@ -2,6 +2,9 @@
 #include "../values/PositionValue.h"
 #include "../AiObjectContext.h"
 #include "../../PlayerbotAI.h"
+#include "GridNotifiers.h"
+#include "GridNotifiersImpl.h"
+#include "CellImpl.h"
 
 using namespace ai;
 
@@ -120,24 +123,25 @@ bool MoveAwayFromCreature::Execute(Event& event)
     list<Creature*> creatures;
     size_t closestCreatureIdx = 0;
     float closestCreatureDistance = 9999.0f;
-    const list<ObjectGuid>& attackers = AI_VALUE(list<ObjectGuid>, "attackers");
-    for (const ObjectGuid& attackerGuid : attackers)
-    {
-        // Check against the given creature id
-        if (attackerGuid.GetEntry() == creatureID)
-        {
-            Creature* creature = ai->GetCreature(attackerGuid);
-            if (creature)
-            {
-                creatures.push_back(creature);
 
-                // Get the closest creature to the bot
-                const float distance = bot->GetDistance(creature);
-                if (distance < closestCreatureDistance)
-                {
-                    closestCreatureDistance = distance;
-                    closestCreatureIdx = creatures.size() - 1;
-                }
+    // Iterate through the near creatures
+    list<Unit*> units;
+    MaNGOS::AllCreaturesOfEntryInRangeCheck u_check(bot, creatureID, range);
+    MaNGOS::UnitListSearcher<MaNGOS::AllCreaturesOfEntryInRangeCheck> searcher(units, u_check);
+    Cell::VisitAllObjects(bot, searcher, range);
+    for (Unit* unit : units)
+    {
+        Creature* creature = (Creature*)unit;
+        if (creature)
+        {
+            creatures.push_back(creature);
+
+            // Get the closest creature to the bot
+            const float distance = bot->GetDistance(creature);
+            if (distance < closestCreatureDistance)
+            {
+                closestCreatureDistance = distance;
+                closestCreatureIdx = creatures.size() - 1;
             }
         }
     }
