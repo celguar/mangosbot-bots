@@ -64,6 +64,7 @@
 #include "OnyxiasLairDungeonActions.h"
 #include "MoltenCoreDungeonActions.h"
 #include "KarazhanDungeonActions.h"
+#include "NaxxramasDungeonActions.h"
 
 namespace ai
 {
@@ -291,6 +292,8 @@ namespace ai
             creators["disable molten core strategy"] = &ActionContext::molten_core_disable_strategy;
             creators["enable karazhan strategy"] = &ActionContext::karazhan_enable_strategy;
             creators["disable karazhan strategy"] = &ActionContext::karazhan_disable_strategy;
+            creators["enable naxxramas strategy"] = &ActionContext::naxxramas_enable_strategy;
+            creators["disable naxxramas strategy"] = &ActionContext::naxxramas_disable_strategy;
 
             // Dungeon Boss Actions
             creators["enable onyxia fight strategy"] = &ActionContext::onyxia_enable_fight_strategy;
@@ -307,6 +310,9 @@ namespace ai
             creators["enable netherspite fight strategy"] = &ActionContext::netherspite_enable_fight_strategy;
             creators["disable netherspite fight strategy"] = &ActionContext::netherspite_disable_fight_strategy;
             creators["move away from void zone"] = &ActionContext::voidzone_move_away;
+
+            creators["enable four horseman fight strategy"] = &ActionContext::fourhorseman_enable_fight_strategy;
+            creators["disable four horseman fight strategy"] = &ActionContext::fourhorseman_disable_fight_strategy;
         }
 
     private:
@@ -528,6 +534,8 @@ namespace ai
         static Action* molten_core_disable_strategy(PlayerbotAI* ai) { return new MoltenCoreDisableDungeonStrategyAction(ai); }
         static Action* karazhan_enable_strategy(PlayerbotAI* ai) { return new KarazhanEnableDungeonStrategyAction(ai); }
         static Action* karazhan_disable_strategy(PlayerbotAI* ai) { return new KarazhanDisableDungeonStrategyAction(ai); }
+        static Action* naxxramas_enable_strategy(PlayerbotAI* ai) { return new NaxxramasEnableDungeonStrategyAction(ai); }
+        static Action* naxxramas_disable_strategy(PlayerbotAI* ai) { return new NaxxramasDisableDungeonStrategyAction(ai); }
 
         // Dungeon Boss Actions
         static Action* onyxia_enable_fight_strategy(PlayerbotAI* ai) { return new OnyxiaEnableFightStrategyAction(ai); }
@@ -544,5 +552,8 @@ namespace ai
         static Action* netherspite_enable_fight_strategy(PlayerbotAI* ai) { return new NetherspiteEnableFightStrategyAction(ai); }
         static Action* netherspite_disable_fight_strategy(PlayerbotAI* ai) { return new NetherspiteDisableFightStrategyAction(ai); }
         static Action* voidzone_move_away(PlayerbotAI* ai) { return new VoidZoneMoveAwayAction(ai); }
+
+        static Action* fourhorseman_enable_fight_strategy(PlayerbotAI* ai) { return new FourHorsemanEnableFightStrategyAction(ai); }
+        static Action* fourhorseman_disable_fight_strategy(PlayerbotAI* ai) { return new FourHorsemanDisableFightStrategyAction(ai); }
     };
 };

@@ -17,6 +17,7 @@
 #include "OnyxiasLairDungeonTriggers.h"
 #include "MoltenCoreDungeonTriggers.h"
 #include "KarazhanDungeonTriggers.h"
+#include "NaxxramasDungeonTriggers.h"
 
 namespace ai
 {
@@ -252,6 +253,8 @@ namespace ai
             creators["leave molten core"] = &TriggerContext::molten_core_leave;
             creators["enter karazhan"] = &TriggerContext::karazhan_enter;
             creators["leave karazhan"] = &TriggerContext::karazhan_leave;
+            creators["enter naxxramas"] = &TriggerContext::naxxramas_enter;
+            creators["leave naxxramas"] = &TriggerContext::naxxramas_leave;
 
             // Dungeon Boss Triggers
             creators["start onyxia fight"] = &TriggerContext::onyxia_start_fight;
@@ -271,6 +274,9 @@ namespace ai
             creators["start netherspite fight"] = &TriggerContext::netherspite_start_fight;
             creators["end netherspite fight"] = &TriggerContext::netherspite_end_fight;
             creators["void zone too close"] = &TriggerContext::voidzone_too_close;
+
+            creators["start four horseman fight"] = &TriggerContext::fourhorseman_start_fight;
+            creators["end four horseman fight"] = &TriggerContext::fourhorseman_end_fight;
         }
 
     private:
@@ -467,20 +473,15 @@ namespace ai
         static Trigger* rpg_duel(PlayerbotAI* ai) { return new RpgDuelTrigger(ai); }
         static Trigger* rpg_item(PlayerbotAI* ai) { return new RpgItemTrigger(ai); }
 
-        // Raid Triggers
-        static Trigger* karazhan_enter(PlayerbotAI* ai) { return new KarazhanEnterDungeonTrigger(ai); }
-        static Trigger* karazhan_leave(PlayerbotAI* ai) { return new KarazhanLeaveDungeonTrigger(ai); }
-
         // Dungeon Triggers
         static Trigger* onyxias_lair_enter(PlayerbotAI* ai) { return new OnyxiasLairEnterDungeonTrigger(ai); }
         static Trigger* onyxias_lair_leave(PlayerbotAI* ai) { return new OnyxiasLairLeaveDungeonTrigger(ai); }
         static Trigger* molten_core_enter(PlayerbotAI* ai) { return new MoltenCoreEnterDungeonTrigger(ai); }
         static Trigger* molten_core_leave(PlayerbotAI* ai) { return new MoltenCoreLeaveDungeonTrigger(ai); }
-
-        // Raid Boss Triggers
-        static Trigger* netherspite_start_fight(PlayerbotAI* ai) { return new NetherspiteStartFightTrigger(ai); }
-        static Trigger* netherspite_end_fight(PlayerbotAI* ai) { return new NetherspiteEndFightTrigger(ai); }
-        static Trigger* voidzone_too_close(PlayerbotAI* ai) { return new VoidZoneTooCloseTrigger(ai); }
+        static Trigger* karazhan_enter(PlayerbotAI* ai) { return new KarazhanEnterDungeonTrigger(ai); }
+        static Trigger* karazhan_leave(PlayerbotAI* ai) { return new KarazhanLeaveDungeonTrigger(ai); }
+        static Trigger* naxxramas_enter(PlayerbotAI* ai) { return new NaxxramasEnterDungeonTrigger(ai); }
+        static Trigger* naxxramas_leave(PlayerbotAI* ai) { return new NaxxramasLeaveDungeonTrigger(ai); }
 
         // Dungeon Boss Triggers
         static Trigger* onyxia_start_fight(PlayerbotAI* ai) { return new OnyxiaStartFightTrigger(ai); }
@@ -496,5 +497,12 @@ namespace ai
 
         static Trigger* mc_rune_in_sight(PlayerbotAI* ai) { return new MCRuneInSightTrigger(ai); }
         static Trigger* mc_rune_close(PlayerbotAI* ai) { return new MCRuneCloseTrigger(ai); }
+
+        static Trigger* netherspite_start_fight(PlayerbotAI* ai) { return new NetherspiteStartFightTrigger(ai); }
+        static Trigger* netherspite_end_fight(PlayerbotAI* ai) { return new NetherspiteEndFightTrigger(ai); }
+        static Trigger* voidzone_too_close(PlayerbotAI* ai) { return new VoidZoneTooCloseTrigger(ai); }
+
+        static Trigger* fourhorseman_start_fight(PlayerbotAI* ai) { return new FourHorsemanStartFightTrigger(ai); }
+        static Trigger* fourhorseman_end_fight(PlayerbotAI* ai) { return new FourHorsemanEndFightTrigger(ai); }
     };
 };

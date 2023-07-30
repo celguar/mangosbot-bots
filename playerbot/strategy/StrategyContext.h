@@ -47,6 +47,7 @@
 #include "generic/OnyxiasLairDungeonStrategies.h"
 #include "generic/MoltenCoreDungeonStrategies.h"
 #include "generic/KarazhanDungeonStrategies.h"
+#include "generic/NaxxramasDungeonStrategies.h"
 
 namespace ai
 {
@@ -137,11 +138,13 @@ namespace ai
             creators["onyxia's lair"] = &StrategyContext::onyxias_lair;
             creators["molten core"] = &StrategyContext::molten_core;
             creators["karazhan"] = &StrategyContext::karazhan;
+            creators["naxxramas"] = &StrategyContext::naxxramas;
 
             // Dungeon Boss Strategies
             creators["onyxia"] = &StrategyContext::onyxia;
             creators["magmadar"] = &StrategyContext::magmadar;
             creators["netherspite"] = &StrategyContext::netherspite;
+            creators["four horseman"] = &StrategyContext::fourhorseman;
         }
 
     private:
@@ -227,11 +230,13 @@ namespace ai
         static Strategy* onyxias_lair(PlayerbotAI* ai) { return new OnyxiasLairDungeonStrategy(ai); }
         static Strategy* molten_core(PlayerbotAI* ai) { return new MoltenCoreDungeonStrategy(ai); }
         static Strategy* karazhan(PlayerbotAI* ai) { return new KarazhanDungeonStrategy(ai); }
+        static Strategy* naxxramas(PlayerbotAI* ai) { return new NaxxramasDungeonStrategy(ai); }
 
         // Dungeon Boss Strategy
         static Strategy* onyxia(PlayerbotAI* ai) { return new OnyxiaFightStrategy(ai); }
         static Strategy* magmadar(PlayerbotAI* ai) { return new MagmadarFightStrategy(ai); }
         static Strategy* netherspite(PlayerbotAI* ai) { return new NetherspiteFightStrategy(ai); }
+        static Strategy* fourhorseman(PlayerbotAI* ai) { return new FourHorsemanFightStrategy(ai); }
     };
 
     class MovementStrategyContext : public NamedObjectContext<Strategy>
