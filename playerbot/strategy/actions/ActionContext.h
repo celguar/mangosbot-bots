@@ -310,6 +310,11 @@ namespace ai
             creators["enable netherspite fight strategy"] = &ActionContext::netherspite_enable_fight_strategy;
             creators["disable netherspite fight strategy"] = &ActionContext::netherspite_disable_fight_strategy;
             creators["move away from void zone"] = &ActionContext::voidzone_move_away;
+            creators["add nether portal - perseverence for tank"] = &ActionContext::add_nether_portal_perseverence_for_tank;
+            creators["remove nether portal buffs from netherspite"] = &ActionContext::remove_nether_portal_buffs_from_netherspite;
+            creators["remove nether portal - perseverence"] = &ActionContext::remove_nether_portal_perseverence;
+            creators["remove nether portal - serenity"] = &ActionContext::remove_nether_portal_serenity;
+            creators["remove nether portal - dominance"] = &ActionContext::remove_nether_portal_dominance;
 
             creators["enable four horseman fight strategy"] = &ActionContext::fourhorseman_enable_fight_strategy;
             creators["disable four horseman fight strategy"] = &ActionContext::fourhorseman_disable_fight_strategy;
@@ -552,7 +557,12 @@ namespace ai
         static Action* netherspite_enable_fight_strategy(PlayerbotAI* ai) { return new NetherspiteEnableFightStrategyAction(ai); }
         static Action* netherspite_disable_fight_strategy(PlayerbotAI* ai) { return new NetherspiteDisableFightStrategyAction(ai); }
         static Action* voidzone_move_away(PlayerbotAI* ai) { return new VoidZoneMoveAwayAction(ai); }
-
+        static Action* add_nether_portal_perseverence_for_tank(PlayerbotAI* ai) { return new AddNetherPortalPerseverenceForTankAction(ai); }
+        static Action* remove_nether_portal_buffs_from_netherspite(PlayerbotAI* ai) { return new RemoveNetherPortalBuffsFromNetherspiteAction(ai); }
+        static Action* remove_nether_portal_perseverence(PlayerbotAI* ai) { return new RemoveNetherPortalPerseverenceAction(ai); }
+        static Action* remove_nether_portal_serenity(PlayerbotAI* ai) { return new RemoveNetherPortalSerenityAction(ai); }
+        static Action* remove_nether_portal_dominance(PlayerbotAI* ai) { return new RemoveNetherPortalDominanceAction(ai); }
+        
         static Action* fourhorseman_enable_fight_strategy(PlayerbotAI* ai) { return new FourHorsemanEnableFightStrategyAction(ai); }
         static Action* fourhorseman_disable_fight_strategy(PlayerbotAI* ai) { return new FourHorsemanDisableFightStrategyAction(ai); }
     };

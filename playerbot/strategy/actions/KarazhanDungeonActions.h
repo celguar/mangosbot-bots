@@ -34,4 +34,55 @@ namespace ai
     public:
         VoidZoneMoveAwayAction(PlayerbotAI* ai) : MoveAwayFromCreature(ai, "move away from void zone", 16697, 6.0f) {}
     };
+
+    class RemoveNetherPortalBuffsFromNetherspiteAction : public Action
+    {
+    public:
+        RemoveNetherPortalBuffsFromNetherspiteAction(PlayerbotAI* ai) : Action(ai, "remove nether portal buffs from netherspite") {}
+        virtual bool Execute(Event& event) override;
+    };
+
+    class AddNetherPortalPerseverenceForTankAction : public Action
+    {
+    public:
+        AddNetherPortalPerseverenceForTankAction(PlayerbotAI* ai) : Action(ai, "add nether portal - perseverence for tank") {}
+        bool Execute(Event& event) override
+        {
+            ai->AddAura(bot, 30421);
+            return true;
+        }
+    };
+
+    class RemoveNetherPortalPerseverenceAction : public Action
+    {
+    public:
+        RemoveNetherPortalPerseverenceAction(PlayerbotAI* ai) : Action(ai, "remove nether portal - perseverence") {}
+        bool Execute(Event& event) override
+        {
+            bot->RemoveAurasDueToSpell(30421);
+            return true;
+        }
+    };
+
+    class RemoveNetherPortalSerenityAction : public Action
+    {
+    public:
+        RemoveNetherPortalSerenityAction(PlayerbotAI* ai) : Action(ai, "remove nether portal - serenity") {}
+        bool Execute(Event& event) override
+        {
+            bot->RemoveAurasDueToSpell(30422);
+            return true;
+        }
+    };
+
+    class RemoveNetherPortalDominanceAction : public Action
+    {
+    public:
+        RemoveNetherPortalDominanceAction(PlayerbotAI* ai) : Action(ai, "remove nether portal - dominance") {}
+        bool Execute(Event& event) override
+        {
+            bot->RemoveAurasDueToSpell(30423);
+            return true;
+        }
+    };
 }

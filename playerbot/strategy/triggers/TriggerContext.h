@@ -274,6 +274,11 @@ namespace ai
             creators["start netherspite fight"] = &TriggerContext::netherspite_start_fight;
             creators["end netherspite fight"] = &TriggerContext::netherspite_end_fight;
             creators["void zone too close"] = &TriggerContext::voidzone_too_close;
+            creators["add nether portal - perseverence for tank"] = &TriggerContext::add_nether_portal_perseverence_for_tank;
+            creators["remove nether portal buffs from netherspite"] = &TriggerContext::remove_nether_portal_buffs_from_netherspite;
+            creators["remove nether portal - dominance"] = &TriggerContext::remove_nether_portal_dominance;
+            creators["remove nether portal - perseverence"] = &TriggerContext::remove_nether_portal_perseverence;
+            creators["remove nether portal - serenity"] = &TriggerContext::remove_nether_portal_serenity;
 
             creators["start four horseman fight"] = &TriggerContext::fourhorseman_start_fight;
             creators["end four horseman fight"] = &TriggerContext::fourhorseman_end_fight;
@@ -501,6 +506,11 @@ namespace ai
         static Trigger* netherspite_start_fight(PlayerbotAI* ai) { return new NetherspiteStartFightTrigger(ai); }
         static Trigger* netherspite_end_fight(PlayerbotAI* ai) { return new NetherspiteEndFightTrigger(ai); }
         static Trigger* voidzone_too_close(PlayerbotAI* ai) { return new VoidZoneTooCloseTrigger(ai); }
+        static Trigger* remove_nether_portal_buffs_from_netherspite(PlayerbotAI* ai) { return new NetherspiteBeamsCheatNeedRefreshTrigger(ai); }
+        static Trigger* add_nether_portal_perseverence_for_tank(PlayerbotAI* ai) { return new NetherspiteBeamsCheatNeedRefreshTrigger(ai, 2); }
+        static Trigger* remove_nether_portal_dominance(PlayerbotAI* ai) { return new RemoveNetherPortalDominanceTrigger(ai); }
+        static Trigger* remove_nether_portal_perseverence(PlayerbotAI* ai) { return new RemoveNetherPortalPerseverenceTrigger(ai); }
+        static Trigger* remove_nether_portal_serenity(PlayerbotAI* ai) { return new RemoveNetherPortalSerenityTrigger(ai); }
 
         static Trigger* fourhorseman_start_fight(PlayerbotAI* ai) { return new FourHorsemanStartFightTrigger(ai); }
         static Trigger* fourhorseman_end_fight(PlayerbotAI* ai) { return new FourHorsemanEndFightTrigger(ai); }
