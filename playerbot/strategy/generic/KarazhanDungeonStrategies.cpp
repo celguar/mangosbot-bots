@@ -10,6 +10,10 @@ void KarazhanDungeonStrategy::InitCombatTriggers(std::list<TriggerNode*>& trigge
 	triggers.push_back(new TriggerNode(
 		"start netherspite fight",
 		NextAction::array(0, new NextAction("enable netherspite fight strategy", 100.0f), NULL)));
+
+	triggers.push_back(new TriggerNode(
+		"start prince malchezaar fight",
+		NextAction::array(0, new NextAction("enable prince malchezaar fight strategy", 100.0f), NULL)));
 }
 
 void NetherspiteFightStrategy::InitCombatTriggers(std::list<TriggerNode*>& triggers)
@@ -51,4 +55,25 @@ void NetherspiteFightStrategy::InitDeadTriggers(std::list<TriggerNode*>& trigger
 	triggers.push_back(new TriggerNode(
 		"end netherspite fight",
 		NextAction::array(0, new NextAction("disable netherspite fight strategy", 100.0f), NULL)));
+}
+
+void PrinceMalchezaarFightStrategy::InitCombatTriggers(std::list<TriggerNode*>& triggers)
+{
+	triggers.push_back(new TriggerNode(
+		"netherspite infernal too close",
+		NextAction::array(0, new NextAction("move away from netherspite infernal", 100.0f), NULL)));
+}
+
+void PrinceMalchezaarFightStrategy::InitNonCombatTriggers(std::list<TriggerNode*>& triggers)
+{
+	triggers.push_back(new TriggerNode(
+		"end prince malchezaar fight",
+		NextAction::array(0, new NextAction("disable prince malchezaar fight strategy", 100.0f), NULL)));
+}
+
+void PrinceMalchezaarFightStrategy::InitDeadTriggers(std::list<TriggerNode*>& triggers)
+{
+	triggers.push_back(new TriggerNode(
+		"end prince malchezaar fight",
+		NextAction::array(0, new NextAction("disable prince malchezaar fight strategy", 100.0f), NULL)));
 }

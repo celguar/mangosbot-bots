@@ -75,7 +75,7 @@ namespace ai
             creators["not dps aoe target active"] = &TriggerContext::not_dps_aoe_target_active;
             creators["has nearest adds"] = &TriggerContext::has_nearest_adds;
             creators["enemy player near"] = &TriggerContext::enemy_player_near;
-            
+
             creators["combat start"] = &TriggerContext::combat_start;
             creators["combat end"] = &TriggerContext::combat_end;
             creators["death"] = &TriggerContext::death;
@@ -154,7 +154,7 @@ namespace ai
             creators["far from rpg target"] = &TriggerContext::far_from_rpg_target;
             creators["near rpg target"] = &TriggerContext::near_rpg_target;
             creators["no travel target"] = &TriggerContext::no_travel_target;
-            creators["far from travel target"] = &TriggerContext::far_from_travel_target;			
+            creators["far from travel target"] = &TriggerContext::far_from_travel_target;
             creators["no rti target"] = &TriggerContext::no_rti;
 
             creators["give food"] = &TriggerContext::give_food;
@@ -279,6 +279,10 @@ namespace ai
             creators["remove nether portal - dominance"] = &TriggerContext::remove_nether_portal_dominance;
             creators["remove nether portal - perseverence"] = &TriggerContext::remove_nether_portal_perseverence;
             creators["remove nether portal - serenity"] = &TriggerContext::remove_nether_portal_serenity;
+
+            creators["start prince malchezaar fight"] = &TriggerContext::prince_malchezaar_start_fight;
+            creators["end prince malchezaar fight"] = &TriggerContext::prince_malchezaar_end_fight;
+            creators["netherspite infernal too close"] = &TriggerContext::netherspite_infernal_too_close;
 
             creators["start four horseman fight"] = &TriggerContext::fourhorseman_start_fight;
             creators["end four horseman fight"] = &TriggerContext::fourhorseman_end_fight;
@@ -511,6 +515,10 @@ namespace ai
         static Trigger* remove_nether_portal_dominance(PlayerbotAI* ai) { return new RemoveNetherPortalDominanceTrigger(ai); }
         static Trigger* remove_nether_portal_perseverence(PlayerbotAI* ai) { return new RemoveNetherPortalPerseverenceTrigger(ai); }
         static Trigger* remove_nether_portal_serenity(PlayerbotAI* ai) { return new RemoveNetherPortalSerenityTrigger(ai); }
+
+        static Trigger* prince_malchezaar_start_fight(PlayerbotAI* ai) { return new PrinceMalchezaarStartFightTrigger(ai); }
+        static Trigger* prince_malchezaar_end_fight(PlayerbotAI* ai) { return new PrinceMalchezaarEndFightTrigger(ai); }
+        static Trigger* netherspite_infernal_too_close(PlayerbotAI* ai) { return new NetherspiteInfernalTooCloseTrigger(ai); }
 
         static Trigger* fourhorseman_start_fight(PlayerbotAI* ai) { return new FourHorsemanStartFightTrigger(ai); }
         static Trigger* fourhorseman_end_fight(PlayerbotAI* ai) { return new FourHorsemanEndFightTrigger(ai); }

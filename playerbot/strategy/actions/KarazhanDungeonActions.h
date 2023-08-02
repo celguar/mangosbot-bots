@@ -85,4 +85,22 @@ namespace ai
             return true;
         }
     };
+
+    class PrinceMalchezaarEnableFightStrategyAction : public ChangeAllStrategyAction
+    {
+    public:
+        PrinceMalchezaarEnableFightStrategyAction(PlayerbotAI* ai) : ChangeAllStrategyAction(ai, "enable prince malchezaar fight strategy", "+prince malchezaar") {}
+    };
+
+    class PrinceMalchezaarDisableFightStrategyAction : public ChangeAllStrategyAction
+    {
+    public:
+        PrinceMalchezaarDisableFightStrategyAction(PlayerbotAI* ai) : ChangeAllStrategyAction(ai, "disable prince malchezaar fight strategy", "-prince malchezaar") {}
+    };
+
+    class NetherspiteInfernalMoveAwayAction : public MoveAwayFromCreature
+    {
+    public:
+        NetherspiteInfernalMoveAwayAction(PlayerbotAI* ai) : MoveAwayFromCreature(ai, "move away from netherspite infernal", 17646, 31.0f) {}
+    };
 }

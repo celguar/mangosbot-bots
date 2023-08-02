@@ -66,4 +66,22 @@ namespace ai
 	public:
 		RemoveNetherPortalSerenityTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "remove nether portal - serenity", 5) {}
 	};
+
+	class PrinceMalchezaarStartFightTrigger : public StartBossFightTrigger
+	{
+	public:
+		PrinceMalchezaarStartFightTrigger(PlayerbotAI* ai) : StartBossFightTrigger(ai, "start prince malchezaar fight", "prince malchezaar", 15690) {}
+	};
+
+	class PrinceMalchezaarEndFightTrigger : public EndBossFightTrigger
+	{
+	public:
+		PrinceMalchezaarEndFightTrigger(PlayerbotAI* ai) : EndBossFightTrigger(ai, "end prince malchezaar fight", "prince malchezaar", 15690) {}
+	};
+
+	class NetherspiteInfernalTooCloseTrigger : public CloseToCreatureTrigger
+	{
+	public:
+		NetherspiteInfernalTooCloseTrigger(PlayerbotAI* ai) : CloseToCreatureTrigger(ai, "netherspite infernal too close", 17646, 30.0f) {}
+	};
 }

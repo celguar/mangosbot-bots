@@ -144,6 +144,7 @@ namespace ai
             creators["onyxia"] = &StrategyContext::onyxia;
             creators["magmadar"] = &StrategyContext::magmadar;
             creators["netherspite"] = &StrategyContext::netherspite;
+            creators["prince malchezaar"] = &StrategyContext::prince_malchezaar;
             creators["four horseman"] = &StrategyContext::fourhorseman;
         }
 
@@ -236,6 +237,7 @@ namespace ai
         static Strategy* onyxia(PlayerbotAI* ai) { return new OnyxiaFightStrategy(ai); }
         static Strategy* magmadar(PlayerbotAI* ai) { return new MagmadarFightStrategy(ai); }
         static Strategy* netherspite(PlayerbotAI* ai) { return new NetherspiteFightStrategy(ai); }
+        static Strategy* prince_malchezaar(PlayerbotAI* ai) { return new PrinceMalchezaarFightStrategy(ai); }
         static Strategy* fourhorseman(PlayerbotAI* ai) { return new FourHorsemanFightStrategy(ai); }
     };
 

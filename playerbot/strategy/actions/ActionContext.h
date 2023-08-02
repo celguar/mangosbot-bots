@@ -316,6 +316,10 @@ namespace ai
             creators["remove nether portal - serenity"] = &ActionContext::remove_nether_portal_serenity;
             creators["remove nether portal - dominance"] = &ActionContext::remove_nether_portal_dominance;
 
+            creators["enable prince malchezaar fight strategy"] = &ActionContext::prince_malchezaar_enable_fight_strategy;
+            creators["disable prince malchezaar fight strategy"] = &ActionContext::prince_malchezaar_disable_fight_strategy;
+            creators["move away from netherspite infernal"] = &ActionContext::netherspite_infernal_move_away;
+
             creators["enable four horseman fight strategy"] = &ActionContext::fourhorseman_enable_fight_strategy;
             creators["disable four horseman fight strategy"] = &ActionContext::fourhorseman_disable_fight_strategy;
         }
@@ -562,6 +566,10 @@ namespace ai
         static Action* remove_nether_portal_perseverence(PlayerbotAI* ai) { return new RemoveNetherPortalPerseverenceAction(ai); }
         static Action* remove_nether_portal_serenity(PlayerbotAI* ai) { return new RemoveNetherPortalSerenityAction(ai); }
         static Action* remove_nether_portal_dominance(PlayerbotAI* ai) { return new RemoveNetherPortalDominanceAction(ai); }
+
+        static Action* prince_malchezaar_enable_fight_strategy(PlayerbotAI* ai) { return new PrinceMalchezaarEnableFightStrategyAction(ai); }
+        static Action* prince_malchezaar_disable_fight_strategy(PlayerbotAI* ai) { return new PrinceMalchezaarDisableFightStrategyAction(ai); }
+        static Action* netherspite_infernal_move_away(PlayerbotAI* ai) { return new NetherspiteInfernalMoveAwayAction(ai); }
         
         static Action* fourhorseman_enable_fight_strategy(PlayerbotAI* ai) { return new FourHorsemanEnableFightStrategyAction(ai); }
         static Action* fourhorseman_disable_fight_strategy(PlayerbotAI* ai) { return new FourHorsemanDisableFightStrategyAction(ai); }
