@@ -53,6 +53,7 @@ namespace ai
             creators["all"] = &ChatTriggerContext::all;
             creators["trainer"] = &ChatTriggerContext::trainer;
             creators["attack"] = &ChatTriggerContext::attack;
+            creators["attack rti"] = &ChatTriggerContext::attack_rti;
             creators["pull"] = &ChatTriggerContext::pull;
             creators["pull rti"] = &ChatTriggerContext::pull_rti;
             creators["chat"] = &ChatTriggerContext::chat;
@@ -180,6 +181,7 @@ namespace ai
         static Trigger* accept(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "accept"); }
         static Trigger* chat(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "chat"); }
         static Trigger* attack(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "attack"); }
+        static Trigger* attack_rti(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "attack rti"); }
         static Trigger* pull(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "pull"); }
         static Trigger* pull_rti(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "pull rti"); }
         static Trigger* trainer(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "trainer"); }

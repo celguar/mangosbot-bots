@@ -29,6 +29,16 @@ namespace ai
         virtual bool isUseful();
     };
 
+    class AttackRTITargetAction : public AttackAction
+    {
+    public:
+        AttackRTITargetAction(PlayerbotAI* ai, string name = "attack rti target") : AttackAction(ai, name) {}
+
+    public:
+        virtual bool Execute(Event& event);
+        virtual bool isUseful();
+    };
+
     class AttackDuelOpponentAction : public AttackAction
     {
     public:

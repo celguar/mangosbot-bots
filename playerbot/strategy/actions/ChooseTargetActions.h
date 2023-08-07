@@ -58,13 +58,6 @@ namespace ai
         bool isUseful() override;
     };
 
-    class AttackRtiTargetAction : public AttackAction
-    {
-    public:
-        AttackRtiTargetAction(PlayerbotAI* ai) : AttackAction(ai, "attack rti target") {}
-        string GetTargetName() override { return "rti target"; }
-    };
-
     class AttackEnemyFlagCarrierAction : public AttackAction
     {
     public:

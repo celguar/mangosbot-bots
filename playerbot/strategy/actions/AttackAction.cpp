@@ -40,7 +40,7 @@ bool AttackMyTargetAction::Execute(Event& event)
                 return true;
             }
         }
-        else if (verbose) 
+        else if (verbose)
         {
             ai->TellError("You have no target");
         }
@@ -49,7 +49,35 @@ bool AttackMyTargetAction::Execute(Event& event)
     return false;
 }
 
+bool AttackRTITargetAction::Execute(Event& event)
+{
+    Unit* rtiTarget = AI_VALUE(Unit*, "rti target");
+
+    if (rtiTarget && rtiTarget->IsInWorld() && rtiTarget->GetMapId() == bot->GetMapId())
+    {
+        if (Attack(rtiTarget))
+        {
+            SET_AI_VALUE(ObjectGuid, "attack target", rtiTarget->GetObjectGuid());
+            return true;
+        }
+    }
+    else
+    {
+        ai->TellError("I dont see my rti attack target");
+    }
+
+    return false;
+}
+
 bool AttackMyTargetAction::isUseful()
+{
+    if (ai->ContainsStrategy(STRATEGY_TYPE_HEAL))
+        return false;
+
+    return true;
+}
+
+bool AttackRTITargetAction::isUseful()
 {
     if (ai->ContainsStrategy(STRATEGY_TYPE_HEAL))
         return false;

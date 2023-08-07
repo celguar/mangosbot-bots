@@ -413,7 +413,7 @@ namespace ai
         static Action* auto_loot_roll(PlayerbotAI* ai) { return new AutoLootRollAction(ai); }
         static Action* dps_assist(PlayerbotAI* ai) { return new DpsAssistAction(ai); }
         static Action* dps_aoe(PlayerbotAI* ai) { return new DpsAoeAction(ai); }
-        static Action* attack_rti_target(PlayerbotAI* ai) { return new AttackRtiTargetAction(ai); }
+        static Action* attack_rti_target(PlayerbotAI* ai) { return new AttackRTITargetAction(ai); }
         static Action* tank_assist(PlayerbotAI* ai) { return new TankAssistAction(ai); }
         static Action* drink(PlayerbotAI* ai) { return new DrinkAction(ai); }
         static Action* food(PlayerbotAI* ai) { return new EatAction(ai); }

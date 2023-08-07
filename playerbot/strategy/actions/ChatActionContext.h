@@ -122,6 +122,7 @@ namespace ai
             creators["all"] = &ChatActionContext::all;
             creators["trainer"] = &ChatActionContext::trainer;
             creators["attack my target"] = &ChatActionContext::attack_my_target;
+            creators["attack rti target"] = &ChatActionContext::attack_rti_target;
             creators["chat"] = &ChatActionContext::chat;
             creators["home"] = &ChatActionContext::home;
             creators["destroy"] = &ChatActionContext::destroy;
@@ -235,6 +236,7 @@ namespace ai
         static Action* home(PlayerbotAI* ai) { return new SetHomeAction(ai); }
         static Action* chat(PlayerbotAI* ai) { return new ChangeChatAction(ai); }
         static Action* attack_my_target(PlayerbotAI* ai) { return new AttackMyTargetAction(ai); }
+        static Action* attack_rti_target(PlayerbotAI* ai) { return new AttackRTITargetAction(ai); }
         static Action* trainer(PlayerbotAI* ai) { return new TrainerAction(ai); }
         static Action* co(PlayerbotAI* ai) { return new ChangeCombatStrategyAction(ai); }
         static Action* nc(PlayerbotAI* ai) { return new ChangeNonCombatStrategyAction(ai); }
