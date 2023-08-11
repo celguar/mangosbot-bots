@@ -76,11 +76,10 @@ list<ObjectGuid> NearestGameObjects::Calculate()
 list<ObjectGuid> NearestDynamicObjects::Calculate()
 {
     list<DynamicObject*> targets;
-#ifdef MANGOSBOT_ZERO
+
     AnyDynamicObjectInObjectRangeCheck u_check(bot, range);
     MaNGOS::DynamicObjectListSearcher<AnyDynamicObjectInObjectRangeCheck> searcher(targets, u_check);
     Cell::VisitAllObjects((const WorldObject*)bot, searcher, range);
-#endif
 
     list<ObjectGuid> result;
     for (list<DynamicObject*>::iterator tIter = targets.begin(); tIter != targets.end(); ++tIter)
