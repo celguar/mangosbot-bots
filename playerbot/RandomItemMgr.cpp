@@ -1524,7 +1524,7 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
 
     if (!proto->IsWeapon() && (proto->SubClass == ITEM_SUBCLASS_ARMOR_LIBRAM || proto->SubClass == ITEM_SUBCLASS_ARMOR_IDOL || proto->SubClass == ITEM_SUBCLASS_ARMOR_TOTEM))
         return (uint32)(proto->Quality + proto->ItemLevel);
-
+    
     if ((Classes)playerclass == CLASS_HUNTER && proto->SubClass == ITEM_SUBCLASS_WEAPON_THROWN)
         return (uint32)proto->ItemLevel;
 #endif
@@ -1543,6 +1543,8 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
     if ((spec == 30 || spec == 32) && proto->ItemId == 13385)
         isWhitelist = true;
 #endif
+
+    uint32 itemId = proto->ItemId;
 
     // whitelist atiesh
     if (playerclass == CLASS_MAGE && proto->ItemId == 22589)
@@ -1669,7 +1671,7 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
         // no spell
         if (!spellData.SpellId)
             continue;
-
+        
         // apply only at-equip spells for weapons, on use/hit for armor
         if (!(spellData.SpellTrigger == ITEM_SPELLTRIGGER_ON_EQUIP || (!proto->IsWeapon() && proto->InventoryType != INVTYPE_HOLDABLE && (spellData.SpellTrigger == ITEM_SPELLTRIGGER_ON_USE || spellData.SpellTrigger == ITEM_SPELLTRIGGER_CHANCE_ON_HIT))))
             continue;
@@ -1680,6 +1682,13 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
             continue;
 
         bool hasAP = false;
+
+        int32 spellIdd = spellData.SpellId;
+
+        uint32 effectAuraStatWeight = 0;
+        uint32 effectAuraApStatWeight = 0;
+        uint32 effectAuraHealStatWeight = 0;
+        uint32 effectAuraDamageStatWeight = 0;
 
         for (uint32 j = 0; j < MAX_EFFECT_INDEX; j++)
         {
@@ -1698,7 +1707,7 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
                     if (spellproto->EffectMiscValue[j] == SPELL_SCHOOL_MASK_MAGIC)
                     {
                         isHealingItem = true;
-                        auraDamageStatWeight += CalculateSingleStatWeight(playerclass, spec, "splpwr", spellDamage);
+                        effectAuraDamageStatWeight += CalculateSingleStatWeight(playerclass, spec, "splpwr", spellDamage);
                     }
                     else
                     {
@@ -1721,7 +1730,7 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
                         if (!isWhitelist && !specialDamage && isSpellDamageItem)
                             return 0;
 
-                        auraDamageStatWeight += specialDamage;
+                        effectAuraDamageStatWeight += specialDamage;
                     }
                 }
 #else
@@ -1735,7 +1744,7 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
                     if (spellproto->EffectMiscValue[j] == SPELL_SCHOOL_MASK_MAGIC)
                     {
                         isSpellDamageItem = true;
-                        auraDamageStatWeight += CalculateSingleStatWeight(playerclass, spec, "splpwr", spellDamage);
+                        effectAuraDamageStatWeight += CalculateSingleStatWeight(playerclass, spec, "splpwr", spellDamage);
                     }
                     else
                     {
@@ -1758,7 +1767,7 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
                         if (!isWhitelist && !specialDamage && isSpellDamageItem)
                             return 0;
 
-                        auraDamageStatWeight += specialDamage;
+                        effectAuraDamageStatWeight += specialDamage;
                     }
                 }
                 // spell healing
@@ -1767,7 +1776,7 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
                 {
                     isHealingItem = true;
                     spellHealing = spellproto->EffectBasePoints[j] + 1;
-                    auraHealStatWeight += CalculateSingleStatWeight(playerclass, spec, "splheal", spellproto->EffectBasePoints[j] + 1);
+                    effectAuraHealStatWeight += CalculateSingleStatWeight(playerclass, spec, "splheal", spellproto->EffectBasePoints[j] + 1);
                 }
 #endif
 
@@ -1776,7 +1785,7 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
                 if (spellproto->EffectApplyAuraName[j] == SPELL_AURA_MOD_SPELL_HIT_CHANCE)
                 {
                     isCasterItem = true;
-                    auraStatWeight += CalculateSingleStatWeight(playerclass, spec, "spellhitrtng", spellproto->EffectBasePoints[j] + 1);
+                    effectAuraStatWeight += CalculateSingleStatWeight(playerclass, spec, "spellhitrtng", spellproto->EffectBasePoints[j] + 1);
                 }
 
                 // spell crit rating (pre tbc)
@@ -1784,7 +1793,7 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
                 if (spellproto->EffectApplyAuraName[j] == SPELL_AURA_MOD_SPELL_CRIT_CHANCE || spellproto->EffectApplyAuraName[j] == SPELL_AURA_MOD_SPELL_CRIT_CHANCE_SCHOOL)
                 {
                     isCasterItem = true;
-                    auraStatWeight += CalculateSingleStatWeight(playerclass, spec, "spellcritstrkrtng", spellproto->EffectBasePoints[j] + 1);
+                    effectAuraStatWeight += CalculateSingleStatWeight(playerclass, spec, "spellcritstrkrtng", spellproto->EffectBasePoints[j] + 1);
                 }
 
                 // spell penetration
@@ -1793,7 +1802,7 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
                 {
                     // check if magic type
                     if (spellproto->EffectMiscValue[j] == SPELL_SCHOOL_MASK_SPELL)
-                        auraStatWeight += CalculateSingleStatWeight(playerclass, spec, "spellpenrtng", abs(spellproto->EffectBasePoints[j] + 1));
+                        effectAuraStatWeight += CalculateSingleStatWeight(playerclass, spec, "spellpenrtng", abs(spellproto->EffectBasePoints[j] + 1));
                 }
 
                 // check attack power
@@ -1812,7 +1821,7 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
                         return 0;
 #endif
 
-                    auraApStatWeight += CalculateSingleStatWeight(playerclass, spec, isFeral ? "feratkpwr" : "atkpwr", spellproto->EffectBasePoints[j] + 1);
+                    effectAuraApStatWeight += CalculateSingleStatWeight(playerclass, spec, isFeral ? "feratkpwr" : "atkpwr", spellproto->EffectBasePoints[j] + 1);
                 }
 
                 // check ranged ap
@@ -1825,26 +1834,26 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
 
                     hasAP = true;
                     isAttackItem = true;
-                    auraApStatWeight += CalculateSingleStatWeight(playerclass, spec, "atkpwr", spellproto->EffectBasePoints[j] + 1);
+                    effectAuraApStatWeight += CalculateSingleStatWeight(playerclass, spec, "atkpwr", spellproto->EffectBasePoints[j] + 1);
                 }
 
                 // check block
                 if (spellproto->EffectApplyAuraName[j] == SPELL_AURA_MOD_SHIELD_BLOCKVALUE)
                 {
                     isTankItem = true;
-                    auraStatWeight += CalculateSingleStatWeight(playerclass, spec, "block", spellproto->EffectBasePoints[j] + 1);
+                    effectAuraStatWeight += CalculateSingleStatWeight(playerclass, spec, "block", spellproto->EffectBasePoints[j] + 1);
                 }
 
                 if (spellproto->EffectApplyAuraName[j] == SPELL_AURA_MOD_PARRY_PERCENT)
                 {
                     isTankItem = true;
-                    auraStatWeight += CalculateSingleStatWeight(playerclass, spec, "parryrtng", spellproto->EffectBasePoints[j] + 1);
+                    effectAuraStatWeight += CalculateSingleStatWeight(playerclass, spec, "parryrtng", spellproto->EffectBasePoints[j] + 1);
                 }
 
                 if (spellproto->EffectApplyAuraName[j] == SPELL_AURA_MOD_DODGE_PERCENT)
                 {
                     isTankItem = true;
-                    auraStatWeight += CalculateSingleStatWeight(playerclass, spec, "dodgertng", spellproto->EffectBasePoints[j] + 1);
+                    effectAuraStatWeight += CalculateSingleStatWeight(playerclass, spec, "dodgertng", spellproto->EffectBasePoints[j] + 1);
                 }
 
                 // block chance
@@ -1852,7 +1861,7 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
                 if (spellproto->EffectApplyAuraName[j] == SPELL_AURA_MOD_BLOCK_PERCENT)
                 {
                     isTankItem = true;
-                    auraStatWeight += CalculateSingleStatWeight(playerclass, spec, "blockrtng", spellproto->EffectBasePoints[j] + 1);
+                    effectAuraStatWeight += CalculateSingleStatWeight(playerclass, spec, "blockrtng", spellproto->EffectBasePoints[j] + 1);
                 }
 
                 // armor penetration
@@ -1861,7 +1870,7 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
                 {
                     // check if physical type
                     if (spellproto->EffectMiscValue[j] == SPELL_SCHOOL_MASK_NORMAL)
-                        auraStatWeight += CalculateSingleStatWeight(playerclass, spec, "armorpenrtng", abs(spellproto->EffectBasePoints[j] + 1));
+                        effectAuraStatWeight += CalculateSingleStatWeight(playerclass, spec, "armorpenrtng", abs(spellproto->EffectBasePoints[j] + 1));
                 }
 
                 // hit rating (pre tbc)
@@ -1869,7 +1878,7 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
                 if (spellproto->EffectApplyAuraName[j] == SPELL_AURA_MOD_HIT_CHANCE)
                 {
                     isAttackItem = true;
-                    auraStatWeight += CalculateSingleStatWeight(playerclass, spec, "hitrtng", spellproto->EffectBasePoints[j] + 1);
+                    effectAuraStatWeight += CalculateSingleStatWeight(playerclass, spec, "hitrtng", spellproto->EffectBasePoints[j] + 1);
                 }
 
                 // crit rating (pre tbc)
@@ -1877,7 +1886,7 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
                 if (spellproto->EffectApplyAuraName[j] == SPELL_AURA_MOD_CRIT_PERCENT)
                 {
                     isAttackItem = true;
-                    auraStatWeight += CalculateSingleStatWeight(playerclass, spec, "critstrkrtng", spellproto->EffectBasePoints[j] + 1);
+                    effectAuraStatWeight += CalculateSingleStatWeight(playerclass, spec, "critstrkrtng", spellproto->EffectBasePoints[j] + 1);
                 }
 
                 //check defense SPELL_AURA_MOD_SKILL
@@ -1886,7 +1895,7 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
                     if (spellproto->EffectMiscValue[j] == SKILL_DEFENSE)
                     {
                         isTankItem = true;
-                        auraStatWeight += CalculateSingleStatWeight(playerclass, spec, "defrtng", spellproto->EffectBasePoints[j] + 1);
+                        effectAuraStatWeight += CalculateSingleStatWeight(playerclass, spec, "defrtng", spellproto->EffectBasePoints[j] + 1);
                     }
                 }
 
@@ -1922,7 +1931,7 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
                             if (weightName.empty())
                                 continue;
 
-                            auraStatWeight += CalculateSingleStatWeight(playerclass, spec, weightName, val);
+                            effectAuraStatWeight += CalculateSingleStatWeight(playerclass, spec, weightName, val);
                         }
                     }
                 }
@@ -1933,26 +1942,51 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
                 if (spellproto->EffectApplyAuraName[j] == SPELL_AURA_MOD_POWER_REGEN)
                 {
                     isCasterItem = true;
-                    auraStatWeight += CalculateSingleStatWeight(playerclass, spec, "manargn", spellproto->EffectBasePoints[j] + 1);
+                    effectAuraStatWeight += CalculateSingleStatWeight(playerclass, spec, "manargn", spellproto->EffectBasePoints[j] + 1);
                 }
             }
         }
 
         // different stat weight based on trigger
+        float coverage = 1;
+
         if (spellData.SpellTrigger == ITEM_SPELLTRIGGER_ON_USE)
         {
-            auraStatWeight *= 0.7f;
-            auraHealStatWeight *= 0.7f;
-            auraApStatWeight *= 0.7f;
-            auraDamageStatWeight *= 0.7f;
+            int32 spellId = spellData.SpellId;
+            if (spellData.SpellCooldown != 0)
+            {
+                int32 spellDuration = GetSpellDuration(spellproto);
+                coverage = static_cast<float>(spellDuration) / spellData.SpellCooldown;
+            }
+            else
+                coverage = 0.17f; //Most often trinkets have 20 seconds buff with 2 minute cooldown which means ~17%
         }
         else if (spellData.SpellTrigger == ITEM_SPELLTRIGGER_CHANCE_ON_HIT)
         {
-            auraStatWeight *= 0.5f;
-            auraHealStatWeight *= 0.5f;
-            auraApStatWeight *= 0.5f;
-            auraDamageStatWeight *= 0.5f;
+#ifdef MANGOSBOT_ZERO
+            float averageItemDelay = 2.43f;
+#endif
+#ifdef MANGOSBOT_ONE
+            float averageItemDelay = 2.09f;
+#endif
+#ifdef MANGOSBOT_TWO
+            float averageItemDelay = 2.39f;
+#endif
+            coverage = (static_cast<float>(spellproto->procChance) / 100) * (static_cast<float>(GetSpellDuration(spellproto)) / averageItemDelay);
+
+            if (coverage > 0.9f)
+                coverage = 0.9f;
         }
+
+        effectAuraStatWeight *= coverage;
+        effectAuraHealStatWeight *= coverage;
+        effectAuraApStatWeight *= coverage;
+        effectAuraDamageStatWeight *= coverage;
+
+        auraStatWeight += effectAuraStatWeight;
+        auraHealStatWeight += effectAuraHealStatWeight;
+        auraApStatWeight += effectAuraApStatWeight;
+        auraDamageStatWeight += effectAuraDamageStatWeight;
     }
 
 #ifdef MANGOSBOT_ZERO
