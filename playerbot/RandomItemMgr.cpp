@@ -1544,8 +1544,6 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
         isWhitelist = true;
 #endif
 
-    uint32 itemId = proto->ItemId;
-
     // whitelist atiesh
     if (playerclass == CLASS_MAGE && proto->ItemId == 22589)
         isWhitelist = true;
@@ -1682,8 +1680,6 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
             continue;
 
         bool hasAP = false;
-
-        int32 spellIdd = spellData.SpellId;
 
         uint32 effectAuraStatWeight = 0;
         uint32 effectAuraApStatWeight = 0;
@@ -1952,14 +1948,15 @@ uint32 RandomItemMgr::CalculateStatWeight(uint8 playerclass, uint8 spec, ItemPro
 
         if (spellData.SpellTrigger == ITEM_SPELLTRIGGER_ON_USE)
         {
-            int32 spellId = spellData.SpellId;
             if (spellData.SpellCooldown != 0)
             {
                 int32 spellDuration = GetSpellDuration(spellproto);
                 coverage = static_cast<float>(spellDuration) / spellData.SpellCooldown;
             }
             else
+            {
                 coverage = 0.17f; //Most often trinkets have 20 seconds buff with 2 minute cooldown which means ~17%
+            }
         }
         else if (spellData.SpellTrigger == ITEM_SPELLTRIGGER_CHANCE_ON_HIT)
         {
