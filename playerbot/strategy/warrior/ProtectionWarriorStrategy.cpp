@@ -93,12 +93,12 @@ void ProtectionWarriorStrategy::InitCombatTriggers(std::list<TriggerNode*>& trig
         NextAction::array(0, new NextAction("heroic throw on snare target", ACTION_MOVE), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "sunder armor",
-        NextAction::array(0, new NextAction("devastate", ACTION_HIGH + 3), NULL)));
+        "shield block",
+        NextAction::array(0, new NextAction("shield block", ACTION_HIGH + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "shield block",
-        NextAction::array(0, new NextAction("shield block", ACTION_HIGH + 2), NULL)));
+        "sunder armor",
+        NextAction::array(0, new NextAction("devastate", ACTION_HIGH + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "revenge",
@@ -489,12 +489,12 @@ void ProtectionWarriorStrategy::InitCombatTriggers(std::list<TriggerNode*>& trig
         NextAction::array(0, new NextAction("heroic throw on snare target", ACTION_MOVE), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "sunder armor",
-        NextAction::array(0, new NextAction("devastate", ACTION_HIGH + 3), NULL)));
+        "shield block",
+        NextAction::array(0, new NextAction("shield block", ACTION_HIGH + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "shield block",
-        NextAction::array(0, new NextAction("shield block", ACTION_HIGH + 2), NULL)));
+        "sunder armor",
+        NextAction::array(0, new NextAction("devastate", ACTION_HIGH + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "light rage available",
