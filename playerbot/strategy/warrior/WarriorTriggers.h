@@ -15,6 +15,7 @@ namespace ai
     DEBUFF_TRIGGER_A(SunderArmorDebuffTrigger, "sunder armor");
     DEBUFF_TRIGGER(MortalStrikeDebuffTrigger, "mortal strike");
     DEBUFF_ENEMY_TRIGGER(RendDebuffOnAttackerTrigger, "rend");
+    CAN_CAST_TRIGGER(DevastateAvailableTrigger, "devastate");
     CAN_CAST_TRIGGER(RevengeAvailableTrigger, "revenge");
     CAN_CAST_TRIGGER(OverpowerAvailableTrigger, "overpower");
     BUFF_TRIGGER(RampageAvailableTrigger, "rampage");

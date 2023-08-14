@@ -211,6 +211,7 @@ namespace ai
                 creators["berserker stance"] = &TriggerFactoryInternal::berserker_stance;
                 creators["shield block"] = &TriggerFactoryInternal::shield_block;
                 creators["sunder armor"] = &TriggerFactoryInternal::sunder_armor;
+                creators["devastate"] = &TriggerFactoryInternal::devastate;
                 creators["revenge"] = &TriggerFactoryInternal::revenge;
                 creators["overpower"] = &TriggerFactoryInternal::overpower;
                 creators["mocking blow"] = &TriggerFactoryInternal::mocking_blow;
@@ -263,6 +264,7 @@ namespace ai
             static Trigger* rampage(PlayerbotAI* ai) { return new RampageAvailableTrigger(ai); }
             static Trigger* mocking_blow(PlayerbotAI* ai) { return new MockingBlowTrigger(ai); }
             static Trigger* overpower(PlayerbotAI* ai) { return new OverpowerAvailableTrigger(ai); }
+            static Trigger* devastate(PlayerbotAI* ai) { return new DevastateAvailableTrigger(ai); }
             static Trigger* revenge(PlayerbotAI* ai) { return new RevengeAvailableTrigger(ai); }
             static Trigger* sunder_armor(PlayerbotAI* ai) { return new SunderArmorDebuffTrigger(ai); }
             static Trigger* shield_block(PlayerbotAI* ai) { return new ShieldBlockTrigger(ai); }
