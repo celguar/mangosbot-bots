@@ -449,7 +449,6 @@ bool UseItemAction::UseItem(Player* requester, Item* item, ObjectGuid goGuid, It
     {
 #ifndef MANGOSBOT_ZERO
 
-        const ItemPrototype* gem = item->GetProto();
         if (item->GetProto()->Class == ITEM_CLASS_GEM)
         {
             bool fit = SocketItem(requester, itemTarget, item) || SocketItem(requester, itemTarget, item, true);
