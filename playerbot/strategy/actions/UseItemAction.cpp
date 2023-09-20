@@ -152,8 +152,8 @@ bool UseItemAction::Execute(Event& event)
         if (items.size() > 1)
         {
             list<Item*>::iterator i = items.begin();
-            Item* item = *i++;
-            Item* itemTarget = *i;
+            Item* itemTarget = *i++;
+            Item* item = *i;
             if(item->IsPotion() || item->GetProto()->Class == ITEM_CLASS_CONSUMABLE || itemTarget->GetProto() == item->GetProto())
             {
                 return UseItemAuto(requester, item);
@@ -448,6 +448,8 @@ bool UseItemAction::UseItem(Player* requester, Item* item, ObjectGuid goGuid, It
     if (itemTarget)
     {
 #ifndef MANGOSBOT_ZERO
+
+        const ItemPrototype* gem = item->GetProto();
         if (item->GetProto()->Class == ITEM_CLASS_GEM)
         {
             bool fit = SocketItem(requester, itemTarget, item) || SocketItem(requester, itemTarget, item, true);
