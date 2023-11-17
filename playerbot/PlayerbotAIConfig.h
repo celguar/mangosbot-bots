@@ -94,6 +94,7 @@ public:
     float randomBotMaxLevelChance;
     float randomBotRpgChance;
     float usePotionChance;
+    float attackEmoteChance;
     uint32 minRandomBots, maxRandomBots;
     uint32 randomBotUpdateInterval, randomBotCountChangeMinInterval, randomBotCountChangeMaxInterval;
     uint32 loginBoostPercentage;

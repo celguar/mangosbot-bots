@@ -148,6 +148,15 @@ bool AttackAction::Attack(Player* requester, Unit* target)
         // Don't attack target if it is waiting for attack or in stealth
         if (!ai->HasStrategy("stealthed", BotState::BOT_STATE_COMBAT) && !isWaitingForAttack)
         {
+            if (urand(0, 100) < sPlayerbotAIConfig.attackEmoteChance * 100)
+            {
+                vector<uint32> sounds;
+                sounds.push_back(TEXTEMOTE_OPENFIRE);
+                sounds.push_back(305);
+                sounds.push_back(307);
+                ai->PlaySound(sounds[urand(0, sounds.size() - 1)]);
+            }
+
             return bot->Attack(target, !ai->IsRanged(bot) || (sServerFacade.GetDistance2d(bot, target) < 5.0f));
         }
         else
