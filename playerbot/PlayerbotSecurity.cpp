@@ -47,6 +47,8 @@ PlayerbotSecurityLevel PlayerbotSecurity::LevelFor(Player* from, DenyReason* rea
 
         if (bot->GetPlayerbotAI()->IsOpposing(from))
         {
+            if (sWorld.getConfig(CONFIG_BOOL_ALLOW_TWO_SIDE_INTERACTION_GROUP))
+                return PlayerbotSecurityLevel::PLAYERBOT_SECURITY_ALLOW_ALL;
             if (reason) *reason = DenyReason::PLAYERBOT_DENY_OPPOSING;
             return PlayerbotSecurityLevel::PLAYERBOT_SECURITY_DENY_ALL;
         }
