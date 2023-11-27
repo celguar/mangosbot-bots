@@ -476,6 +476,9 @@ bool GuildTaskMgr::IsGuildTaskItem(uint32 itemId, uint32 guildId)
 {
     uint32 value = 0;
 
+    if (!sPlayerbotAIConfig.guildTaskEnabled)
+        return value;
+
     auto results = PlayerbotDatabase.PQuery(
             "select `value`, `time`, validIn from ai_playerbot_guild_tasks where `value` = '%u' and guildid = '%u' and `type` = 'itemTask'",
             itemId, guildId);
@@ -523,6 +526,9 @@ map<uint32,uint32> GuildTaskMgr::GetTaskValues(uint32 owner, string type, uint32
 uint32 GuildTaskMgr::GetTaskValue(uint32 owner, uint32 guildId, string type, uint32 *validIn /* = NULL */)
 {
     uint32 value = 0;
+
+    if (!sPlayerbotAIConfig.guildTaskEnabled)
+        return value;
 
     auto results = PlayerbotDatabase.PQuery(
             "select `value`, `time`, validIn from ai_playerbot_guild_tasks where owner = '%u' and guildid = '%u' and `type` = '%s'",
