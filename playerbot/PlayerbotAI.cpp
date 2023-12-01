@@ -3331,6 +3331,15 @@ bool PlayerbotAI::CastSpell(uint32 spellId, Unit* target, Item* itemTarget, bool
     if (spellSuccess != SPELL_CAST_OK)
         return false;
 
+    if (urand(0, 100) < sPlayerbotAIConfig.attackEmoteChance * 600 && bot->IsInCombat())
+    {
+        vector<uint32> sounds;
+        sounds.push_back(TEXTEMOTE_OPENFIRE);
+        sounds.push_back(305);
+        sounds.push_back(307);
+        PlaySound(sounds[urand(0, sounds.size() - 1)]);
+    }
+
     if(waitForSpell)
     {
         WaitForSpellCast(spell);
