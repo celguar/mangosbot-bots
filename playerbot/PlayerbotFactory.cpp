@@ -3250,14 +3250,14 @@ void PlayerbotFactory::InitReagents()
         break;
     case CLASS_SHAMAN:
         regCount = 1;
-        if (bot->GetLevel() > 1)
-            items = { 5175, 5176, 5177, 5178 };
         if (bot->GetLevel() > 22)
             items = { 17057 };
         if (bot->GetLevel() > 28)
             items = { 17057, 17058 };
         if (bot->GetLevel() > 29)
             items = { 17057, 17058, 17030 };
+        if (bot->GetLevel() > 70)
+            items = { 5175, 5176, 5177, 5178, 17057, 17058, 17030 };
         break;
     case CLASS_WARLOCK:
         regCount = 10;
