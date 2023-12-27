@@ -111,7 +111,8 @@ namespace ai
 #ifdef MANGOSBOT_ZERO
                 param = "40";
 #else
-                param = "20";
+            /// Default to TBC Raiding. Max size 25
+                param = "25";
 #endif
 
             //Select optimal group layout.
