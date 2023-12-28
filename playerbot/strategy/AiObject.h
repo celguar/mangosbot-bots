@@ -158,17 +158,17 @@ class clazz : public super \
     }
 
 #define CAN_CAST_TRIGGER(clazz, spell) \
-    class clazz : public SpellCanBeCastTrigger \
+    class clazz : public SpellCanBeCastedTrigger \
     { \
     public: \
-        clazz(PlayerbotAI* ai) : SpellCanBeCastTrigger(ai, spell) {} \
+        clazz(PlayerbotAI* ai) : SpellCanBeCastedTrigger(ai, spell) {} \
     }
 
 #define CAN_CAST_TRIGGER_A(clazz, spell) \
-    class clazz : public SpellCanBeCastTrigger \
+    class clazz : public SpellCanBeCastedTrigger \
     { \
     public: \
-        clazz(PlayerbotAI* ai) : SpellCanBeCastTrigger(ai, spell) {} \
+        clazz(PlayerbotAI* ai) : SpellCanBeCastedTrigger(ai, spell) {} \
         virtual bool IsActive(); \
     }
 

@@ -30,7 +30,7 @@ namespace ai
 	HEAL_PARTY_ACTION(CastHolyShockOnPartyAction, "holy shock");
 
 	// consecration
-	SPELL_ACTION_U(CastConsecrationAction, "consecration", ai->IsTank(bot) || (AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.mediumMana));
+	SPELL_ACTION(CastConsecrationAction, "consecration");
 
 	// repentance
 	SNARE_ACTION(CastRepentanceSnareAction, "repentance");
@@ -586,7 +586,7 @@ namespace ai
 		virtual string getName() { return "cleanse magic on party"; }
 	};
 
-	SPELL_ACTION_U(CastExorcismAction, "exorcism", (ai->IsTank(bot) || (AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.mediumMana)) && GetTarget() && GetTarget()->IsCreature() && (((Creature*)GetTarget())->GetCreatureInfo()->CreatureType == CREATURE_TYPE_UNDEAD || ((Creature*)GetTarget())->GetCreatureInfo()->CreatureType == CREATURE_TYPE_DEMON));
+	SPELL_ACTION(CastExorcismAction, "exorcism");
 
     BEGIN_SPELL_ACTION(CastAvengersShieldAction, "avenger's shield")
     END_SPELL_ACTION()

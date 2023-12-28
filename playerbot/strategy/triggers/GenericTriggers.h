@@ -22,7 +22,7 @@ namespace ai
     {
     public:
         RageAvailable(PlayerbotAI* ai, int amount) : StatAvailable(ai, amount, "rage available") {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class LightRageAvailableTrigger : public RageAvailable
@@ -47,7 +47,7 @@ namespace ai
 	{
 	public:
 		EnergyAvailable(PlayerbotAI* ai, int amount) : StatAvailable(ai, amount, "energy available") {}
-		virtual bool IsActive();
+		virtual bool IsActive() override;
 	};
 
     class NoEnergyAvailableTrigger : public EnergyAvailable
@@ -83,21 +83,21 @@ namespace ai
 	{
 	public:
 	    ComboPointsAvailableTrigger(PlayerbotAI* ai, uint8 amount = 5) : StatAvailable(ai, amount, "combo points available") {}
-		virtual bool IsActive();
+		virtual bool IsActive() override;
 	};
 
 	class LoseAggroTrigger : public Trigger 
     {
 	public:
 		LoseAggroTrigger(PlayerbotAI* ai) : Trigger(ai, "lose aggro") {}
-		virtual bool IsActive();
+		virtual bool IsActive() override;
 	};
 
 	class HasAggroTrigger : public Trigger 
     {
 	public:
 	    HasAggroTrigger(PlayerbotAI* ai) : Trigger(ai, "have aggro") {}
-		virtual bool IsActive();
+		virtual bool IsActive() override;
 	};
 
 	class SpellTrigger : public Trigger
@@ -108,26 +108,26 @@ namespace ai
 			this->spell = spell;
 		}
 
-		virtual string GetTargetName() { return "current target"; }
+		virtual string GetTargetName() override { return "current target"; }
 		virtual string getName() { return spell; }
-		virtual bool IsActive();
+		virtual bool IsActive() override;
 
 	protected:
 		string spell;
 	};
 
-	class SpellCanBeCastTrigger : public SpellTrigger
+	class SpellCanBeCastedTrigger : public SpellTrigger
 	{
 	public:
-		SpellCanBeCastTrigger(PlayerbotAI* ai, string spell) : SpellTrigger(ai, spell) {}
-		virtual bool IsActive();
+		SpellCanBeCastedTrigger(PlayerbotAI* ai, string spell) : SpellTrigger(ai, spell) {}
+		virtual bool IsActive() override;
 	};
 
     class SpellNoCooldownTrigger : public SpellTrigger
     {
     public:
         SpellNoCooldownTrigger(PlayerbotAI* ai, string spell) : SpellTrigger(ai, spell) {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
 	// TODO: check other targets
@@ -135,8 +135,8 @@ namespace ai
 	{
     public:
         InterruptSpellTrigger(PlayerbotAI* ai, string spell) : SpellTrigger(ai, spell) {}
-        virtual string GetTargetName() { return "current target"; }
-        virtual bool IsActive();
+        virtual string GetTargetName() override { return "current target"; }
+        virtual bool IsActive() override;
     };
 
     class TargetOfAttacker : public Trigger
@@ -182,7 +182,7 @@ namespace ai
     {
     public:
         DeflectSpellTrigger(PlayerbotAI* ai, string spell) : SpellTrigger(ai, spell) {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class AttackerCountTrigger : public Trigger
@@ -194,12 +194,12 @@ namespace ai
             this->distance = distance;
         }
 
-        virtual bool IsActive()
+        virtual bool IsActive() override
 		{
             return AI_VALUE(uint8, "attackers count") >= amount;
         }
 
-        virtual string getName() { return "attackers count"; }
+        virtual string getName() override { return "attackers count"; }
 
     protected:
         int amount;
@@ -216,8 +216,9 @@ namespace ai
     {
     public:
         MyAttackerCountTrigger(PlayerbotAI* ai, int amount) : AttackerCountTrigger(ai, amount) {}
-        virtual bool IsActive();
-        virtual string getName() { return "my attacker count"; }
+        virtual bool IsActive() override;
+
+        virtual string getName() override { return "my attacker count"; }
     };
 
     class MultipleAttackersTrigger : public MyAttackerCountTrigger
@@ -230,28 +231,28 @@ namespace ai
     {
     public:
         HighThreatTrigger(PlayerbotAI* ai, string name = "high threat", int checkinterval = 1) : Trigger(ai, name, checkinterval) {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class MediumThreatTrigger : public Trigger
     {
     public:
         MediumThreatTrigger(PlayerbotAI* ai, string name = "medium threat", int checkinterval = 1) : Trigger(ai, name, checkinterval) {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class SomeThreatTrigger : public Trigger
     {
     public:
         SomeThreatTrigger(PlayerbotAI* ai, string name = "some threat", int checkinterval = 1) : Trigger(ai, name, checkinterval) {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class NoThreatTrigger : public SomeThreatTrigger
     {
     public:
         NoThreatTrigger(PlayerbotAI* ai, string name = "some threat", int checkinterval = 1) : SomeThreatTrigger(ai, name, checkinterval) {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class AoeTrigger : public AttackerCountTrigger
@@ -319,8 +320,8 @@ namespace ai
         BuffTrigger(PlayerbotAI* ai, string spell, int checkInterval = 1, bool checkIsOwner = false) : SpellTrigger(ai, spell, checkInterval) { this->checkIsOwner = checkIsOwner; }
 
     public:
-		virtual string GetTargetName() { return "self target"; }
-        virtual bool IsActive();
+		virtual string GetTargetName() override { return "self target"; }
+        virtual bool IsActive() override;
 
     protected:
         bool checkIsOwner;
@@ -332,7 +333,7 @@ namespace ai
         MyBuffTrigger(PlayerbotAI* ai, string spell, int checkInterval = 1) : BuffTrigger(ai, spell, checkInterval) {}
 
     public:
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class BuffOnPartyTrigger : public BuffTrigger
@@ -341,8 +342,8 @@ namespace ai
         BuffOnPartyTrigger(PlayerbotAI* ai, string spell, int checkInterval = 2, bool ignoreTanks = false) : BuffTrigger(ai, spell, checkInterval), ignoreTanks(ignoreTanks) {}
 
     public:
-		virtual Value<Unit*>* GetTargetValue();
-		virtual string getName() { return spell + " on party"; }
+		virtual Value<Unit*>* GetTargetValue() override;
+		virtual string getName() override { return spell + " on party"; }
 
     protected:
         bool ignoreTanks;
@@ -365,8 +366,8 @@ namespace ai
         BuffOnTankTrigger(PlayerbotAI* ai, string spell, int checkInterval = 2) : BuffTrigger(ai, spell, checkInterval) {}
 
     public:
-        virtual Value<Unit*>* GetTargetValue();
-        virtual string getName() { return spell + " on tank"; }
+        virtual Value<Unit*>* GetTargetValue() override;
+        virtual string getName() override { return spell + " on tank"; }
     };
 
     class MyBuffOnPartyTrigger : public BuffOnPartyTrigger
@@ -375,17 +376,17 @@ namespace ai
         MyBuffOnPartyTrigger(PlayerbotAI* ai, string spell, int checkInterval = 2, bool ignoreTanks = false) : BuffOnPartyTrigger(ai, spell, checkInterval, ignoreTanks) {}
 
     public:
-        virtual Value<Unit*>* GetTargetValue();
-        virtual string getName() { return spell + " on party"; }
+        virtual Value<Unit*>* GetTargetValue() override;
+        virtual string getName() override { return spell + " on party"; }
     };
 
     class NoBuffAndComboPointsAvailableTrigger : public BuffTrigger
     {
     public:
         NoBuffAndComboPointsAvailableTrigger(PlayerbotAI* ai, string spell, uint8 comboPoints, bool checkIsOwner = true, int checkInterval = 1) : BuffTrigger(ai, spell, checkInterval, checkIsOwner), comboPoints(comboPoints) {}
-        virtual string GetTargetName() { return "self target"; }
+        virtual string GetTargetName() override { return "self target"; }
         virtual string GetComboPointsTargetName() { return "current target"; }
-        virtual bool IsActive();
+        virtual bool IsActive() override;
 
     private:
         uint8 comboPoints;
@@ -395,16 +396,16 @@ namespace ai
     {
     public:
         NoDebuffAndComboPointsAvailableTrigger(PlayerbotAI* ai, string spell, uint8 comboPoints, bool checkIsOwner = true, int checkInterval = 1) : NoBuffAndComboPointsAvailableTrigger(ai, spell, comboPoints, checkIsOwner, checkIsOwner) {}
-        virtual string GetTargetName() { return "current target"; }
+        virtual string GetTargetName() override { return "current target"; }
     };
 
     class ProtectPartyMemberTrigger : public Trigger
     {
     public:
         ProtectPartyMemberTrigger(PlayerbotAI* ai) : Trigger(ai, "protect party member") {}
-        virtual string GetTargetName() { return "party member to protect"; }
+        virtual string GetTargetName() override { return "party member to protect"; }
 
-        virtual bool IsActive()
+        virtual bool IsActive() override
         {
             return AI_VALUE(Unit*, "party member to protect");
         }
@@ -414,21 +415,21 @@ namespace ai
     {
     public:
         NoAttackersTrigger(PlayerbotAI* ai, string name = "no attackers") : Trigger(ai, name) {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class NoTargetTrigger : public Trigger
     {
     public:
         NoTargetTrigger(PlayerbotAI* ai) : Trigger(ai, "no target") {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class InvalidTargetTrigger : public Trigger
     {
     public:
         InvalidTargetTrigger(PlayerbotAI* ai) : Trigger(ai, "invalid target") {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class TargetInSightTrigger : public Trigger 
@@ -444,8 +445,8 @@ namespace ai
         DebuffTrigger(PlayerbotAI* ai, string spell, int checkInterval = 1, bool checkIsOwner = false) : BuffTrigger(ai, spell, checkInterval, checkIsOwner) {}
 
     public:
-		virtual string GetTargetName() { return "current target"; }
-        virtual bool IsActive();
+		virtual string GetTargetName() override { return "current target"; }
+        virtual bool IsActive() override;
 
     protected:
         bool HasMaxDebuffs();
@@ -465,7 +466,7 @@ namespace ai
 	{
 	public:
 		BoostTrigger(PlayerbotAI* ai, string spell, float balance = 50) : BuffTrigger(ai, spell, 3), balance(balance) {}
-		virtual bool IsActive();
+		virtual bool IsActive() override;
 
 	protected:
 		float balance;
@@ -480,7 +481,7 @@ namespace ai
             lastCheck = time(0);
         }
 
-        virtual bool IsActive();
+        virtual bool IsActive() override;
 
     protected:
         int probability;
@@ -498,7 +499,7 @@ namespace ai
     {
     public:
          AndTrigger(PlayerbotAI* ai, string name = "and", int checkInterval = 1) : Trigger(ai, name, checkInterval), Qualified() {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
         virtual string getName();
     };
 
@@ -506,7 +507,7 @@ namespace ai
     {
     public:
         OrTrigger(PlayerbotAI* ai, string name = "or", int checkInterval = 1) : Trigger(ai, name, checkInterval), Qualified() {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
         virtual string getName();
     };
 
@@ -519,7 +520,7 @@ namespace ai
             this->name2 = name2;
         }
 
-        virtual bool IsActive();
+        virtual bool IsActive() override;
         virtual string getName();
 
     protected:
@@ -547,7 +548,7 @@ namespace ai
     public:
         NoManaTrigger(PlayerbotAI* ai) : Trigger(ai, "no mana") {}
 
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
 	class LowManaTrigger : public Trigger
@@ -555,7 +556,7 @@ namespace ai
 	public:
 		LowManaTrigger(PlayerbotAI* ai) : Trigger(ai, "low mana") {}
 
-		virtual bool IsActive();
+		virtual bool IsActive() override;
 	};
 
 	class MediumManaTrigger : public Trigger
@@ -563,7 +564,7 @@ namespace ai
 	public:
 		MediumManaTrigger(PlayerbotAI* ai) : Trigger(ai, "medium mana") {}
 
-		virtual bool IsActive();
+		virtual bool IsActive() override;
 	};
 
     class HighManaTrigger : public Trigger
@@ -571,7 +572,7 @@ namespace ai
     public:
         HighManaTrigger(PlayerbotAI* ai) : Trigger(ai, "high mana") {}
 
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class AlmostFullManaTrigger : public Trigger
@@ -579,7 +580,7 @@ namespace ai
     public:
         AlmostFullManaTrigger(PlayerbotAI* ai) : Trigger(ai, "almost full mana") {}
 
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     BEGIN_TRIGGER(PanicTrigger, Trigger)
@@ -610,7 +611,7 @@ namespace ai
 			this->count = count;
 		}
 
-		virtual bool IsActive();
+		virtual bool IsActive() override;
 		virtual string getName() { return "item count"; }
 
 	protected:
@@ -628,8 +629,8 @@ namespace ai
     {
 	public:
 		HasAuraTrigger(PlayerbotAI* ai, string spell, int interval = 1, int auraTypeId = TOTAL_AURAS) : Trigger(ai, spell, interval), auraTypeId(auraTypeId) {}
-		virtual string GetTargetName() { return "self target"; }
-		virtual bool IsActive();
+		virtual string GetTargetName() override { return "self target"; }
+		virtual bool IsActive() override;
 
     protected:
         int auraTypeId;
@@ -639,8 +640,8 @@ namespace ai
     {
     public:
         HasNoAuraTrigger(PlayerbotAI* ai, string spell) : Trigger(ai, spell) {}
-        virtual string GetTargetName() { return "self target"; }
-        virtual bool IsActive();
+        virtual string GetTargetName() override { return "self target"; }
+        virtual bool IsActive() override;
     };
 
     class TimerTrigger : public Trigger
@@ -666,98 +667,98 @@ namespace ai
 	{
 	public:
         TankAssistTrigger(PlayerbotAI* ai) : NoAttackersTrigger(ai, "tank assist") {}
-		virtual bool IsActive();
+		virtual bool IsActive() override;
 	};
 
     class IsBehindTargetTrigger : public Trigger
     {
     public:
         IsBehindTargetTrigger(PlayerbotAI* ai) : Trigger(ai) {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class IsNotBehindTargetTrigger : public Trigger
     {
     public:
         IsNotBehindTargetTrigger(PlayerbotAI* ai) : Trigger(ai) {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class IsNotFacingTargetTrigger : public Trigger
     {
     public:
         IsNotFacingTargetTrigger(PlayerbotAI* ai) : Trigger(ai) {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class HasCcTargetTrigger : public Trigger
     {
     public:
         HasCcTargetTrigger(PlayerbotAI* ai, string name) : Trigger(ai, name) {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
 	class NoMovementTrigger : public Trigger
 	{
 	public:
 		NoMovementTrigger(PlayerbotAI* ai, string name) : Trigger(ai, name) {}
-		virtual bool IsActive();
+		virtual bool IsActive() override;
 	};
 
     class NoPossibleTargetsTrigger : public Trigger
     {
     public:
         NoPossibleTargetsTrigger(PlayerbotAI* ai) : Trigger(ai, "no possible targets") {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class NotDpsTargetActiveTrigger : public Trigger
     {
     public:
         NotDpsTargetActiveTrigger(PlayerbotAI* ai) : Trigger(ai, "not dps target active", 2) {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class NotDpsAoeTargetActiveTrigger : public Trigger
     {
     public:
         NotDpsAoeTargetActiveTrigger(PlayerbotAI* ai) : Trigger(ai, "not dps aoe target active") {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class PossibleAddsTrigger : public Trigger
     {
     public:
         PossibleAddsTrigger(PlayerbotAI* ai) : Trigger(ai, "possible adds") {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class IsSwimmingTrigger : public Trigger
     {
     public:
         IsSwimmingTrigger(PlayerbotAI* ai) : Trigger(ai, "swimming") {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class HasNearestAddsTrigger : public Trigger
     {
     public:
         HasNearestAddsTrigger(PlayerbotAI* ai) : Trigger(ai, "has nearest adds") {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class HasItemForSpellTrigger : public Trigger
     {
     public:
         HasItemForSpellTrigger(PlayerbotAI* ai, string spell) : Trigger(ai, spell) {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class TargetChangedTrigger : public Trigger
     {
     public:
         TargetChangedTrigger(PlayerbotAI* ai) : Trigger(ai, "target changed") {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class InterruptEnemyHealerTrigger : public SpellTrigger
@@ -821,7 +822,7 @@ namespace ai
     public:
         StayTimeTrigger(PlayerbotAI* ai, uint32 delay, string name) : Trigger(ai, name, 5), delay(delay) {}
 
-        virtual bool IsActive();
+        virtual bool IsActive() override;
 
     private:
         uint32 delay;
@@ -844,7 +845,7 @@ namespace ai
     public:
         ReturnToStayPositionTrigger(PlayerbotAI* ai) : Trigger(ai, "return to stay position", 2) {}
 
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class ReturnToPullPositionTrigger : public Trigger
@@ -852,7 +853,7 @@ namespace ai
     public:
         ReturnToPullPositionTrigger(PlayerbotAI* ai) : Trigger(ai, "return to pull position", 2) {}
 
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class GiveItemTrigger : public Trigger
@@ -897,7 +898,7 @@ namespace ai
         IsMountedTrigger(PlayerbotAI* ai) : Trigger(ai, "mounted", 1) {}
 
     public:
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class CorpseNearTrigger : public Trigger
@@ -906,7 +907,7 @@ namespace ai
         CorpseNearTrigger(PlayerbotAI* ai) : Trigger(ai, "corpse near", 10) {}
 
     public:
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class IsFallingTrigger : public Trigger
@@ -915,7 +916,7 @@ namespace ai
         IsFallingTrigger(PlayerbotAI* ai) : Trigger(ai, "falling", 10) {}
 
     public:
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class IsFallingFarTrigger : public Trigger
@@ -924,7 +925,7 @@ namespace ai
         IsFallingFarTrigger(PlayerbotAI* ai) : Trigger(ai, "falling far", 10) {}
 
     public:
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     class UseTrinketTrigger : public BoostTrigger
@@ -938,7 +939,7 @@ namespace ai
     {
     public:
         HasAreaDebuffTrigger(PlayerbotAI* ai) : Trigger(ai, "has area debuff", 3) {}
-        virtual bool IsActive();
+        virtual bool IsActive() override;
     };
 
     // racials

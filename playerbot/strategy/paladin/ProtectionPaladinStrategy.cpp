@@ -64,6 +64,10 @@ void ProtectionPaladinStrategy::InitCombatTriggers(std::list<TriggerNode*>& trig
         NextAction::array(0, new NextAction("hammer of wrath", ACTION_HIGH), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "exorcism",
+        NextAction::array(0, new NextAction("exorcism", ACTION_NORMAL + 3), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "seal",
         NextAction::array(0, new NextAction("seal of vengeance", ACTION_NORMAL + 2), NULL)));
 
@@ -123,10 +127,6 @@ void ProtectionPaladinPvpStrategy::InitCombatTriggers(std::list<TriggerNode*>& t
 {
     ProtectionPaladinStrategy::InitCombatTriggers(triggers);
     PaladinPvpStrategy::InitCombatTriggers(triggers);
-
-    triggers.push_back(new TriggerNode(
-        "enemy is close",
-        NextAction::array(0, new NextAction("consecration", ACTION_NORMAL + 4), NULL)));
 }
 
 void ProtectionPaladinPvpStrategy::InitNonCombatTriggers(std::list<TriggerNode*>& triggers)
@@ -182,6 +182,10 @@ void ProtectionPaladinAoeStrategy::InitCombatTriggers(std::list<TriggerNode*>& t
     triggers.push_back(new TriggerNode(
         "melee light aoe",
         NextAction::array(0, new NextAction("consecration", ACTION_HIGH + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "consecration",
+        NextAction::array(0, new NextAction("consecration", ACTION_HIGH), NULL)));
 }
 
 void ProtectionPaladinAoeStrategy::InitNonCombatTriggers(std::list<TriggerNode*>& triggers)
@@ -558,6 +562,10 @@ void ProtectionPaladinStrategy::InitCombatTriggers(std::list<TriggerNode*>& trig
         NextAction::array(0, new NextAction("hammer of wrath", ACTION_HIGH), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "exorcism",
+        NextAction::array(0, new NextAction("exorcism", ACTION_NORMAL + 3), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "seal",
         NextAction::array(0, new NextAction("seal of vengeance", ACTION_NORMAL + 2), NULL)));
 
@@ -617,10 +625,6 @@ void ProtectionPaladinPvpStrategy::InitCombatTriggers(std::list<TriggerNode*>& t
 {
     ProtectionPaladinStrategy::InitCombatTriggers(triggers);
     PaladinPvpStrategy::InitCombatTriggers(triggers);
-
-    triggers.push_back(new TriggerNode(
-        "enemy is close",
-        NextAction::array(0, new NextAction("consecration", ACTION_NORMAL + 4), NULL)));
 }
 
 void ProtectionPaladinPvpStrategy::InitNonCombatTriggers(std::list<TriggerNode*>& triggers)
@@ -676,6 +680,10 @@ void ProtectionPaladinAoeStrategy::InitCombatTriggers(std::list<TriggerNode*>& t
     triggers.push_back(new TriggerNode(
         "melee light aoe",
         NextAction::array(0, new NextAction("consecration", ACTION_HIGH + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "consecration",
+        NextAction::array(0, new NextAction("consecration", ACTION_HIGH), NULL)));
 
     triggers.push_back(new TriggerNode(
         "avenger's shield",
@@ -1048,7 +1056,7 @@ void ProtectionPaladinStrategy::InitCombatTriggers(std::list<TriggerNode*>& trig
         NextAction::array(0, new NextAction("hammer of wrath", ACTION_HIGH), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "often",
+        "exorcism",
         NextAction::array(0, new NextAction("exorcism", ACTION_NORMAL + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
@@ -1103,10 +1111,6 @@ void ProtectionPaladinPvpStrategy::InitCombatTriggers(std::list<TriggerNode*>& t
 {
     ProtectionPaladinStrategy::InitCombatTriggers(triggers);
     PaladinPvpStrategy::InitCombatTriggers(triggers);
-
-    triggers.push_back(new TriggerNode(
-        "enemy is close",
-        NextAction::array(0, new NextAction("consecration", ACTION_NORMAL + 4), NULL)));
 }
 
 void ProtectionPaladinPvpStrategy::InitNonCombatTriggers(std::list<TriggerNode*>& triggers)
@@ -1167,6 +1171,10 @@ void ProtectionPaladinAoeStrategy::InitCombatTriggers(std::list<TriggerNode*>& t
     triggers.push_back(new TriggerNode(
         "melee light aoe",
         NextAction::array(0, new NextAction("consecration", ACTION_HIGH + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "consecration",
+        NextAction::array(0, new NextAction("consecration", ACTION_HIGH), NULL)));
 
     triggers.push_back(new TriggerNode(
         "avenger's shield",

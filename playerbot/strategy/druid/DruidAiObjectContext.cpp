@@ -369,7 +369,7 @@ namespace ai
             static Trigger* natures_grasp(PlayerbotAI* ai) { return new NaturesGraspTrigger(ai); }
             static Trigger* tigers_fury(PlayerbotAI* ai) { return new TigersFuryTrigger(ai); }
             static Trigger* rake(PlayerbotAI* ai) { return new RakeTrigger(ai); }
-            static Trigger* claw(PlayerbotAI* ai) { return new SpellCanBeCastTrigger(ai, "claw"); }
+            static Trigger* claw(PlayerbotAI* ai) { return new SpellCanBeCastedTrigger(ai, "claw"); }
             static Trigger* mark_of_the_wild(PlayerbotAI* ai) { return new MarkOfTheWildTrigger(ai); }
             static Trigger* mark_of_the_wild_on_party(PlayerbotAI* ai) { return new MarkOfTheWildOnPartyTrigger(ai); }
             static Trigger* gift_of_the_wild_on_party(PlayerbotAI* ai) { return new GiftOfTheWildOnPartyTrigger(ai); }

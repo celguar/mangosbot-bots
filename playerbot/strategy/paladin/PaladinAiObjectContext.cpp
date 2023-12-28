@@ -413,12 +413,14 @@ namespace ai
                 creators["turn undead"] = &TriggerFactoryInternal::turn_undead;
                 creators["avenger's shield"] = &TriggerFactoryInternal::avenger_shield;
                 creators["consecration"] = &TriggerFactoryInternal::consecration;
+                creators["exorcism"] = &TriggerFactoryInternal::exorcism;
                 creators["repentance on enemy healer"] = &TriggerFactoryInternal::repentance_on_enemy_healer;
                 creators["repentance on snare target"] = &TriggerFactoryInternal::repentance_on_snare_target;
                 creators["repentance interrupt"] = &TriggerFactoryInternal::repentance_interrupt;
                 creators["hammer of justice on enemy"] = &TriggerFactoryInternal::hammer_on_enemy;
                 creators["hand of sacrifice"] = &TriggerFactoryInternal::hand_of_sacrifice;
                 creators["blessing of sacrifice"] = &TriggerFactoryInternal::blessing_of_sacrifice;
+                creators["crusader strike"] = &TriggerFactoryInternal::crusader_strike;
             }
 
         private:
@@ -482,11 +484,13 @@ namespace ai
             static Trigger* hammer_of_justice_on_snare_target(PlayerbotAI* ai) { return new HammerOfJusticeSnareTrigger(ai); }
             static Trigger* avenger_shield(PlayerbotAI* ai) { return new AvengerShieldTrigger(ai); }
             static Trigger* consecration(PlayerbotAI* ai) { return new ConsecrationTrigger(ai); }
+            static Trigger* exorcism(PlayerbotAI* ai) { return new ExorcismTrigger(ai); }
             static Trigger* repentance_on_enemy_healer(PlayerbotAI* ai) { return new RepentanceOnHealerTrigger(ai); }
             static Trigger* repentance_on_snare_target(PlayerbotAI* ai) { return new RepentanceSnareTrigger(ai); }
             static Trigger* repentance_interrupt(PlayerbotAI* ai) { return new RepentanceInterruptTrigger(ai); }
             static Trigger* hand_of_sacrifice(PlayerbotAI* ai) { return new HandOfSacrificeTrigger(ai); }
             static Trigger* blessing_of_sacrifice(PlayerbotAI* ai) { return new BlessingOfSacrificeTrigger(ai); }
+            static Trigger* crusader_strike(PlayerbotAI* ai) { return new CrusaderStrikeTrigger(ai); }
         };
 
         class AiObjectContextInternal : public NamedObjectContext<Action>

@@ -304,7 +304,7 @@ bool SpellTrigger::IsActive()
 	return GetTarget();
 }
 
-bool SpellCanBeCastTrigger::IsActive()
+bool SpellCanBeCastedTrigger::IsActive()
 {
 	Unit* target = GetTarget();
 	return target && ai->CanCastSpell(spell, target, true);

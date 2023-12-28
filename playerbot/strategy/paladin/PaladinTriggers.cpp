@@ -268,3 +268,31 @@ bool HammerOfJusticeOnEnemyTrigger::IsActive()
 
     return false;
 }
+
+bool ConsecrationTrigger::IsActive()
+{
+    if (SpellNoCooldownTrigger::IsActive())
+    {
+#ifdef MANGOSBOT_TWO
+        return true;
+#else
+        return AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.mediumMana;
+#endif
+    }
+
+    return false;
+}
+
+bool ExorcismTrigger::IsActive()
+{
+    if (SpellNoCooldownTrigger::IsActive())
+    {
+#ifdef MANGOSBOT_TWO
+        return ai->HasAura("the art of war", bot);
+#else
+        return AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.mediumMana;
+#endif
+    }
+
+    return false;
+}

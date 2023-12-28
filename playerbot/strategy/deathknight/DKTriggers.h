@@ -38,14 +38,14 @@ namespace ai
 	};
 
 
-	class RuneStrikeTrigger : public SpellCanBeCastTrigger {
+	class RuneStrikeTrigger : public SpellCanBeCastedTrigger {
 	public:
-		RuneStrikeTrigger(PlayerbotAI* ai) : SpellCanBeCastTrigger(ai, "rune strike") {}
+		RuneStrikeTrigger(PlayerbotAI* ai) : SpellCanBeCastedTrigger(ai, "rune strike") {}
 	};
 
-	class DeathCoilTrigger : public SpellCanBeCastTrigger {
+	class DeathCoilTrigger : public SpellCanBeCastedTrigger {
 	public:
-		DeathCoilTrigger(PlayerbotAI* ai) : SpellCanBeCastTrigger(ai, "death coil") {}
+		DeathCoilTrigger(PlayerbotAI* ai) : SpellCanBeCastedTrigger(ai, "death coil") {}
 	};
 
 	class PestilenceTrigger : public DebuffTrigger {

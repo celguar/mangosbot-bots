@@ -29,6 +29,8 @@ namespace ai
 
 	private:
 		void RemoveNonThreating(list<ObjectGuid>& targets, bool getOne);
+
+        static bool IsImmuneToDamage(Unit* target, Player* player);
         static bool HasIgnoreCCRti(Unit* target, Player* player);
         static bool IsTapped(Unit* target, Player* player);
     };

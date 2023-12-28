@@ -357,14 +357,14 @@ namespace ai
             static Trigger* combo2(PlayerbotAI* ai) { return new ComboPointsAvailableTrigger(ai, 2); }
             static Trigger* combo3(PlayerbotAI* ai) { return new ComboPointsAvailableTrigger(ai, 3); }
             static Trigger* combo4(PlayerbotAI* ai) { return new ComboPointsAvailableTrigger(ai, 4); }
-            static Trigger* sinister_strike(PlayerbotAI* ai) { return new SpellCanBeCastTrigger(ai, "sinister strike"); }
-            static Trigger* hemorrhage(PlayerbotAI* ai) { return new SpellCanBeCastTrigger(ai, "hemorrhage"); }
+            static Trigger* sinister_strike(PlayerbotAI* ai) { return new SpellCanBeCastedTrigger(ai, "sinister strike"); }
+            static Trigger* hemorrhage(PlayerbotAI* ai) { return new SpellCanBeCastedTrigger(ai, "hemorrhage"); }
             static Trigger* killing_spree(PlayerbotAI* ai) { return new RogueBoostBuffTrigger(ai, "killing spree"); }
             static Trigger* eviscerate(PlayerbotAI* ai) { return new EviscerateTrigger(ai); }
             static Trigger* blade_flurry(PlayerbotAI* ai) { return new RogueBoostBuffTrigger(ai, "blade flurry"); }
             //static Trigger* tricks_of_the_trade_on_tank(PlayerbotAI* ai) { return new TricksOfTheTradeOnTankTrigger(ai); }
             static Trigger* cloak_of_shadows(PlayerbotAI* ai) { return new CloakOfShadowsTrigger(ai); }
-            static Trigger* fan_of_knives(PlayerbotAI* ai) { return new SpellCanBeCastTrigger(ai, "fan of knives"); }
+            static Trigger* fan_of_knives(PlayerbotAI* ai) { return new SpellCanBeCastedTrigger(ai, "fan of knives"); }
             static Trigger* apply_deadly_poison_main_hand(PlayerbotAI* ai) { return new ApplyDeadlyPoisonTrigger(ai, true); }
             static Trigger* apply_crippling_poison_main_hand(PlayerbotAI* ai) { return new ApplyCripplingPoisonTrigger(ai, true); }
             static Trigger* apply_mind_poison_main_hand(PlayerbotAI* ai) { return new ApplyMindPoisonTrigger(ai, true); }

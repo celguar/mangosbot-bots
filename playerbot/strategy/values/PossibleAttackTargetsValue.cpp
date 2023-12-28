@@ -160,17 +160,33 @@ bool PossibleAttackTargetsValue::HasUnBreakableCC(Unit* target, Player* player)
         return true;
     }
 
+    return false;
+}
+
+bool PossibleAttackTargetsValue::IsImmuneToDamage(Unit* target, Player* player)
+{
+    // Charmed
     if (sServerFacade.IsCharmed(target) && target->IsInTeam(player, true))
     {
         return true;
     }
 
+    // Immune to damage
     PlayerbotAI* ai = player->GetPlayerbotAI();
     if (ai)
     {
-        if (ai->HasAura("banish", target))
+        for (const Aura* aura : ai->GetAuras(target))
         {
-            return true;
+            const SpellEntry* spellInfo = aura->GetSpellProto();
+            if (spellInfo)
+            {
+                if (spellInfo->Mechanic == MECHANIC_BANISH || 
+                    spellInfo->Mechanic == MECHANIC_INVULNERABILITY ||
+                    spellInfo->Mechanic == MECHANIC_IMMUNE_SHIELD)
+                {
+                    return true;
+                }
+            }
         }
     }
 
@@ -275,6 +291,12 @@ bool PossibleAttackTargetsValue::IsPossibleTarget(Unit* target, Player* player, 
     {
         // If the target is in an attackable distance
         if(!player->IsWithinDistInMap(target, range))
+        {
+            return false;
+        }
+
+        // If the target is immune to any damage
+        if (IsImmuneToDamage(target, player))
         {
             return false;
         }

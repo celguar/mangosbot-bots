@@ -17,5 +17,5 @@ bool RiposteCastTrigger::IsActive()
 		isMelee = !ai->IsRanged((Player*)target);
 	}
 
-	return SpellCanBeCastTrigger::IsActive() && isMelee;
+	return SpellCanBeCastedTrigger::IsActive() && isMelee;
 }
