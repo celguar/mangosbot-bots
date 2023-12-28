@@ -3256,7 +3256,7 @@ void PlayerbotFactory::InitReagents()
             items = { 17057, 17058 };
         if (bot->GetLevel() > 29)
             items = { 17057, 17058, 17030 };
-        if (bot->GetLevel() > 70)
+        else
             items = { 5175, 5176, 5177, 5178, 17057, 17058, 17030 };
         break;
     case CLASS_WARLOCK:
