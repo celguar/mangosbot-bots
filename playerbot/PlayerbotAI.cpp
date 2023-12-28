@@ -3267,7 +3267,7 @@ bool PlayerbotAI::CastSpell(uint32 spellId, Unit* target, Item* itemTarget, bool
     }
 
     // Fail the cast if the bot is moving and the spell is a casting/channeled spell
-    const bool isMoving = bot->IsStopped() || bot->IsFalling();
+    const bool isMoving = !bot->IsStopped() || bot->IsFalling();
     if (isMoving && ((GetSpellCastTime(pSpellInfo, bot, spell) > 0) || (IsChanneledSpell(pSpellInfo) && (GetSpellDuration(pSpellInfo) > 0))))
     {
         if (IsJumping() || bot->IsFalling())
