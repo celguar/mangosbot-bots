@@ -374,7 +374,7 @@ void ArcaneMageCureRaidStrategy::InitNonCombatTriggers(std::list<TriggerNode*>& 
 
 NextAction** ArcaneMageStrategy::GetDefaultCombatActions()
 {
-    return NextAction::array(0, new NextAction("arcane missiles", ACTION_IDLE), NULL);
+    return NextAction::array(0, new NextAction("arcane missiles", ACTION_LOW), NULL);
 }
 
 void ArcaneMageStrategy::InitCombatTriggers(std::list<TriggerNode*>& triggers)
@@ -383,7 +383,7 @@ void ArcaneMageStrategy::InitCombatTriggers(std::list<TriggerNode*>& triggers)
 
     triggers.push_back(new TriggerNode(
         "arcane blast",
-        NextAction::array(0, new NextAction("arcane blast", ACTION_NORMAL), NULL)));
+        NextAction::array(0, new NextAction("arcane blast", ACTION_HIGH), NULL)));
 }
 
 void ArcaneMageStrategy::InitNonCombatTriggers(std::list<TriggerNode*>& triggers)
