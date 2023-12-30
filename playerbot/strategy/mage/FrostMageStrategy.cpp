@@ -355,7 +355,7 @@ void FrostMageCureRaidStrategy::InitNonCombatTriggers(std::list<TriggerNode*>& t
 
 NextAction** FrostMageStrategy::GetDefaultCombatActions()
 {
-    return NextAction::array(0, new NextAction("frostbolt", ACTION_HIGH), NULL);
+    return NextAction::array(0, new NextAction("frostbolt", ACTION_IDLE), NULL);
 }
 
 void FrostMageStrategy::InitCombatTriggers(std::list<TriggerNode*>& triggers)
@@ -364,7 +364,7 @@ void FrostMageStrategy::InitCombatTriggers(std::list<TriggerNode*>& triggers)
 
     triggers.push_back(new TriggerNode(
         "ice lance",
-        NextAction::array(0, new NextAction("ice lance", ACTION_LOW), NULL)));
+        NextAction::array(0, new NextAction("ice lance", ACTION_NORMAL), NULL)));
 }
 
 void FrostMageStrategy::InitNonCombatTriggers(std::list<TriggerNode*>& triggers)
