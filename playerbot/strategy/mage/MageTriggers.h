@@ -183,7 +183,7 @@ namespace ai
     public:
         IceLanceTrigger(PlayerbotAI* ai) : Trigger(ai, "ice lance") {}
         bool IsActive() override;
-        string GetTargetName() { return "current target"; } override;
+        string GetTargetName() override { return "current target"; };
     };
 
     BUFF_TRIGGER(MirrorImageTrigger, "mirror image");
