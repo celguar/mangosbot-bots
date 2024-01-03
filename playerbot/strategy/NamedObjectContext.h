@@ -97,11 +97,43 @@ namespace ai
 
             return result;
         }
+
+        static bool isValidNumberString(const string& str)
+        {
+            bool valid = !str.empty();
+            if (valid)
+            {
+                // Check for sign character at the beginning
+                size_t start = 0;
+                if (str[0] == '+' || str[0] == '-')
+                {
+                    start = 1;
+                }
+
+                // Loop through each character to check if it's a digit
+                for (size_t i = start; i < str.size(); ++i) 
+                {
+                    if (!std::isdigit(str[i])) 
+                    {
+                        // Non-numeric character found
+                        valid = false;
+                        break;
+                    }
+                }
+            }
+
+            return valid;
+        }
         
         static int32 getMultiQualifierInt(const string& qualifier1, uint32 pos, const string& separator)
         { 
             vector<string> qualifiers = getMultiQualifiers(qualifier1, separator);
-            return (qualifiers.size() > pos) ? stoi(qualifiers[pos]) : 0;
+            if (qualifiers.size() > pos && isValidNumberString(qualifiers[pos]))
+            {
+                return stoi(qualifiers[pos]);
+            }
+
+            return 0;
         }
 
         static string getMultiQualifierStr(const string& qualifier1, uint32 pos, const string& separator)

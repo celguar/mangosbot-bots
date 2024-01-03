@@ -88,7 +88,7 @@ namespace ai
         bool IsActive() override
         {
 #ifdef MANGOSBOT_TWO
-            return SpellCanBeCastTrigger::IsActive();
+            return SpellCanBeCastedTrigger::IsActive();
 #else
             return SpellCanBeCastedTrigger::IsActive() && AI_VALUE2(uint8, "health", "current target") > 20;
 #endif
@@ -102,7 +102,7 @@ namespace ai
         bool IsActive() override
         {
 #ifdef MANGOSBOT_TWO
-            return SpellCanBeCastTrigger::IsActive();
+            return SpellCanBeCastedTrigger::IsActive();
 #else
             return SpellCanBeCastedTrigger::IsActive() 
                 && AI_VALUE2(uint8, "rage", "self target") >= 50

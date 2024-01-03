@@ -260,26 +260,30 @@ bool CastPetSpellAction::isPossible()
         const uint32& spellId = GetSpellID();
         if (pet->HasSpell(spellId) && pet->IsSpellReady(spellId))
         {
-            bool canReach = false;
-            const SpellEntry* pSpellInfo = sServerFacade.LookupSpellInfo(spellId);
-            if (pSpellInfo)
+            // Check if the pet is too far from the owner
+            if (bot->GetDistance(pet) <= sPlayerbotAIConfig.sightDistance)
             {
-                const float dist = pet->GetDistance(spellTarget, true, DIST_CALC_COMBAT_REACH);
-                canReach = dist <= (range + sPlayerbotAIConfig.contactDistance);
-
-                if (pSpellInfo->rangeIndex != SPELL_RANGE_IDX_COMBAT && pSpellInfo->rangeIndex != SPELL_RANGE_IDX_SELF_ONLY && pSpellInfo->rangeIndex != SPELL_RANGE_IDX_ANYWHERE)
+                bool canReach = false;
+                const SpellEntry* pSpellInfo = sServerFacade.LookupSpellInfo(spellId);
+                if (pSpellInfo)
                 {
-                    float max_range, min_range;
-                    if (ai->GetSpellRange(GetSpellName(), &max_range, &min_range))
+                    const float dist = pet->GetDistance(spellTarget, true, DIST_CALC_COMBAT_REACH);
+                    canReach = dist <= (range + sPlayerbotAIConfig.contactDistance);
+
+                    if (pSpellInfo->rangeIndex != SPELL_RANGE_IDX_COMBAT && pSpellInfo->rangeIndex != SPELL_RANGE_IDX_SELF_ONLY && pSpellInfo->rangeIndex != SPELL_RANGE_IDX_ANYWHERE)
                     {
-                        canReach = dist < max_range && dist >= min_range;
+                        float max_range, min_range;
+                        if (ai->GetSpellRange(GetSpellName(), &max_range, &min_range))
+                        {
+                            canReach = dist < max_range&& dist >= min_range;
+                        }
                     }
                 }
-            }
 
-            if (canReach)
-            {
-                return ai->CanCastSpell(spellId, spellTarget, 0, true);
+                if (canReach)
+                {
+                    return ai->CanCastSpell(spellId, spellTarget, 0, true);
+                }
             }
         }
     }
