@@ -200,6 +200,7 @@ namespace ai
             creators["item count"] = &ValueContext::item_count;
             creators["inventory items"] = &ValueContext::inventory_item;
             creators["inventory item ids"] = &ValueContext::inventory_item_ids;
+            creators["rings on use"] = &ValueContext::rings_on_use;
             creators["trinkets on use"] = &ValueContext::trinkets_on_use;
 
             creators["spell id"] = &ValueContext::spell_id;
@@ -446,6 +447,7 @@ namespace ai
         static UntypedValue* vehicle_spell_id(PlayerbotAI* ai) { return new VehicleSpellIdValue(ai); }
         static UntypedValue* inventory_item(PlayerbotAI* ai) { return new InventoryItemValue(ai); }
         static UntypedValue* inventory_item_ids(PlayerbotAI* ai) { return new InventoryItemIdValue(ai); }
+        static UntypedValue* rings_on_use(PlayerbotAI* ai) { return new EquipedUsableRingValue(ai); }
         static UntypedValue* trinkets_on_use(PlayerbotAI* ai) { return new EquipedUsableTrinketValue(ai); }
         static UntypedValue* item_count(PlayerbotAI* ai) { return new ItemCountValue(ai); }
         static UntypedValue* behind(PlayerbotAI* ai) { return new IsBehindValue(ai); }

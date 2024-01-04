@@ -54,6 +54,7 @@
 #include "GuildAcceptAction.h"
 #include "RpgSubActions.h"
 #include "VehicleActions.h"
+#include "UseRingAction.h"
 #include "UseTrinketAction.h"
 #include "BotStateActions.h"
 #include "WaitForAttackAction.h"
@@ -190,6 +191,7 @@ namespace ai
             creators["turn in petition"] = &ActionContext::turn_in_petition;
             creators["buy tabard"] = &ActionContext::buy_tabard;
             creators["guild manage nearby"] = &ActionContext::guild_manage_nearby;
+            creators["use ring"] = &ActionContext::use_ring;
             creators["use trinket"] = &ActionContext::use_trinket;
             creators["reset"] = &ActionContext::reset;
             creators["interrupt current spell"] = &ActionContext::interrupt_current_spell;
@@ -465,6 +467,7 @@ namespace ai
         static Action* turn_in_petition(PlayerbotAI* ai) { return new PetitionTurnInAction(ai); }
         static Action* buy_tabard(PlayerbotAI* ai) { return new BuyTabardAction(ai); }
         static Action* guild_manage_nearby(PlayerbotAI* ai) { return new GuildManageNearbyAction(ai); }
+        static Action* use_ring(PlayerbotAI* ai) { return new UseRingAction(ai); }
         static Action* use_trinket(PlayerbotAI* ai) { return new UseTrinketAction(ai); }
         static Action* reset(PlayerbotAI* ai) { return new ResetAction(ai); }
         static Action* interrupt_current_spell(PlayerbotAI* ai) { return new InterruptCurrentSpellAction(ai); }

@@ -25,6 +25,13 @@ namespace ai
         virtual list<uint32> Calculate() {list<uint32> retVal;  for (auto& item : AI_VALUE2(list<Item*>, "inventory items", getQualifier())) { ItemPrototype const* proto = item->GetProto();  retVal.push_back(proto->ItemId);} return retVal;};
     };
 
+    class EquipedUsableRingValue : public CalculatedValue<list<Item*> >, public Qualified
+    {
+    public:
+       EquipedUsableRingValue(PlayerbotAI* ai) : CalculatedValue<list<Item*> >(ai), Qualified() {}
+       virtual list<Item*> Calculate();
+    };
+
     class EquipedUsableTrinketValue : public CalculatedValue<list<Item*> >, public Qualified
     {
     public:

@@ -928,6 +928,13 @@ namespace ai
         virtual bool IsActive() override;
     };
 
+    class UseRingTrigger : public BoostTrigger
+    {
+    public:
+       UseRingTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "use ring", 3) {}
+       virtual bool IsActive() { return AI_VALUE(list<Item*>, "rings on use").size() > 0; }
+    };
+
     class UseTrinketTrigger : public BoostTrigger
     {
     public:
