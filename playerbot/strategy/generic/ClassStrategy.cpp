@@ -315,6 +315,10 @@ void BoostStrategy::InitCombatTriggers(std::list<TriggerNode*>& triggers)
     triggers.push_back(new TriggerNode(
         "often",
         NextAction::array(0, new NextAction("use trinket", ACTION_HIGH), NULL)));
+
+    triggers.push_back(new TriggerNode(
+       "often",
+       NextAction::array(0, new NextAction("use ring", ACTION_HIGH), NULL)));
 }
 
 void BoostStrategy::InitNonCombatTriggers(std::list<TriggerNode*>& triggers)
@@ -742,6 +746,10 @@ void BoostStrategy::InitCombatTriggers(std::list<TriggerNode*>& triggers)
     triggers.push_back(new TriggerNode(
         "often",
         NextAction::array(0, new NextAction("use trinket", ACTION_HIGH), NULL)));
+
+    triggers.push_back(new TriggerNode(
+       "often",
+       NextAction::array(0, new NextAction("use ring", ACTION_HIGH), NULL)));
 }
 
 void BoostStrategy::InitNonCombatTriggers(std::list<TriggerNode*>& triggers)
@@ -879,6 +887,10 @@ void ClassStrategy::InitCombatTriggers(std::list<TriggerNode*>& triggers)
     triggers.push_back(new TriggerNode(
         "often",
         NextAction::array(0, new NextAction("use trinket", ACTION_HIGH), NULL)));
+
+    triggers.push_back(new TriggerNode(
+       "often",
+       NextAction::array(0, new NextAction("use ring", ACTION_HIGH), NULL)));
 
     triggers.push_back(new TriggerNode(
         "combat long stuck",
@@ -1173,6 +1185,11 @@ void BoostStrategy::InitCombatTriggers(std::list<TriggerNode*>& triggers)
     triggers.push_back(new TriggerNode(
         "often",
         NextAction::array(0, new NextAction("use trinket", ACTION_HIGH), NULL)));
+
+    triggers.push_back(new TriggerNode(
+       "often",
+       NextAction::array(0, new NextAction("use ring", ACTION_HIGH), NULL)));
+
 }
 
 void BoostStrategy::InitNonCombatTriggers(std::list<TriggerNode*>& triggers)

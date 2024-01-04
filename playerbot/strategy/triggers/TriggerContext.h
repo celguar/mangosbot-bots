@@ -172,6 +172,7 @@ namespace ai
             creators["in battleground"] = &TriggerContext::player_is_in_battleground;
             creators["in battleground without flag"] = &TriggerContext::player_is_in_battleground_no_flag;
             creators["wants in bg"] = &TriggerContext::player_wants_in_bg;
+            creators["use ring"] = &TriggerContext::use_ring;
             creators["use trinket"] = &TriggerContext::use_trinket;
             creators["has blessing of salvation"] = &TriggerContext::has_blessing_of_salvation;
             creators["has greater blessing of salvation"] = &TriggerContext::has_greater_blessing_of_salvation;
@@ -451,6 +452,7 @@ namespace ai
         static Trigger* combat_long_stuck(PlayerbotAI* ai) { return new CombatLongStuckTrigger(ai); }
         static Trigger* leader_is_afk(PlayerbotAI* ai) { return new LeaderIsAfkTrigger(ai); }
         static Trigger* player_wants_in_bg(PlayerbotAI* ai) { return new PlayerWantsInBattlegroundTrigger(ai); }
+        static Trigger* use_ring(PlayerbotAI* ai) { return new UseRingTrigger(ai); }
         static Trigger* use_trinket(PlayerbotAI* ai) { return new UseTrinketTrigger(ai); }
         static Trigger* in_pve(PlayerbotAI* ai) { return new InPveTrigger(ai); }
         static Trigger* in_pvp(PlayerbotAI* ai) { return new InPvpTrigger(ai); }

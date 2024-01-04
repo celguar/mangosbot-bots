@@ -40,6 +40,40 @@ list<Item*> InventoryItemValue::Calculate()
     return Find(ai, qualifier);
 }
 
+list<Item*> EquipedUsableRingValue::Calculate()
+{
+   list<Item*> rings;
+   list<Item*> result;
+
+   Player* bot = ai->GetBot();
+
+   if (Item* ring1 = bot->GetItemByPos(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_FINGER1))
+      rings.push_back(ring1);
+
+   if (Item* ring2 = bot->GetItemByPos(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_FINGER2))
+      rings.push_back(ring2);
+
+   if (rings.empty())
+      return result;
+
+   for (Item* item : rings)
+   {
+      ItemPrototype const* proto = item->GetProto();
+
+      for (uint8 i = 0; i < MAX_ITEM_PROTO_SPELLS; ++i)
+      {
+         if (proto->Spells[i].SpellTrigger == ITEM_SPELLTRIGGER_ON_USE &&
+            proto->Spells[i].SpellId > 0 &&
+            bot->IsSpellReady(proto->Spells[i].SpellId, proto))
+         {
+            result.push_back(item);
+         }
+      }
+   }
+
+   return result;
+}
+
 list<Item*> EquipedUsableTrinketValue::Calculate()
 {
 	list<Item*> trinkets;
