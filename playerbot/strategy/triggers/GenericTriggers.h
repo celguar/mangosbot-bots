@@ -928,11 +928,11 @@ namespace ai
         virtual bool IsActive() override;
     };
 
-    class UseTrinketTrigger : public BoostTrigger
+    class UseTrinketTrigger : public Trigger
     {
     public:
-        UseTrinketTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "use trinket", 3) {}
-        virtual bool IsActive() { return AI_VALUE(list<Item*>, "trinkets on use").size() > 0; }
+        UseTrinketTrigger(PlayerbotAI* ai) : Trigger(ai, "use trinket", 3) {}
+        virtual bool IsActive() { return !AI_VALUE(list<Item*>, "trinkets on use").empty(); }
     };
 
     class HasAreaDebuffTrigger : public Trigger 

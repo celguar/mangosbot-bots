@@ -40,6 +40,30 @@ namespace ai
     {
     public:
 		CastShadowburnAction(PlayerbotAI* ai) : CastSpellAction(ai, "shadowburn") {}
+
+        bool Execute(Event& event) override
+        {
+            if (CastSpellAction::Execute(event))
+            {
+                // Remove potential extra soul shard
+                if (ai->HasCheat(BotCheatMask::item))
+                {
+                    Unit* target = GetTarget();
+                    if (target && AI_VALUE2(uint8, "health", GetTargetName()) <= 20)
+                    {
+                        Item* soulShard = bot->GetItemByEntry(6265);
+                        if (soulShard)
+                        {
+                            bot->DestroyItem(soulShard->GetBagSlot(), soulShard->GetSlot(), true);
+                        }
+                    }
+                }
+                
+                return true;
+            }
+
+            return false;
+        }
     };
 
     class CastSoulstoneAction : public UseItemIdAction

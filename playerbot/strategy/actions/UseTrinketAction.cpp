@@ -9,20 +9,16 @@ using namespace ai;
 
 bool UseTrinketAction::Execute(Event& event)
 {
-	auto trinkets = AI_VALUE(list<Item*>, "trinkets on use");
-
-	if (trinkets.empty())
-		return false;
-
-	for (Item * item : trinkets)
+	Player* requester = event.getOwner() ? event.getOwner() : GetMaster();
+	list<Item*> trinkets = AI_VALUE(list<Item*>, "trinkets on use");
+	for (Item* item : trinkets)
 	{
-		ItemPrototype const* proto = item->GetProto();
-
+		const ItemPrototype* proto = item->GetProto();
 		if (proto->InventoryType == INVTYPE_TRINKET && item->IsEquipped())
 		{
 			if (bot->CanUseItem(item) == EQUIP_ERR_OK && !item->IsInTrade())
 			{
-				return UseItemAuto(GetMaster(), item);
+				return UseItemAuto(requester, item);
 			}
 		}
 	}
@@ -32,5 +28,5 @@ bool UseTrinketAction::Execute(Event& event)
 
 bool UseTrinketAction::isPossible()
 {
-	return AI_VALUE(list<Item*>, "trinkets on use").size() > 0;
+	return !AI_VALUE(list<Item*>, "trinkets on use").empty();
 }

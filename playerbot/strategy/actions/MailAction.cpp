@@ -250,6 +250,9 @@ bool MailAction::Execute(Event& event)
         mailList.push_back(mail);
     }
 
+    if (mailList.empty())
+        return false;
+
     map<int, Mail*> filtered = filterList(mailList, filter);
     for (map<int, Mail*>::iterator i = filtered.begin(); i != filtered.end(); ++i)
     {
