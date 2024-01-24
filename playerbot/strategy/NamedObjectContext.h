@@ -149,7 +149,7 @@ namespace ai
     template <class T> class NamedObjectFactory
     {
     protected:
-        typedef T* (*ActionCreator) (PlayerbotAI* ai);
+        using ActionCreator = std::function<T*(PlayerbotAI* ai)>;
         map<string, ActionCreator> creators;
 
     public:
@@ -169,13 +169,13 @@ namespace ai
                 return NULL;
             }
 
-            ActionCreator creator = creators[name];
+            const ActionCreator& creator = creators[name];
             if (!creator)
             {
                 return NULL;
             }
 
-            T *object = (*creator)(ai);
+            T *object = creator(ai);
             Qualified *q = dynamic_cast<Qualified *>(object);
             if (q && found != string::npos)
             {
