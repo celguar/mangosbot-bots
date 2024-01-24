@@ -170,10 +170,6 @@ namespace ai
             }
 
             const ActionCreator& creator = creators[name];
-            if (!creator)
-            {
-                return NULL;
-            }
 
             T *object = creator(ai);
             Qualified *q = dynamic_cast<Qualified *>(object);
