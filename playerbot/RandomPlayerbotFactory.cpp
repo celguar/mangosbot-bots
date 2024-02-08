@@ -311,7 +311,7 @@ bool RandomPlayerbotFactory::CreateRandomBot(uint8 cls, unordered_map<uint8, vec
 
 string RandomPlayerbotFactory::CreateRandomBotName(uint8 gender)
 {
-    auto result = CharacterDatabase.Query("SELECT MAX(name_id) FROM ai_playerbot_names");
+    auto result = WorldDatabase.Query("SELECT MAX(name_id) FROM ai_playerbot_names");
     if (!result)
     {
         sLog.outError("No more names left for random bots");
@@ -321,7 +321,7 @@ string RandomPlayerbotFactory::CreateRandomBotName(uint8 gender)
     Field *fields = result->Fetch();
     uint32 maxId = fields[0].GetUInt32();
 
-    result = CharacterDatabase.PQuery("SELECT n.name FROM ai_playerbot_names n LEFT OUTER JOIN characters e ON e.name = n.name WHERE e.guid IS NULL and n.gender = '%u' order by rand() limit 1", gender);
+    result = WorldDatabase.PQuery("SELECT n.name FROM ai_playerbot_names n LEFT OUTER JOIN characters e ON e.name = n.name WHERE e.guid IS NULL and n.gender = '%u' order by rand() limit 1", gender);
     if (!result)
     {
         sLog.outError("No more names left for random bots");
@@ -528,7 +528,7 @@ void RandomPlayerbotFactory::CreateRandomBots()
     unordered_map<uint8,vector<string>> freeNames, allNames;
     unordered_map<string, bool> used;
 
-    auto result = CharacterDatabase.PQuery("SELECT n.gender, n.name, e.guid FROM ai_playerbot_names n LEFT OUTER JOIN characters e ON e.name = n.name");
+    auto result = WorldDatabase.PQuery("SELECT n.gender, n.name, e.guid FROM ai_playerbot_names n LEFT OUTER JOIN characters e ON e.name = n.name");
     if (!result)
     {
         sLog.outError("No more names left for random bots");
