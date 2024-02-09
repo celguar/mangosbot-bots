@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS classiccharacters.ai_playerbot_equip_cache;
+DROP TABLE IF EXISTS classiccharacters.ahbot_history;
 CREATE TABLE classiccharacters.ahbot_history LIKE classicplayerbots.ahbot_history;
 INSERT INTO classiccharacters.ahbot_history SELECT * FROM classicplayerbots.ahbot_history;
 
