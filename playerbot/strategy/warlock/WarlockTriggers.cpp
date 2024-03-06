@@ -70,9 +70,20 @@ bool DrainSoulTrigger::IsActive()
 
 bool CorruptionOnAttackerTrigger::IsActive()
 {
-    Unit* target = GetTarget();
-    return target && target->IsAlive() && !ai->HasAura("corruption", target, false, true) && !ai->HasAura("seed of corruption", target, false, true);
+	Unit* target = GetTarget();
+	return target && target->IsAlive() && !ai->HasAura("corruption", target, false, true);
 }
+
+bool SeedOfCorruptionOnAttackerTrigger::IsActive()
+{
+	if (DebuffOnAttackerTrigger::IsActive())
+	{
+		return AI_VALUE(uint8, "attackers count") >= 4;
+	}
+
+	return false;
+}
+
 
 bool NoCurseTrigger::IsActive()
 {
