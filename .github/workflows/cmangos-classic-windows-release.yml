@@ -21,7 +21,7 @@ env:
   REPO_DIR : ${{github.workspace}}
   BUILD_DIR: ${{github.workspace}}/bin/builddir
   BOOST_TOOLSET: "msvc"
-  BOOST_VERSION: "1.78.0"
+  BOOST_VERSION: "1.86.0"
   BOOST_INSTALL_DIR: "${{github.workspace}}/bin"
   ARCHIVE_FILENAME: "cmangos-classic.zip"
 
@@ -45,7 +45,7 @@ jobs:
           cmake -E make_directory ${{ env.BUILD_DIR }}
       # install dependencies
       - name: Cache Windows boost
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         id: cache-boost
         with:
           path: "${{env.BOOST_INSTALL_DIR}}/boost"
