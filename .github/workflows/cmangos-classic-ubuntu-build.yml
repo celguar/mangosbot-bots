@@ -20,7 +20,7 @@ env:
   REPO_DIR : ${{github.workspace}}
   BUILD_DIR: ${{github.workspace}}/bin/builddir
   BOOST_PLATFORM_VERSION: "20.04"
-  BOOST_VERSION: "1.79.0"
+  BOOST_VERSION: "1.86.0"
   BOOST_INSTALL_DIR: "${{github.workspace}}/bin"
 
 jobs:
@@ -67,7 +67,7 @@ jobs:
           cmake -E make_directory ${{ env.BUILD_DIR }}
 
       - name: Cache boost
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         id: cache-boost
         with:
           path: "${{env.BOOST_INSTALL_DIR}}/boost"
