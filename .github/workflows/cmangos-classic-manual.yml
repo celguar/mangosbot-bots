@@ -43,28 +43,20 @@ jobs:
       - name: Create Build Environment
         run: |
           cmake -E make_directory ${{ env.BUILD_DIR }}
-      # install dependencies
-      - name: Cache Windows boost
-        uses: actions/cache@v4
-        id: cache-boost
-        with:
-          path: "${{env.BOOST_INSTALL_DIR}}/boost"
-          key: ${{ runner.os }}-boost
 
-      - if: steps.cache-boost.outputs.cache-hit != 'true'
-        name: Install boost
-        uses: MarkusJx/install-boost@v2.3.0
+      # install dependencies
+      - name: Install Boost
+        uses: MarkusJx/install-boost@v2.5.1
         id: install-boost
         with:
           # REQUIRED: Specify the required boost version
           # A list of supported versions can be found here:
-          # https://github.com/actions/boost-versions/blob/main/versions-manifest.json
+          # https://github.com/MarkusJx/prebuilt-boost/blob/main/versions-manifest.json
           boost_version: ${{env.BOOST_VERSION}}
-          # OPTIONAL: Specify a toolset on windows
+          # OPTIONAL: Specify a platform version
+          platform_version: ${{env.BOOST_PLATFORM_VERSION}}
+          # OPTIONAL: Specify a toolset
           toolset: ${{env.BOOST_TOOLSET}}
-          # OPTIONAL: Specify a custon install location
-          boost_install_dir: ${{env.BOOST_INSTALL_DIR}}
-          platform_version: 2022
           # NOTE: If a boost version matching all requirements cannot be found,
           # this build step will fail
 
