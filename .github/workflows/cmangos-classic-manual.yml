@@ -22,7 +22,6 @@ env:
   BUILD_DIR: ${{github.workspace}}/bin/builddir
   BOOST_TOOLSET: "msvc"
   BOOST_VERSION: "1.86.0"
-  BOOST_INSTALL_DIR: "${{github.workspace}}/bin"
   ARCHIVE_FILENAME: "cmangos-classic.zip"
 
 jobs:
@@ -62,7 +61,7 @@ jobs:
 
       - name: Configure
         env:
-          BOOST_ROOT: "${{env.BOOST_INSTALL_DIR}}/boost/boost"
+          BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
         run: cmake ${{env.BUILD_OPTIONS}} -B ${{env.BUILD_DIR}} -S ${{env.REPO_DIR}}
 
       - name: Build
